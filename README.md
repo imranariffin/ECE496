@@ -18,11 +18,12 @@ a.  **git push origin**
 a.  **git checkout master**
 b.  **git pull**
 c.  **git checkout richard-1-testing**
-d.  **git rebase master (& squash)**
+d.  **git rebase master (& squash commits)**
 10. Make another commit.
 11. Push the branch to git hub
 a.  **git push -f origin**
 12. From github on the branch, create a new Pull Request.
-13. Send comments or requests for Code Review by adding making comments with @<git-hubname> included at the bottom.
+13. Send comments or requests for Code Review by adding making comments with @<git-hubname> included at the bottom
 a.  Or by sending the link to ECE496 FB chatting room
 14. When the CR is signed off and do the merge directly through github
+git 
