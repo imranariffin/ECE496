@@ -16,6 +16,11 @@
       #map {
         height: 100%;
       }
+      .search-bar {
+        padding-left: 5px;
+        padding-right: 20px;
+      }
+
     </style>
   </head>
   <body>
@@ -42,41 +47,15 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">One more separated link</a></li>
-                  </ul>
-                </li>
-              </ul>
               <form class="navbar-form navbar-left">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Search</button>
+                <label class="search-bar" for="filter">Search By City</label>
+                <select class="form-control" id = "city" onchange="changeCity()"> 
+                    <option value="0" selected>Toronto</option>
+                    <option value="1">New York</option>
+                    <option value="2">San Francisco</option>
+                    <option value="3">Vancouver</option>
+                </select>
               </form>
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                  </ul>
-                </li>
-              </ul>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
         </nav>
@@ -85,10 +64,12 @@
     </div>    
     <script>
       var map;
-      var infowindow
+      var infowindow;
+      
+     
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 43.6765211, lng: -79.4354023,},
+          center: {lat: 43.6765211, lng: -79.4354023},
           zoom: 8
         });
         infowindow = new google.maps.InfoWindow();
@@ -123,6 +104,20 @@
         var lng = parseFloat(document.getElementById("lngInput").value);
         addMarker(lat, lng);
       }
+
+      /* onChange to the city location*/
+      function changeCity() {
+        var index = document.getElementById("city").value;
+        var cityLocation = [{lat:43.6765211, lng:-79.4354023}, {lat:40.7142700, lng:-74.0059700}, {lat:37.7749300, lng:-122.4194200}, {lat:49.246292, lng:-123.116226}];
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: cityLocation[index].lat, lng:  cityLocation[index].lng},
+          zoom: 8
+        });
+        infowindow = new google.maps.InfoWindow();
+      }
+
+
+
 
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3xxYrQTk4eCQajHxacHVlcR9QXvpr1uM&callback=initMap&libraries=places"
