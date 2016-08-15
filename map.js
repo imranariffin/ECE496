@@ -25,33 +25,6 @@ function initMap() {
   });
 }
 
-/* add a marker */
-function addMarker(lat, lng) {
-  var latLng = new google.maps.LatLng({lat: lat, lng: lng});
-  createMarker(latLng);
-}
-
-function createMarker(position) {
-  var marker = new google.maps.Marker({
-    map: map,
-    position: position
-  });
-
-  google.maps.event.addListener(marker, 'click', function() {
-    infoWindow.setContent("New Marker");
-    infoWindow.open(map, this);
-  });
-}
-
-// /* onClick to run add marker function */
-// var addMarkerBtn = document.getElementById("addMarkerBtn");      
-// addMarkerBtn.onclick = function addMarkerOnClick() {
-//   // console.log(document.getElementById("latInput").value);
-//   var lat = parseFloat(document.getElementById("latInput").value);
-//   var lng = parseFloat(document.getElementById("lngInput").value);
-//   addMarker(lat, lng);
-// }
-
 /* onChange to the city location*/
 function changeCity() {
   var index = document.getElementById("city").value;
@@ -71,3 +44,36 @@ function changeCity() {
     infoWindow.open(map, this);
   });
 }
+
+/*
+  Functions below are used to create a marker on the map at given
+  LatLng. For now, it's just to show that we can draw a marker at any given 
+  point using google map api. In the future, we can use to show daycares
+  on the map.
+*/
+/* add a marker */
+// function addMarker(lat, lng) {
+//   var latLng = new google.maps.LatLng({lat: lat, lng: lng});
+//   createMarker(latLng);
+// }
+
+// function createMarker(position) {
+//   var marker = new google.maps.Marker({
+//     map: map,
+//     position: position
+//   });
+
+//   google.maps.event.addListener(marker, 'click', function() {
+//     infoWindow.setContent("New Marker");
+//     infoWindow.open(map, this);
+//   });
+// }
+
+// /* onClick to run add marker function */
+// var addMarkerBtn = document.getElementById("addMarkerBtn");      
+// addMarkerBtn.onclick = function addMarkerOnClick() {
+//   // console.log(document.getElementById("latInput").value);
+//   var lat = parseFloat(document.getElementById("latInput").value);
+//   var lng = parseFloat(document.getElementById("lngInput").value);
+//   addMarker(lat, lng);
+// }
