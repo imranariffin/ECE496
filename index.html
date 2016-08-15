@@ -1,23 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <!-- load bootstrap -->
     <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+
     <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
     <!-- custom styles, also used to override bootstrap css -->
     <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!-- load angular -->
+    <script src = "lib/lodash.js"></script>
+    <script src="lib/angular.min.js"></script>
+    <script src = "lib/angular-simple-logger.js"></script>
+    <script src='lib/googlemapApi.js'></script>
+    <script src = "lib/angular-google-maps.min.js"></script>
+
+    <!-- load controllers of angular -->
+    <script src="js/controllers.js"></script>
+
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+      .search-bar {
+        padding-left: 5px;
+        padding-right: 20px;
+      }
+      .angular-google-map-container { height: 400px; }
+
+    </style>
   </head>
   <body>
-    <div id="main" style="height: 90%;">
-      <div id="right-panel" style="height: 10%;">      
-      <!-- try g-map -->
-<!--         <span>Enter Lat: </span><input id="latInput" type="text" name="latlong"></input>
-        <span>Enter Lng: </span><input id="lngInput" type="text" name="latlong"></input>
-        <input id="addMarkerBtn" value="make marker" type="submit"></input> -->
-
+    <div id="main" style="height: 90%;" ng-controller = "MyController">
+      <div id="right-panel" style="height: 10%;">
         <!--  Navbar  -->
         <nav class="navbar navbar-default navbar-fixed-top">
           <div class="container-fluid">
@@ -47,15 +70,19 @@
           </div><!-- /.container-fluid -->
         </nav>
       </div>
-      <div id="map" style="height: 100%;"></div>      
-    </div>    
-<!--     <script>
 
-    </script> -->
+     
+      <!-- <div id="map" style="height: 100%;"></div> -->
+      <div style="height: 400px" ng-controller="mainCtrl">
+        <ui-gmap-google-map center="map.center" zoom="map.zoom" options="options"></ui-gmap-google-map>
+      </div> 
+    </div>    
+
     <script type="text/javascript" src="map.js"></script>
     <script type="text/javascript" src="infoWindow.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3xxYrQTk4eCQajHxacHVlcR9QXvpr1uM&callback=initMap&libraries=places"
     async defer></script>
+
     <!-- load bootstrap js -->
     <script type="text/javascript" src="jquery/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>    
