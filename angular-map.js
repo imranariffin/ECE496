@@ -42,10 +42,9 @@ sampleApp.controller('MapCtrl', function ($scope) {
     $scope.markers = [];
     
     var infoWindow = new google.maps.InfoWindow();
-    
     var createMarker = function (info){
         
-        var marker = new google.maps.Marker({
+        var marker = GMapMarker("hoster", {
             map: $scope.map,
             position: new google.maps.LatLng(info.lat, info.lng),
             title: info.city
@@ -85,7 +84,7 @@ sampleApp.controller('MapCtrl', function ($scope) {
       });
       google.maps.event.addListener(marker, 'click', function() {
         // infoWindow is defined at "./infoWindow.js"
-        infoWindow = createInfoWindow(infoWindow);
+        infoWindow = createInfoWindow();
         infoWindow.open(map, this);
       });
     }

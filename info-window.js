@@ -3,7 +3,7 @@
 	able to call this function, load the javascript first.
 	i.e. <script src="infoWindow.js"></script>
  */
-function createInfoWindow (infoWindow) {
+function createInfoWindow () {
 	var iWindowContentString = 
 	"<div>" +
 	" 	<h5> Location_Name </h5>" +
@@ -11,7 +11,7 @@ function createInfoWindow (infoWindow) {
 	"	<p><a href='#'>link</a> to location info" +
 	"	</p>" +
 	"</div>";
-	infoWindow = new google.maps.InfoWindow({
+	var infoWindow = new google.maps.InfoWindow({
 	content: iWindowContentString
 	});
 	return infoWindow;
