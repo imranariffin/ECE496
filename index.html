@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="mapsApp">
   <head>
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
@@ -11,12 +11,8 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <div id="main" style="height: 90%;">
+    <div id="main" style="height: 90%;" ng-controller="MapCtrl">
       <div id="right-panel" style="height: 10%;">      
-      <!-- try g-map -->
-<!--         <span>Enter Lat: </span><input id="latInput" type="text" name="latlong"></input>
-        <span>Enter Lng: </span><input id="lngInput" type="text" name="latlong"></input>
-        <input id="addMarkerBtn" value="make marker" type="submit"></input> -->
 
         <!--  Navbar  -->
         <nav class="navbar navbar-default navbar-fixed-top">
@@ -36,11 +32,8 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <form class="navbar-form navbar-left">
                 <label class="search-bar" for="filter">Search By City</label>
-                <select class="form-control" id = "city" onchange="changeCity()"> 
-                    <option value="0" selected>Toronto</option>
-                    <option value="1">New York</option>
-                    <option value="2">San Francisco</option>
-                    <option value="3">Vancouver</option>
+                <select ng-model="cityIndex" class="form-control" id="selectCity" ng-change="changeCity()"> 
+                    <option ng-repeat="city in cities" value="{{$index}}">{{city.city}}</option>
                 </select>
               </form>
             </div><!-- /.navbar-collapse -->
@@ -49,13 +42,12 @@
       </div>
       <div id="map" style="height: 100%;"></div>      
     </div>    
-<!--     <script>
 
-    </script> -->
-    <script type="text/javascript" src="map.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+    <!-- <script type="text/javascript" src="map.js"></script> -->
+    <script type="text/javascript" src="angular-map.js"></script>
     <script type="text/javascript" src="infoWindow.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3xxYrQTk4eCQajHxacHVlcR9QXvpr1uM&callback=initMap&libraries=places"
-    async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3xxYrQTk4eCQajHxacHVlcR9QXvpr1uM&libraries=places"></script>
     <!-- load bootstrap js -->
     <script type="text/javascript" src="jquery/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>    
