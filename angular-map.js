@@ -43,9 +43,33 @@ sampleApp.controller('MapCtrl', function ($scope) {
     
     var infoWindow = new google.maps.InfoWindow();
     
+    function GMapMarker(type, options) {
+      var image = {
+        // This marker is 20 pixels wide by 32 pixels high.
+        size: new google.maps.Size(30, 32),
+        // The origin for this image is (0, 0).
+        origin: new google.maps.Point(0, 0),
+        // The anchor for this image is the base of the flagpole at (0, 32).
+        anchor: new google.maps.Point(0, 32),
+        // 
+        scaledSize: new google.maps.Size(32, 32)
+      };
+      if (type=="hoster") {
+        image.url = "./img/marker-hoster.png";
+        options.icon = image;
+        return new google.maps.Marker(options);
+      } else if(type=="city") {
+        image.url = "http://maps.google.com/mapfiles/ms/icons/blue.png";
+        options.icon = image;
+        return new google.maps.Marker(options);
+      } else {
+        return null;
+      }
+    }
+
     var createMarker = function (info){
         
-        var marker = new google.maps.Marker({
+        var marker = GMapMarker("hoster", {
             map: $scope.map,
             position: new google.maps.LatLng(info.lat, info.lng),
             title: info.city
