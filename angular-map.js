@@ -1,26 +1,26 @@
 // Data
 var cities = [
   {
-    city: "Toronto",
+    name: "Toronto",
     desc: "Home of the Maple Leaf",
     lat:43.6765211, 
     lng:-79.4354023,
     "default": "selected"
   }, 
   {
-    city: "New York",
+    name: "New York",
     desc: "The city that never sleeps",
     lat:40.7142700, 
     lng:-74.0059700
   }, 
   {
-    city: "San Francisco",
+    name: "San Francisco",
     desc: "The Golden Gate City",
     lat:37.7749300, 
     lng:-122.4194200
   }, 
   {
-    city: "Vancouver",
+    name: "Vancouver",
     desc: "The Rain City",
     lat:49.246292, 
     lng:-123.116226
@@ -28,37 +28,37 @@ var cities = [
 
   var hosts = [
   {
-    host: "Casa Loma",
+    name: "Casa Loma",
     desc: "1",
     lat:43.6924298, 
     lng:-79.4413491
   }, 
   {
-    host: "Upper Canada College",
+    name: "Upper Canada College",
     desc: "2",
     lat:43.6941412, 
     lng:-79.3981012
   },
   {
-    host: "Spadina Station",
+    name: "Spadina Station",
     desc: "3",
     lat: 43.6711836, 
     lng: -79.4022474
   },
   {
-    host: "Dundurn Castle",
+    name: "Dundurn Castle",
     desc: "4",
     lat: 43.2736872,
     lng: -79.8657758
   },
   {
-    host: "Niagara Falls",
+    name: "Niagara Falls",
     desc: "5",
     lat:43.054098,
     lng:-79.2281196
   },
   {
-    host: "Hillcrest",
+    name: "Hillcrest",
     desc: "6",
     lat:43.8678357,
     lng:-79.4245072
@@ -79,15 +79,15 @@ sampleApp.controller('MapCtrl', function ($scope) {
 
     $scope.markers = [];
     
-    var infoWindow = new google.maps.InfoWindow();
-    var createMarker = function (info){
+    var infoWindow = createInfoWindow();
+    var createMarker = function (place){
         
         var marker = GMapMarker("hoster", {
             map: $scope.map,
-            position: new google.maps.LatLng(info.lat, info.lng),
-            title: info.city
+            position: new google.maps.LatLng(place.lat, place.lng),
+            title: place.name
         });
-        marker.content = '<div class="infoWindowContent">' + info.desc + '</div>';
+        marker.content = '<div class="infoWindowContent">' + place.desc + '</div>';
         
         google.maps.event.addListener(marker, 'click', function(){
             infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
@@ -105,16 +105,17 @@ sampleApp.controller('MapCtrl', function ($scope) {
     /* 
       loading the Markers on a map for the selected city
     */
-    var createMarkerForCity = function (info, map){
+    var createMarkerForCity = function (place, map){
       // imran tests infoWindow @ imran-7-infowindow
-      marker = new google.maps.Marker({
+      var marker = GMapMarker('city', {
         map: map,
-        position: new google.maps.LatLng(info.lat, info.lng)
+        position: new google.maps.LatLng(place.lat, place.lng),
+        title: place.name
       });
 
       google.maps.event.addListener(marker, 'click', function() {
         // infoWindow is defined at "./infoWindow.js"
-        infoWindow = createInfoWindow();
+        infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
         infoWindow.open(map, this);
       });
 
