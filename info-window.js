@@ -3,11 +3,16 @@
 	able to call this function, load the javascript first.
 	i.e. <script src="infoWindow.js"></script>
  */
-function createInfoWindow () {
+function createInfoWindow (options) {
+	var title, desc;
+	if (options) {
+		title = options.title;
+		desc = options.desc;
+	}
 	var iWindowContentString = 
 	"<div>" +
-	" 	<h5> Location_Name </h5>" +
-	" 	<p>Some description</p>" +
+	" 	<h5> " + title + " </h5>" +
+	" 	<p>" + desc + "</p>" +
 	"	<p><a href='#'>link</a> to location info" +
 	"	</p>" +
 	"</div>";
@@ -15,4 +20,14 @@ function createInfoWindow () {
 	content: iWindowContentString
 	});
 	return infoWindow;
+}
+
+function setContent(infoWindow) {
+	infoWindow.setContent(
+	"<div>" +
+	" 	<h5> " + options.title + " </h5>" +
+	" 	<p>" + options.desc + "</p>" +
+	"	<p><a href='#'>link</a> to location info" +
+	"	</p>" +
+	"</div>");
 }
