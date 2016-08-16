@@ -91,7 +91,7 @@ sampleApp.controller('MapCtrl', function ($scope) {
         
         google.maps.event.addListener(marker, 'click', function(){
             infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
-            infoWindow.open($scope.map, marker);
+            infoWindow.open($scope.map, this);
         });
         
         $scope.markers.push(marker);
@@ -112,6 +112,7 @@ sampleApp.controller('MapCtrl', function ($scope) {
         position: new google.maps.LatLng(place.lat, place.lng),
         title: place.name
       });
+      marker.content = '<div class="infoWindowContent">' + place.desc + '</div>';
 
       google.maps.event.addListener(marker, 'click', function() {
         // infoWindow is defined at "./infoWindow.js"
