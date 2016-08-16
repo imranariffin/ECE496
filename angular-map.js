@@ -43,6 +43,12 @@ sampleApp.controller('MapCtrl', function ($scope) {
     
     var infoWindow = new google.maps.InfoWindow();
     
+    /* 
+      A custom constructor for google.maps.Marker.
+      Allows you to assign a type ('hoster' or 'city') to marker.
+      The icon of marker will be assigned according to type. 
+      Icon image is located at ./img
+    */
     function GMapMarker(type, options) {
       var image = {
         // This marker is 20 pixels wide by 32 pixels high.
@@ -59,7 +65,7 @@ sampleApp.controller('MapCtrl', function ($scope) {
         options.icon = image;
         return new google.maps.Marker(options);
       } else if(type=="city") {
-        image.url = "http://maps.google.com/mapfiles/ms/icons/blue.png";
+        image.url = "./img/marker-city.png";
         options.icon = image;
         return new google.maps.Marker(options);
       } else {
