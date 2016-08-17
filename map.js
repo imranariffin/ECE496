@@ -1,79 +1,100 @@
+/*
+  All global functions and variables related to map is declared 
+  and define here
+*/
+
 var map;
-var marker;
-var infoWindow;
+var cityMarkers = [];
+var hosterMarkers = [];
+var infoWindow; // assure only one infoWindow
 
-/*
-This function is a callback that is called right after
-google.map javascript is done loading
+/* 
+  A custom constructor for google.maps.Marker.
+  Allows you to assign a type ('hoster' or 'city') to marker.
+  The icon of marker will be assigned according to type. 
+  Icon image is located at ./img
 */
-function initMap() {
-  var torontoLocation = {lat: 43.6765211, lng: -79.4354023};
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: torontoLocation,
-    zoom: 8
-  });
+function GMapMarker(type, options) {
+  var image = {
+    // This marker is 20 pixels wide by 32 pixels high.
+    size: new google.maps.Size(30, 32),
+    // The origin for this image is (0, 0).
+    origin: new google.maps.Point(0, 0),
+    // The anchor for this image is the base of the flagpole at (0, 32).
+    anchor: new google.maps.Point(0, 32),
+    // 
+    scaledSize: new google.maps.Size(32, 32)
+  };
+  if (type=="hoster") {
+    image.url = "./img/marker-hoster.png";
+    options.icon = image;
+    return new google.maps.Marker(options);
+  } else if(type=="city") {
+    image.url = "./img/marker-city.png";
+    options.icon = image;
+    return new google.maps.Marker(options);
+  } else {
+    return null;
+  }
+}
 
+var createMarker = function (map, place){
   // imran tests infoWindow @ imran-7-infowindow
-  marker = new google.maps.Marker({
+  var marker = GMapMarker('hoster', {
     map: map,
-    position: torontoLocation
+    position: new google.maps.LatLng(place.lat, place.lng),
+    title: place.host
   });
+  var contentString = '<div id="content" Style = "width: 483px; height: 144px">'+
+    '<div id = "wi-head" class = "row">'+
+      '<div class="col-xs-2">'+
+        '<img src="https://s3-media4.fl.yelpcdn.com/bphoto/GqZdB0uAO54gbDHlG_VI6A/90s.jpg" alt="Porcelain Factory of Vista Alegre" height="60" width="60">'+
+      '</div>'+
+      '<div Style = "padding-left: 5px"; class="col-xs-5" >'+
+        '<h4 id="firstHeading">'+
+          place.host+
+        '</h4>'+
+        '<p>Rating: <img src="http://cliparts.co/cliparts/gce/oXx/gceoXx7gi.png" height="20" width="50"></p>'+
+      '</div>'+
+      '<div Style = "padding-top: 3px"; class="col-xs-5">'+
+        '<p Style = "margin-bottom: 5px">Phone: 647-830-8636</p>' +
+        '<p>Email: richard874410593@gmail.com</p>' +
+      '</div>'+
+    '</div>' +
+    '<div  id="bodyContent">'+
+      '<p>Description: sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+      'Aboriginal people of the area. It has many springs, waterholes, '+
+      'Heritage Site. <a href="url">Read more</a></p>'+
+      '<hr Style = "margin-bottom: 5px; margin-top: 5px">'+
+      '<p> <a href="url">Save</a>  |  <a href="url">Facebook</a>   |   <a href="url">Twitter</a>   </p>' + 
+    '</div>'+
+  '</div>';
+  if (infoWindow)
+    infoWindow.close();
+  infoWindow = createInfoWindow();
   google.maps.event.addListener(marker, 'click', function() {
     // infoWindow is defined at "./infoWindow.js"
-    infoWindow = createInfoWindow(infoWindow);
+    infoWindow.setContent(contentString);
     infoWindow.open(map, this);
   });
 }
 
-/* onChange to the city location*/
-function changeCity() {
-  var index = document.getElementById("city").value;
-  var cityLocation = [{lat:43.6765211, lng:-79.4354023}, {lat:40.7142700, lng:-74.0059700}, {lat:37.7749300, lng:-122.4194200}, {lat:49.246292, lng:-123.116226}];
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: cityLocation[index].lat, lng:  cityLocation[index].lng},
-    zoom: 8
-  });
-  // imran tests infoWindow @ imran-7-infowindow
-  marker = new google.maps.Marker({
-    map: map,
-    position: cityLocation[index]
-  });
-  google.maps.event.addListener(marker, 'click', function() {
-    // infoWindow is defined at "./infoWindow.js"
-    infoWindow = createInfoWindow(infoWindow);
-    infoWindow.open(map, this);
-  });
-}
-
-/*
-  Functions below are used to create a marker on the map at given
-  LatLng. For now, it's just to show that we can draw a marker at any given 
-  point using google map api. In the future, we can use to show daycares
-  on the map.
+/* 
+  loading the Markers on a map for the selected city
 */
-/* add a marker */
-// function addMarker(lat, lng) {
-//   var latLng = new google.maps.LatLng({lat: lat, lng: lng});
-//   createMarker(latLng);
-// }
+var createMarkerForCity = function (map, place){
+    var marker = GMapMarker("city", {
+        map: map,
+        position: new google.maps.LatLng(place.lat, place.lng),
+        title: place.city
+    });
+    marker.content = '<div class="infoWindowContent">' + place.desc + '</div>';
 
-// function createMarker(position) {
-//   var marker = new google.maps.Marker({
-//     map: map,
-//     position: position
-//   });
-
-//   google.maps.event.addListener(marker, 'click', function() {
-//     infoWindow.setContent("New Marker");
-//     infoWindow.open(map, this);
-//   });
-// }
-
-// /* onClick to run add marker function */
-// var addMarkerBtn = document.getElementById("addMarkerBtn");      
-// addMarkerBtn.onclick = function addMarkerOnClick() {
-//   // console.log(document.getElementById("latInput").value);
-//   var lat = parseFloat(document.getElementById("latInput").value);
-//   var lng = parseFloat(document.getElementById("lngInput").value);
-//   addMarker(lat, lng);
-// }
+    if (infoWindow)
+      infoWindow.close();
+    infoWindow = createInfoWindow();
+    google.maps.event.addListener(marker, 'click', function(){
+        infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
+        infoWindow.open(map, this);
+    });        
+}
