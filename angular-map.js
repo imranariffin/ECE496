@@ -13,7 +13,6 @@ sampleApp.controller('MapCtrl', function ($scope, $http) {
 
     $scope.cities = cities;
     $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-    $scope.markers = [];
     
     var infoWindow = createInfoWindow();
     var createMarker = function (place){
@@ -27,10 +26,7 @@ sampleApp.controller('MapCtrl', function ($scope, $http) {
         google.maps.event.addListener(marker, 'click', function(){
             infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
             infoWindow.open($scope.map, this);
-        });
-        
-        $scope.markers.push(marker);
-        
+        });        
     }  
     
     for (i = 0; i < cities.length; i++) {
@@ -47,11 +43,34 @@ sampleApp.controller('MapCtrl', function ($scope, $http) {
         position: new google.maps.LatLng(place.lat, place.lng),
         title: place.host
       });
-      marker.content = '<div class="infoWindowContent">' + place.desc + '</div>';
+      var contentString = '<div id="content" Style = "width: 483px; height: 144px">'+
+        '<div id = "wi-head" class = "row">'+
+          '<div class="col-xs-2">'+
+            '<img src="https://s3-media4.fl.yelpcdn.com/bphoto/GqZdB0uAO54gbDHlG_VI6A/90s.jpg" alt="Porcelain Factory of Vista Alegre" height="60" width="60">'+
+          '</div>'+
+          '<div Style = "padding-left: 5px"; class="col-xs-5" >'+
+            '<h4 id="firstHeading">'+
+              place.host+
+            '</h4>'+
+            '<p>Rating: <img src="http://cliparts.co/cliparts/gce/oXx/gceoXx7gi.png" height="20" width="50"></p>'+
+          '</div>'+
+          '<div Style = "padding-top: 3px"; class="col-xs-5">'+
+            '<p Style = "margin-bottom: 5px">Phone: 647-830-8636</p>' +
+            '<p>Email: richard874410593@gmail.com</p>' +
+          '</div>'+
+        '</div>' +
+        '<div  id="bodyContent">'+
+          '<p>Description: sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+          'Aboriginal people of the area. It has many springs, waterholes, '+
+          'Heritage Site. <a href="url">Read more</a></p>'+
+          '<hr Style = "margin-bottom: 5px; margin-top: 5px">'+
+          '<p> <a href="url">Save</a>  |  <a href="url">Facebook</a>   |   <a href="url">Twitter</a>   </p>' + 
+        '</div>'+
+      '</div>';
 
       google.maps.event.addListener(marker, 'click', function() {
         // infoWindow is defined at "./infoWindow.js"
-        infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
+        infoWindow.setContent(contentString);
         infoWindow.open(map, this);
       });
 

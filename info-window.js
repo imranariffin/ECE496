@@ -22,12 +22,3 @@ function createInfoWindow (options) {
 	return infoWindow;
 }
 
-function setContent(infoWindow) {
-	infoWindow.setContent(
-	"<div>" +
-	" 	<h5> " + options.title + " </h5>" +
-	" 	<p>" + options.desc + "</p>" +
-	"	<p><a href='#'>link</a> to location info" +
-	"	</p>" +
-	"</div>");
-}
