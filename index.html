@@ -33,7 +33,7 @@
               <form class="navbar-form navbar-left">
                 <label class="search-bar" for="filter">Search By City</label>
                 <select ng-model="cityIndex" class="form-control" id="selectCity" ng-change="changeCity()"> 
-                    <option ng-repeat="city in cities" value="{{$index}}">{{city.name}}</option>
+                    <option ng-repeat="city in cities" value="{{$index}}">{{city.city}}</option>
                 </select>
               </form>
             </div><!-- /.navbar-collapse -->
