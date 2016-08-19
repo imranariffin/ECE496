@@ -17,11 +17,12 @@ GMapsApp.controller('MapCtrl', function ($scope, $http) {
     }
 
     $scope.cities = cities;
-    map = new google.maps.Map(document.getElementById('map'), mapOptions);        
+    // map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    map = new WorldGoogleMap(mapOptions);
     
     for (i = 0; i < cities.length; i++) {
-        createMarkerForCity(map, cities[i]);
-    }
+        map.addCityMarker(createCityMarker(map.gMap, cities[i]));
+    }    
 
     /* 
       onChange to the city location
@@ -36,13 +37,18 @@ GMapsApp.controller('MapCtrl', function ($scope, $http) {
       //   center: {lat: cityLocation.lat, lng: cityLocation.lng},
       //   zoom: 8
       // });
-      map.setCenter({lat: cityLocation.lat, lng: cityLocation.lng});
-      map.setZoom(8);
+      map = new CityGoogleMap({
+        zoom: 10,
+        center: {lat: cityLocation.lat, lng: cityLocation.lng}
+      });
+      // map.setCenter({lat: cityLocation.lat, lng: cityLocation.lng});
+      // map.setZoom(8);
 
       var hosts = cityLocation.hoster
       for (i = 0; i < hosts.length; i++) {
-        createMarker(map, hosts[i]);
+        map.addHosterMarker(createHosterMarker(map.gMap, hosts[i]));
       }
+      map.clusterizeHosterMarkers();
     }
   });
 
