@@ -105,6 +105,9 @@ function GMapMarker(type, options) {
   }
 }
 
+
+
+
 var createHosterMarker = function (map, place){
   // imran tests infoWindow @ imran-7-infowindow
   var marker = GMapMarker('hoster', {
@@ -148,39 +151,51 @@ var createHosterMarker = function (map, place){
 }
 
 /* 
-  loading the Markers on a map for the selected city
+  loading the Markers on a map for the selected city: from world map to city map
 */
+function clickCity(marker, hoster) {
+  map = new CityGoogleMap({
+    zoom: 8,
+    center: marker.getPosition()
+  });
+
+  var hosts = hoster;
+  for (i = 0; i < hosts.length; i++) {
+    map.addHosterMarker(createHosterMarker(map.gMap, hosts[i]));
+  }
+  map.clusterizeHosterMarkers();
+}
+
+
 var createCityMarker = function (map, place){
-    var marker = GMapMarker("city", {
-        map: map,
-        position: new google.maps.LatLng(place.lat, place.lng),
-        title: place.city
-    });
+  var marker = GMapMarker("city", {
+      map: map,
+      position: new google.maps.LatLng(place.lat, place.lng),
+      title: place.city
+  });
 
-    if (infoWindow)
-      infoWindow.close();
-    var infowindow = new google.maps.InfoWindow();
+  if (infoWindow)
+    infoWindow.close();
+  var infowindow = new google.maps.InfoWindow();
+  var content = '<h2>' + marker.title + '</h2>' + '<div class="infoWindowContent">' + place.desc + '</div>';
 
-    //for the zoom in effect
-    google.maps.event.addListener(marker, 'click', function(){
-        infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
-        infoWindow.open(map.gMap, this);
-    });
-    
-    //display the city name
-    var content = '<h2>' + marker.title + '</h2>' + '<div class="infoWindowContent">' + place.desc + '</div>';
+  //for the zoom in effect
+  google.maps.event.addListener(marker, 'click', function(){
+    clickCity(marker, place.hoster);
+  });
+  
+  //display the city name
+  google.maps.event.addListener(marker, 'mouseover', (function(marker, content, infowindow) {
+    return function() {
+      infowindow.setContent(content);
+      infowindow.open(map.gMap, marker);
+    };
+  })(marker, content, infowindow));
+  google.maps.event.addListener(marker, 'mouseout', (function(marker, content, infowindow) {
+    return function() {
+      infowindow.close();
+    };
+  })(marker, content, infowindow));    
 
-    google.maps.event.addListener(marker, 'mouseover', (function(marker, content, infowindow) {
-      return function() {
-        infowindow.setContent(content);
-        infowindow.open(map.gMap, marker);
-      };
-    })(marker, content, infowindow));
-    google.maps.event.addListener(marker, 'mouseout', (function(marker, content, infowindow) {
-      return function() {
-        infowindow.close();
-      };
-    })(marker, content, infowindow));    
-
-    return marker;    
+  return marker;    
 }
