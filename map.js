@@ -4,9 +4,76 @@
 */
 
 var map;
-var cityMarkers = [];
-var hosterMarkers = [];
 var infoWindow; // assure only one infoWindow
+
+function Map(mapOptions) {
+  this.gMap = new google.maps.Map(document.getElementById('map'), mapOptions);
+}
+
+/* constructor for world map */
+function WorldGoogleMap (mapOptions) {
+  Map.call(this, mapOptions);
+  // google.maps.Map.call(this, document.getElementById('map'), mapOptions);
+  // this.gMap = new google.maps.Map(document.getElementById('map'), mapOptions);
+  this.cityMarkers = [];
+
+  WorldGoogleMap.prototype.addCityMarker = function (marker) {
+    this.cityMarkers.push(marker);
+  }
+}
+
+/* constructor for city map */
+function CityGoogleMap (mapOptions) {
+  Map.call(this, mapOptions);
+  // var cityMap = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+  /* 
+    map member data defined below
+  */
+  this.hosterMarkers = [];
+  this.markerClusterer = null;
+
+  /* 
+    map events defined below 
+  */
+  this.gMap.addListener('zoom_changed', function() {
+    // prevent zooming out too far away
+    if (this.getZoom() <= 7) {
+      this.setZoom(8);
+    }
+  });
+  
+
+  /* 
+    map methods defined below
+  */
+
+  /* 
+    Use this function everytime a new marker is made so that
+    we have control of all markers
+  */
+  CityGoogleMap.prototype.addHosterMarker = function (marker) {
+    this.hosterMarkers.push(marker);
+  }
+  /*
+    Group hoster markers into clusters when they exceed a certain density.
+    Don't need to supply the markers, it uses the global var hosterMarkers
+    for list of markers to cluster
+  */
+  CityGoogleMap.prototype.clusterizeHosterMarkers = function () {
+    markerClusterer = new MarkerClusterer(this.gMap, [], {
+      gridSize: 100, 
+      maxZoom: 15, 
+      imagePath: 'img/marker-cluster'
+    });
+    // load hosterMarkers to MarkerClusterer
+    this.hosterMarkers.forEach(function(marker) {
+      this.markerClusterer.addMarker(marker);
+    });
+  }
+
+  // return cityMap;
+}
 
 /* 
   A custom constructor for google.maps.Marker.
@@ -38,7 +105,7 @@ function GMapMarker(type, options) {
   }
 }
 
-var createMarker = function (map, place){
+var createHosterMarker = function (map, place){
   // imran tests infoWindow @ imran-7-infowindow
   var marker = GMapMarker('hoster', {
     map: map,
@@ -77,12 +144,13 @@ var createMarker = function (map, place){
     infoWindow.setContent(contentString);
     infoWindow.open(map, this);
   });
+  return marker;
 }
 
 /* 
   loading the Markers on a map for the selected city
 */
-var createMarkerForCity = function (map, place){
+var createCityMarker = function (map, place){
     var marker = GMapMarker("city", {
         map: map,
         position: new google.maps.LatLng(place.lat, place.lng),
@@ -95,6 +163,7 @@ var createMarkerForCity = function (map, place){
     infoWindow = createInfoWindow();
     google.maps.event.addListener(marker, 'click', function(){
         infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
-        infoWindow.open(map, this);
-    });        
+        infoWindow.open(map.gMap, this);
+    });
+    return marker;
 }
