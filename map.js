@@ -8,6 +8,32 @@ var infoWindow; // assure only one infoWindow
 
 function Map(mapOptions) {
   this.gMap = new google.maps.Map(document.getElementById('map'), mapOptions);
+  var that = this;
+  this.gpsMarker = null;
+
+  /* methods defined below */
+  Map.prototype.zoomToUser = function () {
+    console.log("zooming to user!");    
+  }
+
+  Map.prototype.showUserLocation = function () {
+    // navigator is a built in HTML5 var
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (pos) {
+        that.gpsMarker = new GMapMarker('gps', {
+          map: that.gMap,
+          position: new google.maps.LatLng(
+            pos.coords.latitude, 
+            pos.coords.longitude),
+        });
+      }, function () {
+        console.log("error getting user gps position");
+      });      
+    } else {
+      // geolocation not supported by broswer
+      console.log("gps not supported by broswer");
+    }
+  }
 }
 
 /* constructor for world map */
@@ -19,6 +45,20 @@ function WorldGoogleMap (mapOptions) {
 
   WorldGoogleMap.prototype.addCityMarker = function (marker) {
     this.cityMarkers.push(marker);
+  }
+
+  /* 
+    methods defined below 
+  */
+
+  /* zoom in to user location */
+  WorldGoogleMap.prototype.zoomToUser = function () {
+    Map.prototype.zoomToUser.call();
+  }
+
+  /* display the current gps location of user on the map */
+  WorldGoogleMap.prototype.showUserLocation = function () {
+    Map.prototype.showUserLocation.call();
   }
 }
 
@@ -71,8 +111,16 @@ function CityGoogleMap (mapOptions) {
       this.markerClusterer.addMarker(marker);
     });
   }
+  
+  /* zoom in to user location */
+  WorldGoogleMap.prototype.zoomToUser = function () {
+    Map.prototype.zoomToUser.call();
+  }
 
-  // return cityMap;
+  /* display the current gps location of user on the map */
+  WorldGoogleMap.prototype.showUserLocation = function () {
+    Map.prototype.showUserLocation.call();
+  }
 }
 
 /* 
@@ -98,6 +146,12 @@ function GMapMarker(type, options) {
     return new google.maps.Marker(options);
   } else if(type=="city") {
     image.url = "./img/marker-city.png";
+    options.icon = image;
+    return new google.maps.Marker(options);
+  } else if (type=="gps") {
+    image.url = "./img/gps-marker.png";
+    image.size = new google.maps.Size(15, 16);
+    image.scaledSize = new google.maps.Size(15, 16);
     options.icon = image;
     return new google.maps.Marker(options);
   } else {

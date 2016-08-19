@@ -24,6 +24,9 @@ GMapsApp.controller('MapCtrl', function ($scope, $http) {
         map.addCityMarker(createCityMarker(map.gMap, cities[i]));
     }    
 
+    // TEST
+    map.showUserLocation();
+
     /* 
       onChange to the city location
       called when dropdown item is select item (id:selectCity) is clicked
