@@ -156,14 +156,31 @@ var createCityMarker = function (map, place){
         position: new google.maps.LatLng(place.lat, place.lng),
         title: place.city
     });
-    marker.content = '<div class="infoWindowContent">' + place.desc + '</div>';
 
     if (infoWindow)
       infoWindow.close();
-    infoWindow = createInfoWindow();
+    var infowindow = new google.maps.InfoWindow();
+
+    //for the zoom in effect
     google.maps.event.addListener(marker, 'click', function(){
         infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
         infoWindow.open(map.gMap, this);
     });
-    return marker;
+    
+    //display the city name
+    var content = '<h2>' + marker.title + '</h2>' + '<div class="infoWindowContent">' + place.desc + '</div>';
+
+    google.maps.event.addListener(marker, 'mouseover', (function(marker, content, infowindow) {
+      return function() {
+        infowindow.setContent(content);
+        infowindow.open(map.gMap, marker);
+      };
+    })(marker, content, infowindow));
+    google.maps.event.addListener(marker, 'mouseout', (function(marker, content, infowindow) {
+      return function() {
+        infowindow.close();
+      };
+    })(marker, content, infowindow));    
+
+    return marker;    
 }
