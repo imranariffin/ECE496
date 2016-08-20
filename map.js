@@ -177,7 +177,11 @@ var createCityMarker = function (map, place){
   if (infoWindow)
     infoWindow.close();
   var infowindow = new google.maps.InfoWindow();
-  var content = '<h2>' + marker.title + '</h2>' + '<div class="infoWindowContent">' + place.desc + '</div>';
+  var content = '<div Style = "text-align: center; width: 80px; height: 30px; padding: 0px; margin: 0px">' +
+    '<h5>' + 
+      marker.title + 
+    '</h5>'+
+  '</div>';
 
   //for the zoom in effect
   google.maps.event.addListener(marker, 'click', function(){
