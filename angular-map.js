@@ -8,15 +8,17 @@ GMapsApp.controller('MapCtrl', function ($scope, $http) {
       This controller also uses a few map-related functions defined 
       in map.js
   */
+
   $http.get('data.json').success(function(data) { 
     var cities = data; 
+    $scope.cities = cities;
 
     var mapOptions = {
         zoom: 4,
         center: new google.maps.LatLng(45.8996835,-95.2071532)
     }
 
-    $scope.cities = cities;
+
     // map = new google.maps.Map(document.getElementById('map'), mapOptions);
     map = new WorldGoogleMap(mapOptions);
     
@@ -30,8 +32,8 @@ GMapsApp.controller('MapCtrl', function ($scope, $http) {
       to change map.
     */
     $scope.changeCity = function () {  
-      var index = $scope.cityIndex;
-      var cityLocation = cities[index];
+      var index = $scope.cityProfile;
+      var cityLocation = index;
 
       // map = new google.maps.Map(document.getElementById('map'), {
       //   center: {lat: cityLocation.lat, lng: cityLocation.lng},

@@ -31,9 +31,8 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <form class="navbar-form navbar-left">
-                <label class="search-bar" for="filter">Search By City</label>
-                <select ng-model="cityIndex" class="form-control" id="selectCity" ng-change="changeCity()"> 
-                    <option ng-repeat="city in cities" value="{{$index}}">{{city.city}}</option>
+                <select ng-model="cityProfile" class="form-control"  id="selectCity"  ng-options="city.city for city in cities" ng-change="changeCity()"> 
+                    <option value="">Search By City</option>
                 </select>
               </form>
             </div><!-- /.navbar-collapse -->
@@ -44,6 +43,7 @@
     </div>    
 
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+
     <!-- <script type="text/javascript" src="map.js"></script> -->    
     <script type="text/javascript" src="angular-map.js"></script>
     <script type="text/javascript" src="info-window.js"></script> 
