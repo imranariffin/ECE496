@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <!-- load bootstrap -->
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap-theme.min.css">
+    <!-- custom styles, also used to override bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+
+    <script type="text/javascript" src="http://code.angularjs.org/1.5.3/angular.js"></script>
+    <script type="text/javascript" src="http://code.angularjs.org/1.5.3/angular-route.js"></script>
+    
+
+    <!-- <script type="text/javascript" src="map.js"></script> -->
+    <script type="text/javascript" src="static/js/angular-map.js"></script>
+    <script type="text/javascript" src="static/js/info-window.js"></script> 
+    <script type="text/javascript" src="static/js/map.js"></script>   
+    <script src="static/js/google-marker-clusterer.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3xxYrQTk4eCQajHxacHVlcR9QXvpr1uM&libraries=places"></script>
+    <!-- load bootstrap js -->
+    <script type="text/javascript" src="static/js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="static/js/bootstrap.js"></script>
+  </head>
+  <body ng-app="GMapsApp">
+<div id="main" style="height: 90%;" ng-controller="MapCtrl">
+  <div id="right-panel" style="height: 10%;">      
+
+    <!--  Navbar  -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Brand</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <form class="navbar-form navbar-left">
+            <select ng-model="cityProfile" class="form-control"  id="selectCity"  ng-options="city.city for city in cities" ng-change="changeCity()"> 
+                <option value="">Search By City</option>
+            </select>
+          </form>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+  </div>
+  <!-- <div id="map" style="height: 100%;"></div> -->
+  <ng-view>
+</div>    
+  </body>
+</html>
