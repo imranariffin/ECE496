@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1>Login</h1>
+		<form>
+			<label>username:</label><br>
+			<input type="text" ng-model="credentials.username" /><br>
+			<label>password:</label><br>
+			<input type="password" ng-model="credentials.password" /><br>
+			<button type="submit" ng-click="login(credentials)">
+				Login
+			</button>
+		</form>
+
+		<!-- error message -->
+		<p ng-if="errorMessage">
+			{{ errorMessage }}
+		</p>
+  </div>
+</div> <!-- /container -->

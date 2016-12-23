@@ -33,6 +33,10 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3xxYrQTk4eCQajHxacHVlcR9QXvpr1uM&libraries=places"></script>
 
     <!-- angular map app -->
+    <script src="http://code.angularjs.org/1.5.3/angular-cookies.js"></script>
+    <script src="http://code.angularjs.org/1.5.3/angular-route.min.js"></script>
+    <script type="text/javascript" src="static/js/authApp.js"></script>
+    <script type="text/javascript" src="static/js/authControllers.js"></script>
     <script type="text/javascript" src="static/js/angular-map.js"></script>
 
     <!-- jquery -->
@@ -67,11 +71,11 @@
                 <option value="">Search By City</option>
             </select>
           </form>
-
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right" ng-controller="AuthNavbarController">
             <li ng-if="!currentUser"><a href="/#/signup">Signup</a></li>
             <li ng-if="!currentUser"><a href="/#/login">Login</a></li>
-            <li ng-if="currentUser"><a href="">Logout</a></li>
+            <li ng-if="currentUser"><a href="/#/dashboard">{{ currentUser.username }}</a></li>
+            <li ng-if="currentUser" ng-controller="LogoutController"><a href="" ng-click="logout()">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

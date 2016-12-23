@@ -1,7 +1,4 @@
-
-from flask import Flask, url_for, json, request, send_file
-
-app = Flask(__name__)
+from flask import Flask, url_for, json, request, send_file, jsonify
 
 #return data formating
 from bson.json_util import dumps
@@ -12,7 +9,13 @@ import pprint
 #mongodb support 
 from pymongo import MongoClient
 
+# create random key
+from os import urandom
 
+# http status return
+from flask_api import status
+
+app = Flask(__name__)
 
 def initDB():
     url = "mongodb://user1:kuncikunci@ds141108.mlab.com:41108/baby"
@@ -101,8 +104,92 @@ def settupDB():
 #setupDB
 handle = settupDB()
 
+# AUTHENTICATION will be handled by 
+# /api/login, /api/signup and /api/logout
+# send session_token to  client to maintain session
 
-#define one port
+# dummy users
+USERS = {
+	'imranariffin': {
+		'username': 'imranariffin',
+		'password': 'password',
+		'dum_info' : 'Imma noob programmer'
+	},
+	'admin': {
+		'username': 'admin',
+		'password': 'password',
+		'dum_info' : 'Imma not a noob programmer'
+	}
+}
+
+@app.route("/api/login", methods=['POST'])
+def login():
+	# request data: username, password
+	# response: status: 200, 401, 404
+	# 	200: success login
+	# 	401: wrong password
+	# 	404: user not exist
+	# 	417: request data doesn't meet expectation
+
+	form = request.get_json()
+
+	if 'username' not in form or 'password' not in form:
+		response = {'error_message': 'request data should contain username and password'}
+		return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
+
+	username = form['username']
+	password = form['password']
+
+	if username not in USERS:
+		response = {'error_message': 'user does not exist'}
+		return jsonify(response), status.HTTP_404_NOT_FOUND
+
+	if password != USERS[username]['password']:
+		response = {'error_message': 'wrong password'}
+		return jsonify(response), status.HTTP_401_UNAUTHORIZED
+
+	# # create session for user
+	# session[username] = username
+
+	# dummy session_token
+	session_token = {
+		'admin': 'token1', 
+		'imranariffin': 'token2', 
+	}[username]
+
+	# respond with succes message and status code
+
+	response = {
+		'message': 'success', 
+		'session_token': session_token,
+		'user': USERS[username],
+	}
+	return jsonify(response), status.HTTP_200_OK
+
+
+@app.route("/api/logout", methods=['POST'])
+def logout():
+	# response: status: 200
+	# 	200: success
+
+	# form = request.get_json()
+
+	# if form == None or len(form) == 0 or 'username' not in form:
+	# 	response = {'error_message': 'bad request, need to have username as in data'}
+	# 	return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
+
+	# username = form['username']
+
+	# if username not in USERS:
+	# 	response = {'error_message': 'user not found'}
+	# 	return jsonify(response), status.HTTP_404_NOT_FOUND
+
+	# # remove session
+	# session.pop(username, None)
+
+	response = {'message': 'success logout'}
+	return jsonify(response), status.HTTP_200_OK
+
 @app.route("/")
 def mainPage():
   return send_file("templates/index.html")
@@ -121,7 +208,6 @@ def getBabysitterInfo(name):
     return dumps(cursor)
   return "Error"
 
-
 @app.route('/api/insert/babysitter', methods=['GET', 'POST'])
 def add_message():
   content = request.get_json(silent=True)
@@ -138,8 +224,8 @@ def add_message():
 
   return "uploading.."
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
+	app.secret_key = urandom(24)
 	app.run(host='0.0.0.0', port=8000)
 
 

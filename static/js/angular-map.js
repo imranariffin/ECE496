@@ -1,7 +1,12 @@
 //Angular App Module and Controller
 
-var GMapsApp = angular.module('GMapsApp', ['ngRoute']);
-GMapsApp.controller('MapCtrl', function ($scope, $http) {
+var GMapsApp = angular.module('GMapsApp', 
+  [
+    'ngRoute',
+    'authApp',
+  ]);
+
+GMapsApp.controller('MapCtrl', function ($scope, $http, $cookies) {
   /*
       This controller uses a few map-related variables from map.js
       See at the of of map.js to see their declaration.
