@@ -1,6 +1,6 @@
 //Angular App Module and Controller
 
-var GMapsApp = angular.module('GMapsApp', []);
+var GMapsApp = angular.module('GMapsApp', ['ngRoute']);
 GMapsApp.controller('MapCtrl', function ($scope, $http) {
   /*
       This controller uses a few map-related variables from map.js
@@ -9,7 +9,7 @@ GMapsApp.controller('MapCtrl', function ($scope, $http) {
       in map.js
   */
 
-  $http.get('data.json').success(function(data) { 
+  $http.get('static/js/data.json').success(function(data) { 
     var cities = data; 
     $scope.cities = cities;
 
@@ -56,6 +56,18 @@ GMapsApp.controller('MapCtrl', function ($scope, $http) {
 
 });
 
+
+GMapsApp.config(['$routeProvider',
+   function($routeProvider) {
+    $routeProvider.
+     when('/', {
+      templateUrl: '/static/partials/index.html',
+      controller: "MapCtrl"
+     }).
+     otherwise({
+      redirectTo: '/'
+     });
+  }]);
 
 /* unused functions */
     // $scope.openInfoWindow = function(e, selectedMarker){

@@ -64,7 +64,7 @@ function CityGoogleMap (mapOptions) {
     markerClusterer = new MarkerClusterer(this.gMap, [], {
       gridSize: 100, 
       maxZoom: 15, 
-      imagePath: 'img/marker-cluster'
+      imagePath: 'static/img/marker-cluster'
     });
     // load hosterMarkers to MarkerClusterer
     this.hosterMarkers.forEach(function(marker) {
@@ -93,11 +93,11 @@ function GMapMarker(type, options) {
     scaledSize: new google.maps.Size(32, 32)
   };
   if (type=="hoster") {
-    image.url = "./img/marker-hoster.png";
+    image.url = "static/img/marker-hoster.png";
     options.icon = image;
     return new google.maps.Marker(options);
   } else if(type=="city") {
-    image.url = "./img/marker-city.png";
+    image.url = "static/img/marker-city.png";
     options.icon = image;
     return new google.maps.Marker(options);
   } else {
