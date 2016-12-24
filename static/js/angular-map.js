@@ -24,36 +24,35 @@ GMapsApp.controller('MapCtrl', function ($scope, $http) {
     
     for (i = 0; i < cities.length; i++) {
         map.addCityMarker(createCityMarker(map.gMap, cities[i]));
-    }    
-
-    /* 
-      onChange to the city location
-      called when dropdown item is select item (id:selectCity) is clicked
-      to change map.
-    */
-    $scope.changeCity = function () {  
-      var index = $scope.cityProfile;
-      var cityLocation = index;
-
-      // map = new google.maps.Map(document.getElementById('map'), {
-      //   center: {lat: cityLocation.lat, lng: cityLocation.lng},
-      //   zoom: 8
-      // });
-      map = new CityGoogleMap({
-        zoom: 10,
-        center: {lat: cityLocation.lat, lng: cityLocation.lng}
-      });
-      // map.setCenter({lat: cityLocation.lat, lng: cityLocation.lng});
-      // map.setZoom(8);
-
-      var hosts = cityLocation.hoster
-      for (i = 0; i < hosts.length; i++) {
-        map.addHosterMarker(createHosterMarker(map.gMap, hosts[i]));
-      }
-      map.clusterizeHosterMarkers();
     }
   });
+  
+  /* 
+    onChange to the city location
+    called when dropdown item is select item (id:selectCity) is clicked
+    to change map.
+  */
+  $scope.changeCity = function () {  
+    var index = $scope.cityProfile;
+    var cityLocation = index;
 
+    // map = new google.maps.Map(document.getElementById('map'), {
+    //   center: {lat: cityLocation.lat, lng: cityLocation.lng},
+    //   zoom: 8
+    // });
+    map = new CityGoogleMap({
+      zoom: 10,
+      center: {lat: cityLocation.lat, lng: cityLocation.lng}
+    });
+    // map.setCenter({lat: cityLocation.lat, lng: cityLocation.lng});
+    // map.setZoom(8);
+
+    var hosts = cityLocation.hoster
+    for (i = 0; i < hosts.length; i++) {
+      map.addHosterMarker(createHosterMarker(map.gMap, hosts[i]));
+    }
+    map.clusterizeHosterMarkers();
+  }
 });
 
 
