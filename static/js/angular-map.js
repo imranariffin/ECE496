@@ -9,7 +9,7 @@ GMapsApp.controller('MapCtrl', function ($scope, $http) {
       in map.js
   */
 
-  $http.get('static/js/data.json').success(function(data) { 
+  $http.get('/api/city').success(function(data) { 
     var cities = data; 
     $scope.cities = cities;
 
