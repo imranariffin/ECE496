@@ -225,7 +225,6 @@ def add_message():
   return "uploading.."
 
 if __name__ == "__main__":
-	app.secret_key = urandom(24)
 	app.run(host='0.0.0.0', port=8000)
 
 
