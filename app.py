@@ -58,7 +58,6 @@ def settupDB():
     handle['city'].insert(cityInfor)
 
   #babySitterDB
-  babysitterInfor = None
   if handle['babysitter'].count() == 0:
     babysitterInfor = [{
       "city": "Toronto",
@@ -99,96 +98,75 @@ def settupDB():
     for item in babysitterInfor:
       handle['city'].update({'city': item['city']}, {'$push': {'hoster': item}})
 
+  if handle['user'].count() == 0:
+    userInfo = [{
+      'username': 'imran',
+      'password': 'password',
+      'Host': True
+    }, {
+      'username': 'richard',
+      'password': 'password',
+      'Host': False
+    }]
+    handle['user'].insert(userInfo)
   return handle
 
 #setupDB
 handle = settupDB()
 
+"""
+response: status: 200, 401, 404
+200: success login
+401: wrong password
+404: user not exist
+417: request data doesn't meet expectation
+"""
+
+
 # AUTHENTICATION will be handled by 
 # /api/login, /api/signup and /api/logout
-# send session_token to  client to maintain session
-
-# dummy users
-USERS = {
-	'imranariffin': {
-		'username': 'imranariffin',
-		'password': 'password',
-		'dum_info' : 'Imma noob programmer'
-	},
-	'admin': {
-		'username': 'admin',
-		'password': 'password',
-		'dum_info' : 'Imma not a noob programmer'
-	}
-}
-
 @app.route("/api/login", methods=['POST'])
 def login():
-	# request data: username, password
-	# response: status: 200, 401, 404
-	# 	200: success login
-	# 	401: wrong password
-	# 	404: user not exist
-	# 	417: request data doesn't meet expectation
+  form = request.get_json()
 
-	form = request.get_json()
+  if 'username' not in form or 'password' not in form:
+    response = {'error_message': 'request data should contain username and password'}
+    return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
 
-	if 'username' not in form or 'password' not in form:
-		response = {'error_message': 'request data should contain username and password'}
-		return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
+  username = form['username']
+  password = form['password']
 
-	username = form['username']
-	password = form['password']
-
-	if username not in USERS:
-		response = {'error_message': 'user does not exist'}
-		return jsonify(response), status.HTTP_404_NOT_FOUND
-
-	if password != USERS[username]['password']:
-		response = {'error_message': 'wrong password'}
-		return jsonify(response), status.HTTP_401_UNAUTHORIZED
-
-	# # create session for user
-	# session[username] = username
-
-	# dummy session_token
-	session_token = {
-		'admin': 'token1', 
-		'imranariffin': 'token2', 
-	}[username]
-
-	# respond with succes message and status code
-
-	response = {
-		'message': 'success', 
-		'session_token': session_token,
-		'user': USERS[username],
-	}
-	return jsonify(response), status.HTTP_200_OK
+  result = handle.user.find({'username': username})
+  if result.count() == 0:
+    response = {'error_message': 'user does not exist'}
+    return jsonify(response), status.HTTP_404_NOT_FOUND
+  elif list(result)[0]["password"] != password:
+    response = {'error_message': 'wrong password'}
+    return jsonify(response), status.HTTP_401_UNAUTHORIZED
+  else:
+    response = {
+      'message': 'success', 
+      'user': username
+    }
+    return jsonify(response), status.HTTP_200_OK
 
 
 @app.route("/api/logout", methods=['POST'])
 def logout():
 	# response: status: 200
 	# 	200: success
+  form = request.get_json()
+  if form == None or len(form) == 0 or 'username' not in form:
+    response = {'error_message': 'bad request, need to have username as in data'}
+    return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
 
-	# form = request.get_json()
+  username = form['username']
+  if handle.user.find({'username': username}).count() == 0:
+    response = {'error_message': 'user not found'}
+    return jsonify(response), status.HTTP_404_NOT_FOUND
 
-	# if form == None or len(form) == 0 or 'username' not in form:
-	# 	response = {'error_message': 'bad request, need to have username as in data'}
-	# 	return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
-
-	# username = form['username']
-
-	# if username not in USERS:
-	# 	response = {'error_message': 'user not found'}
-	# 	return jsonify(response), status.HTTP_404_NOT_FOUND
-
-	# # remove session
-	# session.pop(username, None)
-
-	response = {'message': 'success logout'}
-	return jsonify(response), status.HTTP_200_OK
+  response = {'message': 'success logout'}
+  return jsonify(response), status.HTTP_200_OK
 
 @app.route("/")
 def mainPage():
