@@ -1,13 +1,9 @@
-from flask import Flask, url_for, json, request, send_file, jsonify
-
-#return data formating
-from bson.json_util import dumps
+from flask import Flask, url_for, json, request, send_file, jsonify, Response
 
 #print data formating
 import pprint
 
-#mongodb support 
-from pymongo import MongoClient
+import dbsetup
 
 # create random key
 from os import urandom
@@ -17,102 +13,8 @@ from flask_api import status
 
 app = Flask(__name__)
 
-def initDB():
-    url = "mongodb://user1:kuncikunci@ds141108.mlab.com:41108/baby"
-    client = MongoClient(url) 
-    return client['baby']
-
-def settupDB():
-  handle = initDB()
-
-  #cityDB
-  if handle['city'].count() == 0:
-    cityInfor = [{
-      "city": "Toronto",
-      "desc": "Home of the Maple Leaf",
-      "lat":43.6765211, 
-      "lng":-79.4354023,
-      "hoster":[]
-      },
-      {
-        "city": "New York",
-        "desc": "The city that never sleeps",
-        "lat":40.7142700, 
-        "lng":-74.0059700,
-        "hoster":[]
-      }, 
-      {
-        "city": "San Francisco",
-        "desc": "The Golden Gate City",
-        "lat":37.7749300, 
-        "lng":-122.4194200,
-        "hoster":[]
-      }, 
-      {
-        "city": "Vancouver",
-        "desc": "The Rain City",
-        "lat":49.246292, 
-        "lng":-123.116226,
-        "hoster":[]
-    }]
-    handle['city'].insert(cityInfor)
-
-  #babySitterDB
-  if handle['babysitter'].count() == 0:
-    babysitterInfor = [{
-      "city": "Toronto",
-      "host": "Trust Child Care",
-      "phone": "+1-416-594-0100",
-      "image": "https://s3-media3.fl.yelpcdn.com/bphoto/4jqa-wa-NEzajkwT83E09Q/ms.jpg",
-      "display_addr": [
-        "29 Birch Avenue",
-        "Summer Hill",
-        "Toronto, ON M4V 1E2",
-        "Canada"
-      ],
-      "lat": 43.6809387,
-      "lng": -79.3928223,
-      "rating": 5.0,
-      "desc": "As of January 2012, Trust Child Care is under new ownership. As an owner, parent and primary educator I would invite you to please arrange for a tour so...",
-      "url": "http://www.yelp.com/biz/trust-child-care-toronto-2?adjust_creative=dWycgaunp1RGGmO0t-TQTw&utm_campaign=yelp_api&utm_medium=api_v2_search&utm_source=dWycgaunp1RGGmO0t-TQTw"
-    }, 
-    {
-      "city": "Toronto",
-      "host": "Play 'n Stay Daycare",
-      "phone": "None",
-      "image": "None",
-      "display_addr": [
-        "811 Gerrard Street E",
-        "Riverdale",
-        "Toronto, ON M4M 1Y7",
-        "Canada"
-      ],
-      "lat": 43.6671308,
-      "lng": -79.3449661,
-      "rating": 5.0,
-      "desc": "My son has been a member of Gloria's family since January 2013 and his has thrived in this home based nurturing home daycare environment. Gloria has been an...",
-      "url": "http://www.yelp.com/biz/play-n-stay-daycare-toronto?adjust_creative=dWycgaunp1RGGmO0t-TQTw&utm_campaign=yelp_api&utm_medium=api_v2_search&utm_source=dWycgaunp1RGGmO0t-TQTw"
-    }]
-    handle['babysitter'].insert(babysitterInfor)
-    #add to the host list for each city
-    for item in babysitterInfor:
-      handle['city'].update({'city': item['city']}, {'$push': {'hoster': item}})
-
-  if handle['user'].count() == 0:
-    userInfo = [{
-      'username': 'imran',
-      'password': 'password',
-      'Host': True
-    }, {
-      'username': 'richard',
-      'password': 'password',
-      'Host': False
-    }]
-    handle['user'].insert(userInfo)
-  return handle
-
 #setupDB
-handle = settupDB()
+handle = dbsetup.setupDB()
 
 """
 response: status: 200, 401, 404
@@ -121,7 +23,6 @@ response: status: 200, 401, 404
 404: user not exist
 417: request data doesn't meet expectation
 """
-
 
 # AUTHENTICATION will be handled by 
 # /api/login, /api/signup and /api/logout
@@ -153,8 +54,8 @@ def login():
 
 @app.route("/api/logout", methods=['POST'])
 def logout():
-	# response: status: 200
-	# 	200: success
+  # response: status: 200
+  #   200: success
   form = request.get_json()
   if form == None or len(form) == 0 or 'username' not in form:
     response = {'error_message': 'bad request, need to have username as in data'}
@@ -176,14 +77,14 @@ def mainPage():
 @app.route('/api/city')
 def city():
   cursor = handle.city.find()
-  return dumps(cursor)
+  return jsonify(cursor)
 
 #return all the info or one city
 @app.route('/api/find/babysitter/<name>', methods = ['GET'])
 def getBabysitterInfo(name):
   if name != None:
     cursor = handle.babysitter.find( {"city": name} )
-    return dumps(cursor)
+    return jsonify(cursor)
   return "Error"
 
 @app.route('/api/insert/babysitter', methods=['GET', 'POST'])
@@ -202,10 +103,65 @@ def add_message():
 
   return "uploading.."
 
+"""
+REVIEW API: get all reviews for a babysitter
+response: list of review string with respective reviewer username
+error: 400, 404 with message
+"""
+@app.route('/api/babysitter/<sitter_username>/review', methods=['GET', 'POST'])
+def get_babysitter_review_list(sitter_username):
+  
+  if request.method == 'GET':
+
+    babysitter = handle['babysitter'].find_one({'username': sitter_username})
+
+    if babysitter is None:
+      response = {"err": "Error 404: No babysitter with such username %s"%sitter_username}
+      return jsonify(response), status.HTTP_404_NOT_FOUND
+
+    ls_reviews = [{
+      'username': parent, 
+      'value': babysitter['review'][parent]['value']
+    } for parent in babysitter['review']]
+
+    return jsonify(ls_reviews), status.HTTP_200_OK
+
+  # POST request
+  form = request.get_json()
+
+  if 'username' not in form:
+    # error, should log first
+    response = {"err": "Should log in"}
+    return jsonify(response), status.HTTP_400_BAD_REQUEST
+
+  if 'review' not in form or form['review'] == "":
+    # error, review should not be empty
+    response = {"err": "Review should not be empty"}
+    return jsonify(response), status.HTTP_400_BAD_REQUEST
+
+  if handle['user'].find_one({'username': form['username']}) is None:
+    # error, user should exist
+    response = {"err": "user does not exist"}
+    return jsonify(response), status.HTTP_400_BAD_REQUEST
+
+  # add current user's review for babysitter
+  review = form['review']
+  currentuser_username = form['username']
+
+  # babysitter['review'][currentuser_username] = review
+  res = handle['babysitter'].update_one(
+      {"username": sitter_username},
+      {"$set": {
+        "review.%s"%currentuser_username: {"value": review}
+      }})
+
+  if res.matched_count == 0:
+    # error, babysitter doesn't exist
+    response = {"err": "babysitter %s doesn't exist"%sitter_username}
+    return jsonify(response), status.HTTP_400_BAD_REQUEST
+
+  response = {"message": "Success post review"}
+  return jsonify(response), status.HTTP_200_OK
+
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=8000)
-
-
-
-
-
+  app.run(host='0.0.0.0', port=8000)
