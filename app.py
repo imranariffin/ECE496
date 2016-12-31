@@ -1,5 +1,7 @@
 from flask import Flask, url_for, json, request, send_file, jsonify, Response
 
+from bson.json_util import dumps
+
 #print data formating
 import pprint
 
@@ -77,14 +79,14 @@ def mainPage():
 @app.route('/api/city')
 def city():
   cursor = handle.city.find()
-  return jsonify(cursor)
+  return dumps(cursor)
 
 #return all the info or one city
 @app.route('/api/find/babysitter/<name>', methods = ['GET'])
 def getBabysitterInfo(name):
   if name != None:
     cursor = handle.babysitter.find( {"city": name} )
-    return jsonify(cursor)
+    return dumps(cursor)
   return "Error"
 
 @app.route('/api/insert/babysitter', methods=['GET', 'POST'])
