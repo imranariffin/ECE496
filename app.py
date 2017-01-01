@@ -13,15 +13,20 @@ from os import urandom
 # http status return
 from flask_api import status
 
+#hashing for token
+import hashing
+
 app = Flask(__name__)
 
 #setupDB
 handle = dbsetup.setupDB()
 
+
 """
 response: status: 200, 401, 404
 200: success login
 401: wrong password
+403: forbidden 
 404: user not exist
 409: user is exsiting 
 417: request data doesn't meet expectation
@@ -51,14 +56,20 @@ def login():
     response = {
       'message': 'success', 
       'user': username
+      'session_token': hashing.Encrypted(username+password)
     }
     return jsonify(response), status.HTTP_200_OK
 
 
-@app.route("/api/logout", methods=['POST'])
-def logout():
+@app.route("/api/logout/<token>", methods=['POST'])
+def logout(token):
   # response: status: 200
   #   200: success
+
+  if hashing.Decrypted(token) != True:
+    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
+    return jsonify(response), status.HTTP_403_FORBIDDEN
+
   form = request.get_json()
   if form == None or len(form) == 0 or 'username' not in form:
     response = {'error_message': 'bad request, need to have username as in data'}
@@ -82,13 +93,17 @@ def signup():
     return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
 
   username = form['username']
+  password = form['password']
   if handle.user.find({'username': username}).count() != 0:
     response = {'error_message': 'username has been registered'}
     return jsonify(response), status.HTTP_409_CONFLICT 
   else:
     handle.user.insert(form)
 
-  response = {'message': 'success signup'}
+  response = {
+    'message': 'success signup'
+    'session_token': hashing.Encrypted(username+password)
+  }
   return jsonify(response), status.HTTP_200_OK
 
 @app.route("/")
@@ -96,14 +111,22 @@ def mainPage():
   return send_file("templates/index.html")
 
 #find all the cities and host for initial map
-@app.route('/api/city')
-def city():
+@app.route('/api/city/<token>')
+def city(token):
+  if hashing.Decrypted(token) != True:
+    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
+    return jsonify(response), status.HTTP_403_FORBIDDEN
+
   cursor = handle.city.find()
   return dumps(cursor)
 
 #return all the info or one city
-@app.route('/api/find/babysitter/<name>', methods = ['GET'])
-def getBabysitterInfo(name):
+@app.route('/api/find/babysitter/<name>/<token>', methods = ['GET'])
+def getBabysitterInfo(name, token):
+  if hashing.Decrypted(token) != True:
+    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
+    return jsonify(response), status.HTTP_403_FORBIDDEN
+
   if name == None:
     response = {'error_message': 'request data should contain city name'}
     return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
@@ -111,8 +134,12 @@ def getBabysitterInfo(name):
     cursor = handle.babysitter.find( {"city": name} )
     return dumps(cursor)
 
-@app.route('/api/insert/babysitter', methods=['GET', 'POST'])
-def add_message():
+@app.route('/api/insert/babysitter/<token>', methods=['GET', 'POST'])
+def add_message(token):
+  if sessionTokenCheck(token):
+    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
+    return jsonify(response), status.HTTP_403_FORBIDDEN
+
   content = request.get_json()
   username, cityname = content['host'], content['city']
   
@@ -136,9 +163,12 @@ REVIEW API: get all reviews for a babysitter
 response: list of review string with respective reviewer username
 error: 400, 404 with message
 """
-@app.route('/api/babysitter/<sitter_username>/review', methods=['GET', 'POST'])
-def get_babysitter_review_list(sitter_username):
-  
+@app.route('/api/babysitter/<sitter_username>/review/<token>', methods=['GET', 'POST'])
+def get_babysitter_review_list(sitter_username, token):
+  if hashing.Decrypted(token) != True:
+    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
+    return jsonify(response), status.HTTP_403_FORBIDDEN
+
   if request.method == 'GET':
 
     babysitter = handle['babysitter'].find_one({'username': sitter_username})
@@ -200,8 +230,11 @@ GET response: {INT} average rating of the sitter
 POST response: success message
 error: 400, 404 with message
 """
-@app.route('/api/babysitter/<sitter_username>/rating', methods=['GET', 'POST'])
-def rating(sitter_username):
+@app.route('/api/babysitter/<sitter_username>/rating/<token>', methods=['GET', 'POST'])
+def rating(sitter_username, token):
+  if hashing.Decrypted(token) != True:
+    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
+    return jsonify(response), status.HTTP_403_FORBIDDEN
 
   if handle['babysitter'].find_one({'username': sitter_username}) is None:
     response = {"err": "babysitter does not exist"}
