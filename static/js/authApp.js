@@ -9,12 +9,6 @@ var authApp = angular.module('authApp',
 // that we won't lose user session. Also to protect
 // certain pages from unauthorized users
 authApp.run(function($rootScope, $cookies, $location, $http) {
-  // $rootScope.currentUser = $cookies.get('current-user');
-  // var currentUser = $cookies.get('current-user');
-
-  // if ($rootScope.currentUser) {
-  //   $http.defaults.headers.commmon['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
-  // }
 
   // list all the restricted pages here
   var restrictedPages = new Set(['/', '/dashboard']);
@@ -25,7 +19,7 @@ authApp.run(function($rootScope, $cookies, $location, $http) {
     if (restrictedPages.has(currentPath)) {
       // redirect to login page if not logged in
       // if (!$rootScope.currentUser) {
-      if (!$cookies.get('session-token')) {
+      if (!$cookies.get('session-token-1' || !$cookies.get('session-token-2'))) {
           $location.path('/login');
       }
     }

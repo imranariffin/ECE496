@@ -29,10 +29,12 @@ authApp
 
 						// save sessionToken and user on cookies
 						var currentUser = response.data.user;
-						var sessionToken = response.data.session_token;
+						var sessionToken1 = response.data.session_token[0];
+						var sessionToken2 = response.data.session_token[1];
+
 						$cookies.putObject('current-user', currentUser);
-						// $cookies.put('session-token', sessionToken);
-						$cookies.put('session-token', 'dummytoken');
+						$cookies.put('session-token-1', sessionToken1);
+						$cookies.put('session-token-2', sessionToken2);
 
 						// redirect to map page
 						$window.location.href = '/';
@@ -55,37 +57,30 @@ authApp
 				assume user is already logged in.
 			*/
 			$scope.logout = function() {
-				// try {
-				// 	var username = $scope.currentUser;
-				// 	var data = {username: username};
-				// 	$http
-				// 		.post('/api/logout', data)
-				// 		.then(function(response) {
-				// 			// clear scope and cookies
-				// 			$scope.currentUser = null;
-				// 			$cookies.remove('current-user');
-
-				// 			// redirect to main page
-				// 			$window.location.href = '/';
-				// 		})
-				// 		.catch(function(errorResponse) {
-				// 			$scope.errorMessage = errorResponse;
-				// 		});
-				// }
-				// catch (err) {
-				// 	throw err;
-				// }
-
 				try {
-					// clear session_token and user from cookies
-					$cookies.remove('session-token');
-					$cookies.remove('current-user');
-					
-					// redirect to main page
-					window.location.href = '/';
+					var username = $scope.currentUser;
+					var data = {username: username};
+
+				  var sessionToken1 = $cookies.get('session-token-1');
+				  var sessionToken2 = $cookies.get('session-token-2');
+
+					$http
+						.post('/api/logout/' + sessionToken1 + '/' + sessionToken2 , data)
+						.then(function(response) {
+							// clear scope and cookies
+							$scope.currentUser = null;
+							$cookies.remove('current-user');
+							$cookies.remove('session-token-1');
+							$cookies.remove('session-token-2');
+
+							// redirect to main page
+							$window.location.href = '/';
+						})
+						.catch(function(errorResponse) {
+							$scope.errorMessage = errorResponse;
+						});
 				}
 				catch (err) {
-					$scope.errorMessage = err;
 					throw err;
 				}
 			}
