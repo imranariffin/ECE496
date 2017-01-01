@@ -5,6 +5,18 @@ var authApp = angular.module('authApp',
 		'ngCookies',
 	]);
 
+authApp
+  .controller('LoginController', LoginController)
+  .controller('SignupController', SignupController)
+  .controller('LogoutController', LogoutController)
+
+  // controller for navbar auth buttons
+  .controller('AuthNavbarController', AuthNavbarController)
+
+  // dashboard is used just for testing auth
+  .controller('DashboardController', DashboardController)
+;
+
 // always update global user sesion on refresh, so
 // that we won't lose user session. Also to protect
 // certain pages from unauthorized users
