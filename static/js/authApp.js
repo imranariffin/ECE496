@@ -17,7 +17,7 @@ authApp.run(function($rootScope, $cookies, $location, $http) {
   // }
 
   // list all the restricted pages here
-  var restrictedPages = new Set(['/dashboard']);
+  var restrictedPages = new Set(['/', '/dashboard']);
 
   $rootScope.$on('$locationChangeStart', function(event, next, current) {
     var currentPath = $location.path();
