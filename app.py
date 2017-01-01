@@ -55,18 +55,18 @@ def login():
   else:
     response = {
       'message': 'success', 
-      'user': username
-      'session_token': hashing.Encrypted(username+password)
+      'user': username,
+      'session_token': hashing.Encrypted(username + password)
     }
     return jsonify(response), status.HTTP_200_OK
 
 
-@app.route("/api/logout/<token>", methods=['POST'])
-def logout(token):
+@app.route("/api/logout/<token1>/<token2>", methods=['POST'])
+def logout(token1, token2):
   # response: status: 200
   #   200: success
 
-  if hashing.Decrypted(token) != True:
+  if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
 
@@ -101,7 +101,7 @@ def signup():
     handle.user.insert(form)
 
   response = {
-    'message': 'success signup'
+    'message': 'success signup',
     'session_token': hashing.Encrypted(username+password)
   }
   return jsonify(response), status.HTTP_200_OK
@@ -111,9 +111,9 @@ def mainPage():
   return send_file("templates/index.html")
 
 #find all the cities and host for initial map
-@app.route('/api/city/<token>')
-def city(token):
-  if hashing.Decrypted(token) != True:
+@app.route('/api/city/<token1>/<token2>')
+def city(token1, token2):
+  if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
 
@@ -121,9 +121,9 @@ def city(token):
   return dumps(cursor)
 
 #return all the info or one city
-@app.route('/api/find/babysitter/<name>/<token>', methods = ['GET'])
-def getBabysitterInfo(name, token):
-  if hashing.Decrypted(token) != True:
+@app.route('/api/find/babysitter/<name>/<token1>/<token2>', methods = ['GET'])
+def getBabysitterInfo(name, token1, token2):
+  if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
 
@@ -134,9 +134,9 @@ def getBabysitterInfo(name, token):
     cursor = handle.babysitter.find( {"city": name} )
     return dumps(cursor)
 
-@app.route('/api/insert/babysitter/<token>', methods=['GET', 'POST'])
-def add_message(token):
-  if sessionTokenCheck(token):
+@app.route('/api/insert/babysitter/<token1>/<token2>', methods=['GET', 'POST'])
+def add_message(token1, token2):
+  if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
 
@@ -163,9 +163,9 @@ REVIEW API: get all reviews for a babysitter
 response: list of review string with respective reviewer username
 error: 400, 404 with message
 """
-@app.route('/api/babysitter/<sitter_username>/review/<token>', methods=['GET', 'POST'])
-def get_babysitter_review_list(sitter_username, token):
-  if hashing.Decrypted(token) != True:
+@app.route('/api/babysitter/<sitter_username>/review/<token1>/<token2>', methods=['GET', 'POST'])
+def get_babysitter_review_list(sitter_username, token1, token2):
+  if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
 
@@ -230,9 +230,9 @@ GET response: {INT} average rating of the sitter
 POST response: success message
 error: 400, 404 with message
 """
-@app.route('/api/babysitter/<sitter_username>/rating/<token>', methods=['GET', 'POST'])
-def rating(sitter_username, token):
-  if hashing.Decrypted(token) != True:
+@app.route('/api/babysitter/<sitter_username>/rating/<token1>/<token2>', methods=['GET', 'POST'])
+def rating(sitter_username, token1, token2):
+  if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
 
