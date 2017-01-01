@@ -10,7 +10,7 @@ mainApp.config(['$routeProvider',
     $routeProvider
      .when('/', {
       templateUrl: '/static/partials/map.html',
-      controller: "MapCtrl"
+      controller: "MapController"
      })
      .when('/babysitter/:sitter_username', {
      	templateUrl: '/static/partials/profile.html',
