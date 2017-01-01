@@ -5,22 +5,6 @@ var authApp = angular.module('authApp',
 		'ngCookies',
 	]);
 
-authApp.config(['$routeProvider', function ($routeProvider) {
-	$routeProvider
-		.when('/login', {
-			templateUrl: '/static/partials/login.html',
-			controller: 'LoginController',
-		})
-		.when('/signup', {
-			templateUrl: '/static/partials/signup.html',
-			controller: 'SignupController',
-		})
-		.when('/dashboard', {
-			templateUrl: '/static/partials/dashboard.html',
-			controller: 'DashboardController',
-		});
-}])
-
 // always update global user sesion on refresh, so
 // that we won't lose user session. Also to protect
 // certain pages from unauthorized users

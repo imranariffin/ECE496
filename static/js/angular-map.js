@@ -68,6 +68,9 @@ GMapsApp.config(['$routeProvider',
       templateUrl: '/static/partials/index.html',
       controller: "MapCtrl"
      }).
+     when('/1', {
+      templateUrl: '/static/partials/profile.html',
+     }).
      otherwise({
       redirectTo: '/'
      });
