@@ -103,6 +103,11 @@ ls_babysitters = [{
   },
   "desc": "My son has been a member of Gloria's family since January 2013 and his has thrived in this home based nurturing home daycare environment. Gloria has been an...",
   "url": "http://www.yelp.com/biz/play-n-stay-daycare-toronto?adjust_creative=dWycgaunp1RGGmO0t-TQTw&utm_campaign=yelp_api&utm_medium=api_v2_search&utm_source=dWycgaunp1RGGmO0t-TQTw"
+}, {
+  'username': 'host2',
+  'desc': 'Host with no rating',
+  'host': "Host with no rating",
+  'city': 'Toronto'
 }]
 
 """

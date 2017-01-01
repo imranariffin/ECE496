@@ -23,6 +23,7 @@ response: status: 200, 401, 404
 200: success login
 401: wrong password
 404: user not exist
+409: user is exsiting 
 417: request data doesn't meet expectation
 """
 
@@ -71,6 +72,25 @@ def logout():
   response = {'message': 'success logout'}
   return jsonify(response), status.HTTP_200_OK
 
+
+@app.route("/api/signup", methods = ['POST'])
+def signup():
+  form = request.get_json()
+  
+  if 'username' not in form or 'password' not in form or 'host' not in form:
+    response = {'error_message': 'request data should contain username and password'}
+    return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
+
+  username = form['username']
+  if handle.user.find({'username': username}).count() != 0:
+    response = {'error_message': 'username has been registered'}
+    return jsonify(response), status.HTTP_409_CONFLICT 
+  else:
+    handle.user.insert(form)
+
+  response = {'message': 'success signup'}
+  return jsonify(response), status.HTTP_200_OK
+
 @app.route("/")
 def mainPage():
   return send_file("templates/index.html")
@@ -84,26 +104,32 @@ def city():
 #return all the info or one city
 @app.route('/api/find/babysitter/<name>', methods = ['GET'])
 def getBabysitterInfo(name):
-  if name != None:
+  if name == None:
+    response = {'error_message': 'request data should contain city name'}
+    return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
+  else:
     cursor = handle.babysitter.find( {"city": name} )
     return dumps(cursor)
-  return "Error"
 
 @app.route('/api/insert/babysitter', methods=['GET', 'POST'])
 def add_message():
-  content = request.get_json(silent=True)
+  content = request.get_json()
   username, cityname = content['host'], content['city']
   
   #alternative way to do the and search
   #handle.babysitter.find({ '$and': [{ 'city': { '$eq': cityname }}, {'host': {'$eq': username}}]}).count()
-  if handle.babysitter.find({'city': cityname, 'host': username}).count() == 0:
+  if handle.babysitter.find({'host': username}).count() != 0:
+    response = {'error_message': 'username has been registered'}
+    return jsonify(response), status.HTTP_409_CONFLICT 
+  else:
     #insert new babysitter information in the DB
     handle['babysitter'].insert(content)
 
     #dynamic uploading the babysitter information into the city table
     handle['city'].update({'city': content['city']}, {'$push': {'hoster': content}})
 
-  return "uploading.."
+  response = {'message': 'success insert babysitter records'}
+  return jsonify(response), status.HTTP_200_OK
 
 """
 REVIEW API: get all reviews for a babysitter
@@ -163,6 +189,68 @@ def get_babysitter_review_list(sitter_username):
     return jsonify(response), status.HTTP_400_BAD_REQUEST
 
   response = {"message": "Success post review"}
+  return jsonify(response), status.HTTP_200_OK
+
+"""
+REVIEW API: get all reviews for a babysitter
+expected body: 
+  username: the username of current user (parent)
+  rating: an integer 1-5 for the babysitter
+GET response: {INT} average rating of the sitter
+POST response: success message
+error: 400, 404 with message
+"""
+@app.route('/api/babysitter/<sitter_username>/rating', methods=['GET', 'POST'])
+def rating(sitter_username):
+
+  if handle['babysitter'].find_one({'username': sitter_username}) is None:
+    response = {"err": "babysitter does not exist"}
+    return jsonify(response), status.HTTP_404_NOT_FOUND
+
+  if request.method == 'POST':
+
+    form = request.get_json()
+
+    if 'username' not in form:
+      response = {"err": "should log in"}
+      return jsonify(response), status.HTTP_400_BAD_REQUEST
+
+    if 'rating' not in form:
+      response = {"err": "must give rating"}
+      return jsonify(response), status.HTTP_400_BAD_REQUEST
+
+    currentuser_username = form['username']
+    rating = int(form['rating'])
+
+    if handle['user'].find_one({'username': currentuser_username}) is None:
+      response = {"err": "no such user %s"%currentuser_username}
+      return jsonify(response), status.HTTP_404_NOT_FOUND
+
+    if rating < 1 or rating > 5:
+      response = {"err": "rating should range from 1 to 5"}
+      return jsonify(response), status.HTTP_400_BAD_REQUEST
+
+    # all good, save rating in database
+    handle.babysitter.update_one(
+      {'username': sitter_username},
+      {'$set': {'rating.%s'%currentuser_username: rating}})
+
+    response = {"message": "success rating"}
+    return jsonify(response), status.HTTP_200_OK
+
+  # get average rating
+  res = handle.babysitter.find_one(
+    {'username': sitter_username}, 
+    {'rating': 1, '_id': 0})
+
+  # if no rating, respond with rating of 0
+  if 'rating' not in res:
+    avg_rating = 0
+  else:
+    ratings = res['rating']
+    avg_rating = sum(ratings.values())/len(ratings)
+
+  response = {'rating': avg_rating}
   return jsonify(response), status.HTTP_200_OK
 
 if __name__ == "__main__":
