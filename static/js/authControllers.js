@@ -31,7 +31,8 @@ authApp
 						var currentUser = response.data.user;
 						var sessionToken = response.data.session_token;
 						$cookies.putObject('current-user', currentUser);
-						$cookies.put('session-token', sessionToken);
+						// $cookies.put('session-token', sessionToken);
+						$cookies.put('session-token', 'dummytoken');
 
 						// redirect to map page
 						$window.location.href = '/';
