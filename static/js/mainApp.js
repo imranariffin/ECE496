@@ -7,7 +7,7 @@ var mainApp = angular.module('mainApp',
   ]);
 
 mainApp
-  .controller('MapCtrl', function ($scope, $http, $cookies) {
+  .controller('MapCtrl', function($scope, $http, $cookies) {
     /*
         This controller uses a few map-related variables from map.js
         See at the of of map.js to see their declaration.
@@ -15,21 +15,26 @@ mainApp
         in map.js
     */
 
-    $http.get('/api/city').success(function(data) { 
-      var cities = data; 
-      $scope.cities = cities;
+    var sessionToken1 = $cookies.get('session-token-1');
+    var sessionToken2 = $cookies.get('session-token-2');
 
-      var mapOptions = {
-          zoom: 4,
-          center: new google.maps.LatLng(45.8996835,-95.2071532)
-      }
+    $http
+      .get('/api/city/' + sessionToken1 + '/' + sessionToken2)
+      .success(function(data) { 
+        var cities = data; 
+        $scope.cities = cities;
+
+        var mapOptions = {
+            zoom: 4,
+            center: new google.maps.LatLng(45.8996835,-95.2071532)
+        }
 
 
-      // map = new google.maps.Map(document.getElementById('map'), mapOptions);
-      map = new WorldGoogleMap(mapOptions);
-      
-      for (i = 0; i < cities.length; i++) {
-          map.addCityMarker(createCityMarker(map.gMap, cities[i]));
+        // map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        map = new WorldGoogleMap(mapOptions);
+        
+        for (i = 0; i < cities.length; i++) {
+            map.addCityMarker(createCityMarker(map.gMap, cities[i]));
       }
     });
     
