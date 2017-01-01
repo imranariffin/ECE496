@@ -51,3 +51,19 @@ html, body {
 
 /*rating system*/
 #hearts { color: #ee8b2d;}
+
+/*review form */
+.red{
+    color:red;
+}
+
+.form-area{
+    background-color: #FAFAFA;
+	padding: 10px 40px 10px;
+	margin: 10px 0px 0px;
+}
+
+
+.rating-area{
+	margin:0 auto;
+}
