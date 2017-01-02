@@ -1,0 +1,87 @@
+<div class="container-fluid">
+  <!-- profile picture -->
+  <div class = "row">
+    <div class = "col-xs=12">
+      <img src="../img/profile1.png" class="img-responsive profileImg" alt="Responsive image">
+    </div>
+  </div>
+</div>
+  <!-- user information &  -->
+<div class="container">
+  <div class = "row">
+    <div class = "col-md-3">
+      <img src="http://thetransformedmale.files.wordpress.com/2011/06/bruce-wayne-armani.jpg"
+          alt="" class="userImg img-circle img-responsive">
+              <p>Bruce Wayne</p> 
+                <div> <font size="4">Personal Information</font>
+                  <br/> 
+                  <i class="glyphicon glyphicon-education"></i> 
+                  Education
+                  <br/>
+                   University of Toronto
+                  <br/> 
+                  <br/>
+                  <i class="glyphicon glyphicon-paperclip"></i> 
+                  Working Experience
+                  <br/>
+                  working in SickKids for 8 years
+                  <br/> 
+                  <br/>
+                  <i class="glyphicon glyphicon-map-marker"></i> 
+                  Location
+                  <br/>
+                  Toronto, Ontario
+                  <br/> 
+                  <br/>
+              </div>
+
+
+                <div> <font size="4">Contact Information</font>
+                  <br/> 
+            <i class="glyphicon glyphicon-envelope"></i> 
+            Email
+                  <br/> 
+                  babysitter@gmail.com
+                  <br/>
+                  <br/> 
+                  <i class="glyphicon glyphicon-globe"></i> 
+            Internet
+                  <br/> 
+                  babysitter@gmail.com
+                  <br/>
+                  <br/> 
+                  <i class="glyphicon glyphicon-phone"></i> 
+          Phone number
+                  <br/> 
+                  657-888-9999
+                  <br/>
+                  <br/> 
+              </div>
+    </div>
+
+    <div class = "col-md-9">
+      <!-- Nav tabs -->
+      <div class="card">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="" aria-controls="home" role="tab" data-toggle="tab" ng-click="changeTab('home')">Service</a></li>
+            <li role="presentation"><a href="" aria-controls="profile" role="tab" data-toggle="tab" ng-click="changeTab('profile')">Profile</a></li>
+            <li role="presentation"><a href="" aria-controls="reviews" role="tab" data-toggle="tab" ng-click="changeTab('reviews')">Reviews</a></li>
+            <li role="presentation"><a href="" aria-controls="settings" role="tab" data-toggle="tab" ng-click="changeTab('settings')">Settings</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+<!--           <div role="tabpanel" class="tab-pane active" id="home"></div>
+          <div role="tabpanel" class="tab-pane" id="profile"></div>
+          <div role="tabpanel" class="tab-pane" id="reviews"></div>
+          <div role="tabpanel" class="tab-pane" id="settings"></div> -->
+
+          <profile-home ng-if="tab=='home'" role="tabpanel" class="tab-pane active" id="home"></profile-home>
+          <profile-profile ng-if="tab=='profile'" role="tabpanel" class="tab-pane active" id="profile"></profile-profile>
+          <profile-reviews ng-if="tab=='reviews'" role="tabpanel" class="tab-pane active" id="reviews" ng-controller="ProfileRatingAndReviewController"></profile-reviews>
+          <profile-settings ng-if="tab=='settings'" role="tabpanel" class="tab-pane active" id="settingss"></profile-settings>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

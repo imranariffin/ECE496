@@ -1,5 +1,5 @@
 /*
-  all controllers other than auth controllers are defined here
+  All main controllers should be defined here
 */
 
 function MapController($scope, $http, $cookies) {

@@ -1,0 +1,58 @@
+<div class = "row">
+	<div class="col-md-12">
+		<p>average sitter rating:</p>
+		<span uib-rating ng-model="ratingAvg" max="5" read-only="true" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+		<!-- average star rating -->
+	</div>
+	<div class="col-md-12">
+		<div ng-repeat="(username, review) in reviews" class="row">
+			<p>{{review.username}}:</p>
+			<p>review: {{review.value}}</p>
+		</div>
+	</div>
+              <!-- Contextual button for informational alert messages -->
+  <button type = "button" class = "btn btn-info" data-toggle="modal" data-target="#myModal">Reviews</button>
+            </div>
+            <!-- Modal -->
+
+	<div id="myModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Submit your review</h4>
+	      </div>
+
+	      <div class="modal-body">
+	         <div class="form-area">  
+	          <form role="form">
+	          	<br style="clear:both">
+	          	<h3 style="margin-bottom: 25px; text-align: center;">Rate your Babysitter</h3>
+	            <div class="form-group">
+	              <div class="row lead rating-area">
+	            		<span uib-rating ng-model="rating" max="5" read-only="false" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span><br>
+	                You gave a rating of <span id="count">{{rating}}</span> star(s)
+	          		</div>
+	        		</div>  
+			        <div class="form-group">
+			          <input ng-model="subject" type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+			        </div>
+		          <div class="form-group">
+			        	<textarea ng-model="review" m class="form-control" type="textarea" id="message" placeholder="Message" maxlength="140" rows="7"></textarea>
+			        	<span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                 
+			        </div>
+	        	</form>
+	      </div>
+	    </div>
+
+	      <div class="modal-footer" ng-controller="ProfileSubmitRatingAndReviewController">
+	        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="postRateAndReview()">Submit</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
+</div>

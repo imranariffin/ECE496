@@ -3,7 +3,11 @@
 var mainApp = angular.module('mainApp', 
   [
     'ngRoute',
+    'ui.bootstrap',
     'authApp',
+    'profileApp',
+    'paymentApp',
+    'calendarApp',
   ]);
 
 mainApp

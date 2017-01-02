@@ -1,20 +1,13 @@
 /*
-	all angular routes should be here
+	all angular routes for all apps should be here
 */
 
-/*
-	All routes except for auth routes are handled by GMapsApp
-*/
 mainApp.config(['$routeProvider',
    function($routeProvider) {
     $routeProvider
      .when('/', {
       templateUrl: '/static/partials/map.html',
       controller: "MapController"
-     })
-     .when('/babysitter/:sitter_username', {
-     	templateUrl: '/static/partials/profile.html',
-     	controller: "ProfileController",
      })
      .otherwise({
       redirectTo: '/'
@@ -25,7 +18,7 @@ mainApp.config(['$routeProvider',
 	All routes involving auth are handled by authApp
 */
 authApp.config(['$routeProvider', 
-	function ($routeProvider) {
+	function($routeProvider) {
 		$routeProvider
 			.when('/login', {
 				templateUrl: '/static/partials/login.html',
@@ -40,3 +33,12 @@ authApp.config(['$routeProvider',
 				controller: 'DashboardController',
 			});
 	}]);
+
+profileApp.config(['$routeProvider',
+	function($routeProvider) {
+		$routeProvider
+     .when('/babysitter/:sitter_username', {
+     	templateUrl: '/static/partials/__profile__.html',
+     	controller: "ProfilePageController",
+     });
+}]);
