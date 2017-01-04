@@ -1,291 +1,283 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Profile page</title>
-<!-- Bootstrap core CSS -->
-<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
-
-<link rel="stylesheet" type="text/css" href="../css/style.css">
-
-<!-- jquery -->
-<script type="text/javascript" src="../js/jquery-3.1.0.min.js"></script>
-
-<!-- bootstrap -->
-<script type="text/javascript" src="../js/bootstrap.js"></script>
-
-<!-- rating -->
-<script type="text/javascript" src="../js/rating.js"></script>
-<script type="text/javascript" src="../js/review-form.js"></script>
-</head>
-<body>
-	<div class="container-fluid">
-		<!-- profile picture -->
-		<div class = "row">
-			<div class = "col-xs=12">
-				<img src="../img/profile1.png" class="img-responsive profileImg" alt="Responsive image">
-			</div>
-		</div>
-	</div>
-		<!-- user information &  -->
-	<div class="container">
-		<div class = "row">
-			<div class = "col-md-3">
-				<img src="http://thetransformedmale.files.wordpress.com/2011/06/bruce-wayne-armani.jpg"
-            alt="" class="userImg img-circle img-responsive">
-                <p>Bruce Wayne</p> 
-                	<div> <font size="4">Personal Information</font>
-		                <br/> 
-		                <i class="glyphicon glyphicon-education"></i> 
-		                Education
-		                <br/>
-		                 University of Toronto
-		                <br/> 
-		                <br/>
-		                <i class="glyphicon glyphicon-paperclip"></i> 
-		               	Working Experience
-		               	<br/>
-		               	working in SickKids for 8 years
-		                <br/> 
-		                <br/>
-		                <i class="glyphicon glyphicon-map-marker"></i> 
-		                Location
-		               	<br/>
-		                Toronto, Ontario
-		                <br/> 
-		                <br/>
-            		</div>
-
-
-	                <div> <font size="4">Contact Information</font>
-		                <br/> 
-							<i class="glyphicon glyphicon-envelope"></i> 
-							Email
-		                <br/> 
-		                babysitter@gmail.com
-		               	<br/>
-		                <br/> 
-		                <i class="glyphicon glyphicon-globe"></i> 
-							Internet
-		                <br/> 
-		                babysitter@gmail.com
-		               	<br/>
-		                <br/> 
-		                <i class="glyphicon glyphicon-phone"></i> 
-						Phone number
-		                <br/> 
-		                657-888-9999
-		               	<br/>
-		                <br/> 
-            		</div>
-			</div>
-			<div class = "col-md-9">
-				<!-- Nav tabs -->
-				<div class="card">
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Service</a></li>
-                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-                        <li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Reviews</a></li>
-                        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-                    </ul>
-
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="home">
-                        	<div class = "row panel-content">
-	                        	<!-- basic information -->
-	                        	<div>
-		                        	<p class = "panel-title">About me<p>
-		                        	<div> 
-		                        	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
-		                        	<hr width= "100%">
-	                        	</div>
-								
-								<!-- General Informaion -->
-	                        	<div>
-		                        	<p class = "panel-title">General Informaion<p>
-		                        	<div class = "row"> 
-		                        		<div class = "col-md-6">
-		                        			<i class="glyphicon glyphicon glyphicon-time"></i> 
-		                        			How often
-		                        			<br/> 
-		                        			<span class = "panel-data">Part time</span>
-		                        			<br/>
-		                        			<br/>
-		                        			<i class="glyphicon glyphicon glyphicon-time"></i> 
-		                        			baby age range
-		                        			<br/> 
-		                        			<span class = "panel-data">1 - 5 years old</span>
-		                        			<br/>
-		                        			<br/>
-		                        			<i class="glyphicon glyphicon-home"></i> 
-		                        			Service locations
-		                        			<br/>
-		                        			<span class = "panel-data">Babysitter's house only</span>
-		                        			<br/>
-		                        			<br/>
-		                        		</div>
-		                        		<div class = "col-md-6">
-		                        			<i class="glyphicon glyphicon glyphicon-time"></i> 
-		                        			Pick up service
-		                        			<br/> 
-		                        			<span class = "panel-data">Yes</span>
-		                        			<br/>
-		                        			<br/>
-		                        			<i class="glyphicon glyphicon glyphicon-time"></i> 
-		                        			Speaking language
-		                        			<br/> 
-		                        			<span class = "panel-data">English, Chinese</span>
-		                        			<br/>
-		                        			<br/>
-		                        		</div>
-		                        	</div>
-		                        	<hr width= "100%">
-	                        	</div>
-
-
-	                        	<!-- price Informaion -->
-	                        	<div>
-		                        	<p class = "panel-title">Price<p>
-		                        	<div class = "row"> 
-		                        		<div class = "col-md-6">
-		                        			Hourly Rate: <span class = "panel-data">$30 per Baby</span>
-		                        			<br/>
-		                        			Weekend Hourly Rate: <span class = "panel-data">$40 per Baby</span>
-		                        			<br/>
-		                        			Security Deposit: <span class = "panel-data">$100</span>
-		                        			<br/> 
-		                        		</div>
-		                        		<div class = "col-md-6">
-		                        			20 - 40 hours Discount: <span class = "panel-data">18%</span>
-		                        			<br/>
-		                        			40 hours above Discount: <span class = "panel-data">30%</span>
-		                        			<br/>
-		                        		</div>
-		                        	</div>
-		                        	<hr width= "100%">
-	                        	</div>
-
-
-	                        	<!-- Extra Informaion -->
-	                        	<div>
-		                        	<p class = "panel-title">Extra information<p>
-		                        	<div class = "row"> 
-		                        		<div class = "col-md-6">
-		                        			<i class="glyphicon glyphicon-tag"></i> 
-		                        			<span class = "panel-data">Free parking on premises </span>
-		                        			<br/>
-		                        			<i class="glyphicon glyphicon-tag"></i> 
-		                        			<span class = "panel-data">Wireless Internet</span>
-		                        			<br/>
-		                        			<i class="glyphicon glyphicon-tag"></i> 
-		                        			<span class = "panel-data">Air conditioning</span>
-		                        		</div>
-		                        		<div class = "col-md-6">
-		                        			<i class="glyphicon glyphicon-tag"></i> 
-		                        			<span class = "panel-data">Child education</span>
-		                        			<br/>
-		                        			<i class="glyphicon glyphicon-tag"></i> 
-		                        			<span class = "panel-data">Meal service</span>
-		                        			<br/>
-		                        		</div>
-		                        	</div>
-		                        	<hr width= "100%">
-	                        	</div>
-
-	                        	<!-- basic information -->
-	                        	<div>
-		                        	<p class = "panel-title">Babysitter's policy<p>
-		                        	<div> 
-		                        	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
-		                        	<hr width= "100%">
-	                        	</div>
-
-                        	</div>
-                        </div>
-
-                        <div role="tabpanel" class="tab-pane" id="profile">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
-                        <div role="tabpanel" class="tab-pane" id="reviews">
-                        	<div class = "row">
-                        		<div class = "col-md-4">
-                        			<p>Great babysitter</p>
-                        		</div>
-                        		<div class = "col-md-3">
-                        			<div class="row lead">
-        								<div id="hearts" class="starrr"></div> 
-        								You gave a rating of <span id="count">0</span> star(s)
-									</div>
-                        		</div>
-                        		<div class = "col-md-5">               						
-                        			<p font size="3"  color="grey">Post by Richard on 2016, Dec, 21st</p>
-	                        	</div>
-	                        	<div class = "col-md-12">
-	                        	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-	                        	</div>
-	                        </div>
-	                        <div class = "row">
-	                        	<div class = "col-md-7"> 
-	                        	</div>
-	                        	<div class = "col-md-5">               						
-	                        		<p font size="3"  color="grey">Post by Richard on 2016, Dec, 21st</p>
-	                        	</div>
-	                        	<div class = "col-md-12">
-	                        	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-	                        	</div>
-	                        </div>
-	                        <div class = "row">
-	                        	<div class = "col-md-2  pull-right">
-	                        		<!-- Contextual button for informational alert messages -->
-									<button type = "button" class = "btn btn-info" data-toggle="modal" data-target="#myModal">Reviews</button>
-	                        	</div>
-	                        	<!-- Modal -->
-								<div id="myModal" class="modal fade" role="dialog">
-								  <div class="modal-dialog">
-
-								    <!-- Modal content-->
-								    <div class="modal-content">
-
-								      <div class="modal-header">
-								        <button type="button" class="close" data-dismiss="modal">&times;</button>
-								        <h4 class="modal-title">Submit your review</h4>
-								      </div>
-
-								      <div class="modal-body">
-								         <div class="form-area">  
-									        <form role="form">
-									        <br style="clear:both">
-							                    <h3 style="margin-bottom: 25px; text-align: center;">Rate your Babysitter</h3>
-							                    <div class="form-group">
-								                    <div class="row lead rating-area">
-	        											<div id="hearts" class="starrr"></div> 
-	        											You gave a rating of <span id="count">0</span> star(s)
-													</div>
-												</div>	
-												<div class="form-group">
-													<input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
-												</div>
-							                    <div class="form-group">
-							                    <textarea class="form-control" type="textarea" id="message" placeholder="Message" maxlength="140" rows="7"></textarea>
-							                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
-							                    </div>
-									        </form>
-									    </div>
-									  </div>
-
-								      <div class="modal-footer">
-								        <button type="button" class="btn btn-default" data-dismiss="modal">Submit</button>
-								      </div>
-								    </div>
-
-								  </div>
-								</div>
-	                        </div>
-                    	</div>
-                        <div role="tabpanel" class="tab-pane" id="settings">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passage..</div>
-                    </div>
+	<head>
+		<title>Profile page</title>
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<!-- jquery -->
+		<script type="text/javascript" src="../js/jquery-3.1.0.min.js"></script>
+		<!-- bootstrap -->
+		<script type="text/javascript" src="../js/bootstrap.js"></script>
+		<!-- rating -->
+		<script type="text/javascript" src="../js/rating.js"></script>
+		<script type="text/javascript" src="../js/review-form.js"></script>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<!-- profile picture -->
+			<div class = "row">
+				<div class = "col-xs=12">
+					<img src="../img/profile1.png" class="img-responsive profileImg" alt="Responsive image">
 				</div>
 			</div>
 		</div>
-	</div>
-</body>
+		<!-- user information &  -->
+		<div class="container">
+			<div class = "row">
+				<div class = "col-md-3">
+					<img src="http://thetransformedmale.files.wordpress.com/2011/06/bruce-wayne-armani.jpg"
+						alt="" class="userImg img-circle img-responsive">
+					<p>Bruce Wayne</p>
+					<div> <font size="4">Personal Information</font>
+						<br/> 
+						<i class="glyphicon glyphicon-education"></i> 
+						Education
+						<br/>
+						University of Toronto
+						<br/> 
+						<br/>
+						<i class="glyphicon glyphicon-paperclip"></i> 
+						Working Experience
+						<br/>
+						working in SickKids for 8 years
+						<br/> 
+						<br/>
+						<i class="glyphicon glyphicon-map-marker"></i> 
+						Location
+						<br/>
+						Toronto, Ontario
+						<br/> 
+						<br/>
+					</div>
+					<div> <font size="4">Contact Information</font>
+						<br/> 
+						<i class="glyphicon glyphicon-envelope"></i> 
+						Email
+						<br/> 
+						babysitter@gmail.com
+						<br/>
+						<br/> 
+						<i class="glyphicon glyphicon-globe"></i> 
+						Internet
+						<br/> 
+						babysitter@gmail.com
+						<br/>
+						<br/> 
+						<i class="glyphicon glyphicon-phone"></i> 
+						Phone number
+						<br/> 
+						657-888-9999
+						<br/>
+						<br/> 
+					</div>
+				</div>
+				<div class = "col-md-9">
+					<!-- Nav tabs -->
+					<div class="card">
+						<ul class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Service</a></li>
+							<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+							<li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Reviews</a></li>
+							<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+						</ul>
+						<!-- Tab panes -->
+						<div class="tab-content">
+							<div role="tabpanel" class="tab-pane active" id="home">
+								<div class = "row panel-content">
+									<!-- basic information -->
+									<div>
+										<p class = "panel-title">About me
+										<p>
+										<div> 
+											Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+										</div>
+										<hr width= "100%">
+									</div>
+									<!-- General Informaion -->
+									<div>
+										<p class = "panel-title">General Informaion
+										<p>
+										<div class = "row">
+											<div class = "col-md-6">
+
+												<i class="glyphicon glyphicon glyphicon-time"></i> 
+												How often
+												<br/> 
+												<span class = "panel-data">Part time</span>
+												<br/>
+												<br/>
+												<i class="glyphicon glyphicon glyphicon-time"></i> 
+												Gender
+												<br/> 
+												<span class = "panel-data">Male</span>
+												<br/>
+												<br/>
+												<i class="glyphicon glyphicon glyphicon-time"></i> 
+												baby age range
+												<br/> 
+												<span class = "panel-data">1 - 5 years old</span>
+												<br/>
+												<br/>
+											</div>
+											<div class = "col-md-6">
+												<i class="glyphicon glyphicon-home"></i> 
+												Service locations
+												<br/>
+												<span class = "panel-data">Babysitter's house only</span>
+												<br/>
+												<br/>
+												<i class="glyphicon glyphicon glyphicon-time"></i> 
+												Pick up service
+												<br/> 
+												<span class = "panel-data">Yes</span>
+												<br/>
+												<br/>
+												<i class="glyphicon glyphicon glyphicon-time"></i> 
+												Speaking language
+												<br/> 
+												<span class = "panel-data">English, Chinese</span>
+												<br/>
+												<br/>
+											</div>
+										</div>
+										<hr width= "100%">
+									</div>
+									<!-- price Informaion -->
+									<div>
+										<p class = "panel-title">Price
+										<p>
+										<div class = "row">
+											<div class = "col-md-6">
+												Hourly Rate: <span class = "panel-data">$30 per Baby</span>
+												<br/>
+												Weekend Hourly Rate: <span class = "panel-data">$40 per Baby</span>
+												<br/>
+											</div>
+											<div class = "col-md-6">
+												Security Deposit: <span class = "panel-data">$100</span>
+												<br/> 
+											</div>
+										</div>
+										<hr width= "100%">
+									</div>
+									<!-- Extra Informaion -->
+									<div>
+										<p class = "panel-title">Extra information
+										<p>
+										<div class = "row">
+											<div class = "col-md-6">
+												<i class="glyphicon glyphicon-tag"></i> 
+												<span class = "panel-data">Free parking on premises </span>
+												<br/>
+												<i class="glyphicon glyphicon-tag"></i> 
+												<span class = "panel-data">Wireless Internet</span>
+												<br/>
+												<i class="glyphicon glyphicon-tag"></i> 
+												<span class = "panel-data">Air conditioning</span>
+											</div>
+											<div class = "col-md-6">
+												<i class="glyphicon glyphicon-tag"></i> 
+												<span class = "panel-data">Child education</span>
+												<br/>
+												<i class="glyphicon glyphicon-tag"></i> 
+												<span class = "panel-data">Meal service</span>
+												<br/>
+											</div>
+										</div>
+										<hr width= "100%">
+									</div>
+									<!-- basic information -->
+									<div>
+										<p class = "panel-title">Babysitter's policy
+										<p>
+										<div> 
+											Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+										</div>
+										<hr width= "100%">
+									</div>
+								</div>
+							</div>
+							<div role="tabpanel" class="tab-pane" id="profile">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
+							<div role="tabpanel" class="tab-pane" id="reviews">
+								<div class = "row">
+									<div class = "col-md-4">
+										<p>Great babysitter</p>
+									</div>
+									<div class = "col-md-3">
+										<div class="row lead">
+											<div id="hearts" class="starrr"></div>
+											You gave a rating of <span id="count">0</span> star(s)
+										</div>
+									</div>
+									<div class = "col-md-5">
+										<p font size="3"  color="grey">Post by Richard on 2016, Dec, 21st</p>
+									</div>
+									<div class = "col-md-12">
+										Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+									</div>
+								</div>
+								<div class = "row">
+									<div class = "col-md-7"> 
+									</div>
+									<div class = "col-md-5">
+										<p font size="3"  color="grey">Post by Richard on 2016, Dec, 21st</p>
+									</div>
+									<div class = "col-md-12">
+										Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+									</div>
+								</div>
+								<div class = "row">
+									<div class = "col-md-2  pull-right">
+										<!-- Contextual button for informational alert messages -->
+										<button type = "button" class = "btn btn-info" data-toggle="modal" data-target="#myModal">Reviews</button>
+									</div>
+									<!-- Modal -->
+									<div id="myModal" class="modal fade" role="dialog">
+										<div class="modal-dialog">
+											<!-- Modal content-->
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h4 class="modal-title">Submit your review</h4>
+												</div>
+												<div class="modal-body">
+													<div class="form-area">
+														<form role="form">
+															<br style="clear:both">
+															<h3 style="margin-bottom: 25px; text-align: center;">Rate your Babysitter</h3>
+															<div class="form-group">
+																<div class="row lead rating-area">
+																	<div id="hearts" class="starrr"></div>
+																	You gave a rating of <span id="count">0</span> star(s)
+																</div>
+															</div>
+															<div class="form-group">
+																<input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+															</div>
+															<div class="form-group">
+																<textarea class="form-control" type="textarea" id="message" placeholder="Message" maxlength="140" rows="7"></textarea>
+																<span class="help-block">
+																	<p id="characterLeft" class="help-block ">You have reached the limit</p>
+																</span>
+															</div>
+														</form>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Submit</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div role="tabpanel" class="tab-pane" id="settings">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passage..</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>
