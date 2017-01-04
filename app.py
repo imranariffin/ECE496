@@ -16,10 +16,17 @@ from flask_api import status
 #hashing for token
 import hashing
 
+#for the review system
+import datetime
+
+
 app = Flask(__name__)
 
 #setupDB
 handle = dbsetup.setupDB()
+
+
+
 
 
 """
@@ -158,6 +165,8 @@ def add_message(token1, token2):
   response = {'message': 'success insert babysitter records'}
   return jsonify(response), status.HTTP_200_OK
 
+
+
 """
 REVIEW API: get all reviews for a babysitter
 response: list of review string with respective reviewer username
@@ -179,7 +188,8 @@ def get_babysitter_review_list(sitter_username, token1, token2):
 
     ls_reviews = [{
       'username': parent, 
-      'value': babysitter['review'][parent]['value']
+      'value': babysitter['review'][parent]['value'],
+      "date": babysitter['review'][parent]['date']
     } for parent in babysitter['review']]
 
     return jsonify(ls_reviews), status.HTTP_200_OK
@@ -205,12 +215,15 @@ def get_babysitter_review_list(sitter_username, token1, token2):
   # add current user's review for babysitter
   review = form['review']
   currentuser_username = form['username']
+  #storing current time
+  d = datetime.datetime.now().timetuple()
+  date = {"year": d[0], "month": d[1], "day": d[2]}
 
   # babysitter['review'][currentuser_username] = review
   res = handle['babysitter'].update_one(
       {"username": sitter_username},
       {"$set": {
-        "review.%s"%currentuser_username: {"value": review}
+        "review.%s"%currentuser_username: {"value": review, "date": date}
       }})
 
   if res.matched_count == 0:
