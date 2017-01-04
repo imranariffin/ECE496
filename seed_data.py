@@ -67,7 +67,52 @@ ls_babysitters = [{
     },
   },
   "desc": "As of January 2012, Trust Child Care is under new ownership. As an owner, parent and primary educator I would invite you to please arrange for a tour so...",
-  "url": "http://www.yelp.com/biz/trust-child-care-toronto-2?adjust_creative=dWycgaunp1RGGmO0t-TQTw&utm_campaign=yelp_api&utm_medium=api_v2_search&utm_source=dWycgaunp1RGGmO0t-TQTw"
+  "url": "http://www.yelp.com/biz/trust-child-care-toronto-2?adjust_creative=dWycgaunp1RGGmO0t-TQTw&utm_campaign=yelp_api&utm_medium=api_v2_search&utm_source=dWycgaunp1RGGmO0t-TQTw",
+  
+  "profile":{
+    "basic":{
+        "personal_info": {
+          "display_name": "Imran",
+          "gender":"male",
+          "profile_pic": "xxxxxxxxxxxxxxxxx",
+          "cover_pic": "xxxxxxxxxxxxxxxxxx",
+          "city": {
+            "city":"Toronto",
+            "prov_state": "Ontario",
+          },  
+          "education": "University of Toronto",
+          "experience": "Worked at Sickkids for 8 years",
+        },
+        "contact_info":{
+          "email":"imran123@gmail.com",
+          "phone":"647-888-1234",
+          "website":"www.imran.com",
+        },
+    },
+    "service":{
+      "about":"hi, i am imran. I am an experienced babysitter who has 8 years of experience",
+      "general_info":{
+        "sitter_status":"part-time",
+        "age_range": "5 to 10 years old",
+        "service_location":"babysitter's house only",
+        "pickup":"yes",
+      },
+      "price":{
+        "weekday_hourly": 30.5,
+        "weekend_hourly": 35.5,
+        "security_deposit": 100,
+      },
+      "extra":{
+        "free_parking":True,
+        "wireless_internet":True,
+        "air_condition":True,
+        "child_education":True,
+        "meal":False,
+      },
+      "policy":"no pets allowed",
+    },
+
+  },
 }, 
 {
   "username": "host1",
@@ -102,12 +147,98 @@ ls_babysitters = [{
     },
   },
   "desc": "My son has been a member of Gloria's family since January 2013 and his has thrived in this home based nurturing home daycare environment. Gloria has been an...",
-  "url": "http://www.yelp.com/biz/play-n-stay-daycare-toronto?adjust_creative=dWycgaunp1RGGmO0t-TQTw&utm_campaign=yelp_api&utm_medium=api_v2_search&utm_source=dWycgaunp1RGGmO0t-TQTw"
+  "url": "http://www.yelp.com/biz/play-n-stay-daycare-toronto?adjust_creative=dWycgaunp1RGGmO0t-TQTw&utm_campaign=yelp_api&utm_medium=api_v2_search&utm_source=dWycgaunp1RGGmO0t-TQTw",
+  "profile":{
+    "basic":{
+        "personal_info": {
+          "display_name": "Imran",
+          "gender":"male",
+          "profile_pic": "xxxxxxxxxxxxxxxxx",
+          "cover_pic": "xxxxxxxxxxxxxxxxxx",
+          "city": {
+            "city":"Toronto",
+            "prov_state": "Ontario",
+          },  
+          "education": "University of Toronto",
+          "experience": "Worked at Sickkids for 8 years",
+        },
+        "contact_info":{
+          "email":"imran123@gmail.com",
+          "phone":"647-888-1234",
+          "website":"www.imran.com",
+        },
+    },
+    "service":{
+      "about":"hi, i am imran. I am an experienced babysitter who has 8 years of experience",
+      "general_info":{
+        "sitter_status":"part-time",
+        "age_range": "5 to 10 years old",
+        "service_location":"babysitter's house only",
+        "pickup":"yes",
+      },
+      "price":{
+        "weekday_hourly": 30.5,
+        "weekend_hourly": 35.5,
+        "security_deposit": 100,
+      },
+      "extra":{
+        "free_parking":True,
+        "wireless_internet":True,
+        "air_condition":True,
+        "child_education":True,
+        "meal":False,
+      },
+      "policy":"no pets allowed",
+    },
+  },
 }, {
   'username': 'host2',
   'desc': 'Host with no rating',
   'host': "Host with no rating",
-  'city': 'Toronto'
+  'city': 'Toronto',
+  "profile":{
+    "basic":{
+        "personal_info": {
+          "display_name": "Imran",
+          "gender":"male",
+          "profile_pic": "xxxxxxxxxxxxxxxxx",
+          "cover_pic": "xxxxxxxxxxxxxxxxxx",
+          "city": {
+            "city":"Toronto",
+            "prov_state": "Ontario",
+          },  
+          "education": "University of Toronto",
+          "experience": "Worked at Sickkids for 8 years",
+        },
+        "contact_info":{
+          "email":"imran123@gmail.com",
+          "phone":"647-888-1234",
+          "website":"www.imran.com",
+        },
+    },
+    "service":{
+      "about":"hi, i am imran. I am an experienced babysitter who has 8 years of experience",
+      "general_info":{
+        "sitter_status":"part-time",
+        "age_range": "5 to 10 years old",
+        "service_location":"babysitter's house only",
+        "pickup":"yes",
+      },
+      "price":{
+        "weekday_hourly": 30.5,
+        "weekend_hourly": 35.5,
+        "security_deposit": 100,
+      },
+      "extra":{
+        "free_parking":True,
+        "wireless_internet":True,
+        "air_condition":True,
+        "child_education":True,
+        "meal":False,
+      },
+      "policy":"no pets allowed",
+    },
+  },
 }]
 
 """

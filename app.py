@@ -286,5 +286,34 @@ def rating(sitter_username, token1, token2):
   response = {'rating': avg_rating}
   return jsonify(response), status.HTTP_200_OK
 
+
+# @app.route('/api/testapi', methods=['GET', 'POST'])
+# def testapi():
+#   if request.method == 'POST':
+#     return jsonify({'1': 1}), status.HTTP_200_OK
+#   else:
+#     response = handle.user.find_one({'username': 'imran'})
+#     print response.items()
+#     return jsonify({'2':2}), status.HTTP_200_OK
+
+#GET BABYSITTER PROFILE
+@app.route('/api/babysitter/<sitter_username>/profile/<token1>/<token2>',methods=['GET'])
+def profile_get(sitter_username, token1, token2):
+  if hashing.Decrypted([token1, token2]) != True:
+    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
+    return jsonify(response), status.HTTP_403_FORBIDDEN
+
+  if sitter_username == None:
+    response = {'error_message': 'request data should contain babysitter name'}
+    return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
+
+  elif handle.babysitter.find_one({'username': sitter_username}) is None:
+    response = {"err": "babysitter does not exist"}
+    return jsonify(response), status.HTTP_404_NOT_FOUND
+  else:
+    cursor = handle.babysitter.find_one( {"username": sitter_username},projection={'profile':True,, '_id': False})
+    return dumps(cursor)
+
+
 if __name__ == "__main__":
   app.run(host='0.0.0.0', port=8000)
