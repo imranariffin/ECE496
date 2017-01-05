@@ -117,6 +117,34 @@ function ProfilePageController($scope, $cookies, $routeParams, $http) {
     });
 }
 
-function ProfileServiceController($scope) {;}
+function ProfileServiceController($scope, $http, $cookies, $routeParams) {
+  $scope.sitterProfile = null;
+  $scope.errorMessage = null;
+
+  var profileApiUrl = '/api/babysitter/' + 
+    $routeParams.sitter_username + '/profile/' +
+    $cookies.get('session-token-1') + '/' + 
+    $cookies.get('session-token-2');
+
+  $http
+    .get(profileApiUrl)
+    .then(function(response) {
+      $scope.profile = response.data.profile;
+
+      // for shorter lookup in html
+      $scope.general_info = response.data.profile.service.general_info;
+      $scope.price = response.data.profile.service.price;
+      $scope.extra = response.data.profile.service.extra;
+      $scope.personal_info = response.data.profile.basic.personal_info;
+      $scope.contact_info = response.data.profile.basic.contact_info;
+      $scope.languages = $scope.personal_info.languages.join(", ");
+      $scope.policy = response.data.profile.service.policy;
+    })
+    .catch(function(errorResponse) {
+      $scope.errorMessage = errorResponse;
+      console.log(errorResponse);
+    });
+}
+
 function ProfileProfileController($scope) {;}
 function ProfileSettingsController($scope) {;}

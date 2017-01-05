@@ -2,35 +2,35 @@
   <!-- profile picture -->
   <div class = "row">
     <div class = "col-xs=12">
-      <img src="../img/profile1.png" class="img-responsive profileImg" alt="Responsive image">
+      <img src="{{personal_info.profile_pic}}" class="img-responsive profileImg" alt="Responsive image">
     </div>
   </div>
 </div>
   <!-- user information &  -->
 <div class="container">
   <div class = "row">
-    <div class = "col-md-3">
-      <img src="http://thetransformedmale.files.wordpress.com/2011/06/bruce-wayne-armani.jpg"
+    <div class = "col-md-3" ng-controller="ProfileServiceController">
+      <img src="{{personal_info.cover_pic}}"
           alt="" class="userImg img-circle img-responsive">
-              <p>Bruce Wayne</p> 
+              <p>{{personal_info.display_name}}</p> 
                 <div> <font size="4">Personal Information</font>
                   <br/> 
                   <i class="glyphicon glyphicon-education"></i> 
                   Education
                   <br/>
-                   University of Toronto
+                   {{personal_info.education}}
                   <br/> 
                   <br/>
                   <i class="glyphicon glyphicon-paperclip"></i> 
                   Working Experience
                   <br/>
-                  working in SickKids for 8 years
+                  {{personal_info.experience}}
                   <br/> 
                   <br/>
                   <i class="glyphicon glyphicon-map-marker"></i> 
                   Location
                   <br/>
-                  Toronto, Ontario
+                  {{personal_info.city.city}}, {{personal_info.city.prov_state}}
                   <br/> 
                   <br/>
               </div>
@@ -41,19 +41,19 @@
             <i class="glyphicon glyphicon-envelope"></i> 
             Email
                   <br/> 
-                  babysitter@gmail.com
+                  {{contact_info.email}}
                   <br/>
                   <br/> 
                   <i class="glyphicon glyphicon-globe"></i> 
             Internet
                   <br/> 
-                  babysitter@gmail.com
+                  {{contact_info.website}}
                   <br/>
                   <br/> 
                   <i class="glyphicon glyphicon-phone"></i> 
           Phone number
                   <br/> 
-                  657-888-9999
+                  {{contact_info.phone}}
                   <br/>
                   <br/> 
               </div>
@@ -76,7 +76,7 @@
           <div role="tabpanel" class="tab-pane" id="reviews"></div>
           <div role="tabpanel" class="tab-pane" id="settings"></div> -->
 
-          <profile-home ng-if="tab=='home'" role="tabpanel" class="tab-pane active" id="home"></profile-home>
+          <profile-home ng-if="tab=='home'" role="tabpanel" class="tab-pane active" id="home" ng-controller="ProfileServiceController"></profile-home>
           <profile-profile ng-if="tab=='profile'" role="tabpanel" class="tab-pane active" id="profile"></profile-profile>
           <profile-reviews ng-if="tab=='reviews'" role="tabpanel" class="tab-pane active" id="reviews" ng-controller="ProfileRatingAndReviewController"></profile-reviews>
           <profile-settings ng-if="tab=='settings'" role="tabpanel" class="tab-pane active" id="settingss"></profile-settings>
