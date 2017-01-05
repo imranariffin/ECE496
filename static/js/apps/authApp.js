@@ -23,12 +23,12 @@ authApp
 authApp.run(function($rootScope, $cookies, $location, $http) {
 
   // list all the restricted pages here
-  var restrictedPages = new Set(['/', '/dashboard']);
+  var publicPages = new Set(['/signup', '/login']);
 
   $rootScope.$on('$locationChangeStart', function(event, next, current) {
     var currentPath = $location.path();
     // restric access to certain pages
-    if (restrictedPages.has(currentPath)) {
+    if (!publicPages.has(currentPath)) {
       // redirect to login page if not logged in
       // if (!$rootScope.currentUser) {
       if (!$cookies.get('session-token-1' || !$cookies.get('session-token-2'))) {

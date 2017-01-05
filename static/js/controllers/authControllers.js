@@ -25,11 +25,11 @@ function LoginController($scope, $http, $cookies, $window) {
 				// session is saved on backend
 
 				// save sessionToken and user on cookies
-				var currentUser = response.data.user;
+				var username = response.data.user;
 				var sessionToken1 = response.data.session_token[0];
 				var sessionToken2 = response.data.session_token[1];
 
-				$cookies.putObject('current-user', currentUser);
+				$cookies.put('current-user', username);
 				$cookies.put('session-token-1', sessionToken1);
 				$cookies.put('session-token-2', sessionToken2);
 
@@ -86,7 +86,7 @@ function SignupController($scope, $http, $cookies, $window) {
 				var sessionToken1 = response.data.session_token[0];
 				var sessionToken2 = response.data.session_token[1];
 
-				$cookies.putObject('current-user', currentUser);
+				$cookies.put('current-user', currentUser);
 				$cookies.put('session-token-1', sessionToken1);
 				$cookies.put('session-token-2', sessionToken2);
 
@@ -137,9 +137,9 @@ function LogoutController($scope, $http, $cookies, $window) {
 }
 
 function AuthNavbarController($scope, $cookies) {
-	$scope.currentUser = $cookies.getObject('current-user');
+	$scope.currentUser = $cookies.get('current-user');
 }
 
 function DashboardController($scope, $cookies) {
-			$scope.currentUser = $cookies.currentUser;
+	$scope.currentUser = $cookies.currentUser;
 }
