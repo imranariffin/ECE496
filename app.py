@@ -101,15 +101,24 @@ def signup():
 
   username = form['username']
   password = form['password']
+  host = form['host']
   if handle.user.find({'username': username}).count() != 0:
     response = {'error_message': 'username has been registered'}
     return jsonify(response), status.HTTP_409_CONFLICT 
   else:
-    handle.user.insert(form)
+    user_info = {
+      'username': username,
+      'password': password,
+      'host': host
+    }
+    handle.user.insert(user_info)
 
+  #Check if the user is a babysitter
+  if form['host'].lower() == "true":
+    profile_fillup(form)
   response = {
     'message': 'success signup',
-    'session_token': hashing.Encrypted(username+password)
+    'session_token': hashing.Encrypted(username+password),
   }
   return jsonify(response), status.HTTP_200_OK
 
@@ -307,14 +316,6 @@ def rating(sitter_username, token1, token2):
   return jsonify(response), status.HTTP_200_OK
 
 
-# @app.route('/api/testapi', methods=['GET', 'POST'])
-# def testapi():
-#   if request.method == 'POST':
-#     return jsonify({'1': 1}), status.HTTP_200_OK
-#   else:
-#     response = handle.user.find_one({'username': 'imran'})
-#     print response.items()
-#     return jsonify({'2':2}), status.HTTP_200_OK
 
 #GET BABYSITTER PROFILE
 @app.route('/api/babysitter/<sitter_username>/profile/<token1>/<token2>',methods=['GET'])
@@ -333,6 +334,22 @@ def profile_get(sitter_username, token1, token2):
   else:
     cursor = handle.babysitter.find_one( {"username": sitter_username},projection={'profile':True, '_id': False})
     return dumps(cursor)
+
+
+#HELPER FUNCTIONS
+#this function is called when first signed up as a babysitter
+def profile_fillup(form):
+  username = form['username']
+  if 'profile' not in form:
+    response = {'error_message': 'request data should contain babysitter profile'}
+    return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
+  profile = form['profile']
+  sitter = {
+    'username':username,
+    'profile':profile
+  }
+  handle.babysitter.insert(sitter)
+  return sitter
 
 
 if __name__ == "__main__":
