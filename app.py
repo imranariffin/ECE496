@@ -120,11 +120,11 @@ def signup():
     }
     handle.user.insert(user_info)
 
-  response = {
-    'message': 'success signup',
-    'session_token': hashing.Encrypted(username+password),
-  }
-  return jsonify(response), status.HTTP_200_OK
+    response = {
+      'message': 'success signup',
+      'session_token': hashing.Encrypted(username+password),
+    }
+    return jsonify(response), status.HTTP_200_OK
 
 @app.route("/")
 def mainPage():
