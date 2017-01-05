@@ -189,7 +189,8 @@ def get_babysitter_review_list(sitter_username, token1, token2):
     ls_reviews = [{
       'username': parent, 
       'value': babysitter['review'][parent]['value'],
-      "date": babysitter['review'][parent]['date']
+      "date": babysitter['review'][parent]['date'],
+      "title": babysitter['review'][parent]['title'],
     } for parent in babysitter['review']]
 
     return jsonify(ls_reviews), status.HTTP_200_OK
@@ -207,6 +208,11 @@ def get_babysitter_review_list(sitter_username, token1, token2):
     response = {"err": "Review should not be empty"}
     return jsonify(response), status.HTTP_400_BAD_REQUEST
 
+  if 'title' not in form or form['title'] == "":
+    # error, review should not be empty
+    response = {"err": "Review title should not be empty"}
+    return jsonify(response), status.HTTP_400_BAD_REQUEST
+
   if handle['user'].find_one({'username': form['username']}) is None:
     # error, user should exist
     response = {"err": "user does not exist"}
@@ -215,6 +221,7 @@ def get_babysitter_review_list(sitter_username, token1, token2):
   # add current user's review for babysitter
   review = form['review']
   currentuser_username = form['username']
+  title = form['title']
   #storing current time
   d = datetime.datetime.now().timetuple()
   date = {"year": d[0], "month": d[1], "day": d[2]}
@@ -223,7 +230,7 @@ def get_babysitter_review_list(sitter_username, token1, token2):
   res = handle['babysitter'].update_one(
       {"username": sitter_username},
       {"$set": {
-        "review.%s"%currentuser_username: {"value": review, "date": date}
+        "review.%s"%currentuser_username: {"value": review, "date": date, "title": title}
       }})
 
   if res.matched_count == 0:
