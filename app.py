@@ -344,6 +344,10 @@ def profile_fillup(form):
     response = {'error_message': 'request data should contain babysitter profile'}
     return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
   profile = form['profile']
+  if 'basic' not in profile or 'service' not in profile:
+    
+  else
+
   sitter = {
     'username':username,
     'profile':profile
