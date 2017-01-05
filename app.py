@@ -324,7 +324,7 @@ def profile_get(sitter_username, token1, token2):
     response = {"err": "babysitter does not exist"}
     return jsonify(response), status.HTTP_404_NOT_FOUND
   else:
-    cursor = handle.babysitter.find_one( {"username": sitter_username},projection={'profile':True,, '_id': False})
+    cursor = handle.babysitter.find_one( {"username": sitter_username},projection={'profile':True, '_id': False})
     return dumps(cursor)
 
 
