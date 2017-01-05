@@ -106,6 +106,13 @@ def signup():
     response = {'error_message': 'username has been registered'}
     return jsonify(response), status.HTTP_409_CONFLICT 
   else:
+    #Check if the user is a babysitter
+    if form['host'].lower() == "true":
+      success,err=profile_fillup(form)
+      if not success:
+        return jsonify(err), status.HTTP_417_EXPECTATION_FAILED
+    
+    #Insert user credentials
     user_info = {
       'username': username,
       'password': password,
@@ -113,9 +120,6 @@ def signup():
     }
     handle.user.insert(user_info)
 
-  #Check if the user is a babysitter
-  if form['host'].lower() == "true":
-    profile_fillup(form)
   response = {
     'message': 'success signup',
     'session_token': hashing.Encrypted(username+password),
@@ -342,18 +346,21 @@ def profile_fillup(form):
   username = form['username']
   if 'profile' not in form:
     response = {'error_message': 'request data should contain babysitter profile'}
-    return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
+    return False, response
   profile = form['profile']
   if 'basic' not in profile or 'service' not in profile:
-    
-  else
+    response = {'error_message': 'profile should contain basic and service information'}
+    return False, response
+  if 'personal_info' not in profile['basic'] or 'contact_info' not in profile['basic']:
+    response = {'error_message': 'basic profile should contain personal and contact information'}
+    return False, response
 
   sitter = {
     'username':username,
     'profile':profile
   }
   handle.babysitter.insert(sitter)
-  return sitter
+  return True, "Success"
 
 
 if __name__ == "__main__":
