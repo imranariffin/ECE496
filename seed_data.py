@@ -57,14 +57,17 @@ ls_babysitters = [{
   },
   "review": {
     "richard": {
+      "title": "Not Happy",
       "value": "My kids are not happy with him",
       "date": {'month': 6, 'day': 14, 'year': 2014} 
     },
     "parent1": {
+      "title": "Sad",
       "value": "My kids are very sad under his care",
       "date": {'month': 5, 'day': 14, 'year': 2015} 
     },
     "parent2": {
+      "title": "Dislike",
       "value": "My kid dislikes staying here",
       "date": {'month': 8, 'day': 24, 'year': 2013} 
     },
@@ -85,6 +88,12 @@ ls_babysitters = [{
           },  
           "education": "University of Toronto",
           "experience": "Worked at Sickkids for 8 years",
+          "languages": [
+            "English",
+            "Malay",
+            "Japanese",
+            "Arabic"
+          ]
         },
         "contact_info":{
           "email":"imran123@gmail.com",
@@ -140,14 +149,17 @@ ls_babysitters = [{
   },
   "review": {
     "richard": {
+      "title": "Not Happy",
       "value": "My kids are not happy with him",
       "date": {'month': 6, 'day': 14, 'year': 2014} 
     },
     "parent1": {
+      "title": "Sad",
       "value": "My kids are very sad under his care",
       "date": {'month': 5, 'day': 14, 'year': 2015} 
     },
     "parent2": {
+      "title": "Dislike",
       "value": "My kid dislikes staying here",
       "date": {'month': 8, 'day': 24, 'year': 2013} 
     },
@@ -157,7 +169,7 @@ ls_babysitters = [{
   "profile":{
     "basic":{
         "personal_info": {
-          "display_name": "Imran",
+          "display_name": "Host 1",
           "gender":"male",
           "profile_pic": "xxxxxxxxxxxxxxxxx",
           "cover_pic": "xxxxxxxxxxxxxxxxxx",
@@ -167,6 +179,9 @@ ls_babysitters = [{
           },  
           "education": "University of Toronto",
           "experience": "Worked at Sickkids for 8 years",
+          "languages": [
+            "French"
+          ],
         },
         "contact_info":{
           "email":"imran123@gmail.com",
@@ -205,7 +220,7 @@ ls_babysitters = [{
   "profile":{
     "basic":{
         "personal_info": {
-          "display_name": "Imran",
+          "display_name": "Host 2",
           "gender":"male",
           "profile_pic": "xxxxxxxxxxxxxxxxx",
           "cover_pic": "xxxxxxxxxxxxxxxxxx",
@@ -215,6 +230,10 @@ ls_babysitters = [{
           },  
           "education": "University of Toronto",
           "experience": "Worked at Sickkids for 8 years",
+          "languages": [
+            "English",
+            "Mandarin"
+          ]
         },
         "contact_info":{
           "email":"imran123@gmail.com",
