@@ -337,7 +337,30 @@ def profile_get(sitter_username, token1, token2):
     return jsonify(response), status.HTTP_404_NOT_FOUND
   else:
     cursor = handle.babysitter.find_one( {"username": sitter_username},projection={'profile':True, '_id': False})
-    return dumps(cursor)
+    return dumps(cursor), status.HTTP_200_OK
+
+#EDIT BABYSITTER PROFILE
+@app.route('/api/babysitter/<sitter_username>/profile/edit/<token1>/<token2>',methods=['POST'])
+def profile_edit(sitter_username, token1, token2):
+  form = request.get_json()
+  profile = form['profile']
+  if hashing.Decrypted([token1, token2]) != True:
+    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
+    return jsonify(response), status.HTTP_403_FORBIDDEN
+
+  if sitter_username == None:
+    response = {'error_message': 'request data should contain babysitter name'}
+    return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
+
+  elif handle.babysitter.find_one({'username': sitter_username}) is None:
+    response = {"err": "babysitter does not exist"}
+    return jsonify(response), status.HTTP_404_NOT_FOUND
+  else:
+    handle.babysitter.update_one(
+      {'username': sitter_username},
+      {'$set': {'profile': profile}})
+    cursor = handle.babysitter.find_one( {"username": sitter_username},projection={'profile':True, '_id': False})
+    return dumps(cursor), status.HTTP_200_OK
 
 
 #HELPER FUNCTIONS
@@ -347,6 +370,11 @@ def profile_fillup(form):
   if 'profile' not in form:
     response = {'error_message': 'request data should contain babysitter profile'}
     return False, response
+  
+  if handle.babysitter.find({'username': username}).count() != 0:
+    response = {'error_message': 'Babysitter already exists!'}
+    return False, response
+  
   profile = form['profile']
   if 'basic' not in profile or 'service' not in profile:
     response = {'error_message': 'profile should contain basic and service information'}
