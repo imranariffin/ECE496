@@ -101,17 +101,30 @@ def signup():
 
   username = form['username']
   password = form['password']
+  host = form['host']
   if handle.user.find({'username': username}).count() != 0:
     response = {'error_message': 'username has been registered'}
     return jsonify(response), status.HTTP_409_CONFLICT 
   else:
-    handle.user.insert(form)
+    #Check if the user is a babysitter
+    if form['host'].lower() == "true":
+      success,err=profile_fillup(form)
+      if not success:
+        return jsonify(err), status.HTTP_417_EXPECTATION_FAILED
+    
+    #Insert user credentials
+    user_info = {
+      'username': username,
+      'password': password,
+      'host': host
+    }
+    handle.user.insert(user_info)
 
-  response = {
-    'message': 'success signup',
-    'session_token': hashing.Encrypted(username+password)
-  }
-  return jsonify(response), status.HTTP_200_OK
+    response = {
+      'message': 'success signup',
+      'session_token': hashing.Encrypted(username+password),
+    }
+    return jsonify(response), status.HTTP_200_OK
 
 @app.route("/")
 def mainPage():
@@ -307,14 +320,6 @@ def rating(sitter_username, token1, token2):
   return jsonify(response), status.HTTP_200_OK
 
 
-# @app.route('/api/testapi', methods=['GET', 'POST'])
-# def testapi():
-#   if request.method == 'POST':
-#     return jsonify({'1': 1}), status.HTTP_200_OK
-#   else:
-#     response = handle.user.find_one({'username': 'imran'})
-#     print response.items()
-#     return jsonify({'2':2}), status.HTTP_200_OK
 
 #GET BABYSITTER PROFILE
 @app.route('/api/babysitter/<sitter_username>/profile/<token1>/<token2>',methods=['GET'])
@@ -333,6 +338,29 @@ def profile_get(sitter_username, token1, token2):
   else:
     cursor = handle.babysitter.find_one( {"username": sitter_username},projection={'profile':True, '_id': False})
     return dumps(cursor)
+
+
+#HELPER FUNCTIONS
+#this function is called when first signed up as a babysitter
+def profile_fillup(form):
+  username = form['username']
+  if 'profile' not in form:
+    response = {'error_message': 'request data should contain babysitter profile'}
+    return False, response
+  profile = form['profile']
+  if 'basic' not in profile or 'service' not in profile:
+    response = {'error_message': 'profile should contain basic and service information'}
+    return False, response
+  if 'personal_info' not in profile['basic'] or 'contact_info' not in profile['basic']:
+    response = {'error_message': 'basic profile should contain personal and contact information'}
+    return False, response
+
+  sitter = {
+    'username':username,
+    'profile':profile
+  }
+  handle.babysitter.insert(sitter)
+  return True, "Success"
 
 
 if __name__ == "__main__":
