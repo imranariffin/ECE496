@@ -1,0 +1,52 @@
+        <div class="container">
+           
+            <header>
+                <h1>Signup</h1>
+                <link rel="stylesheet" type="text/css" href="static/css/signup.css">
+            </header>
+            <section>               
+                <div id="container_demo">
+                    <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
+                    <a class="hiddenanchor" id="toregister"></a>
+                    <a class="hiddenanchor" id="tologin"></a>
+                    <div id="wrapper">
+                        <div id="login" class="animate form" ng-controller="SignupController">
+                            <form  ng-submit="signup(credentials)" autocomplete="on"> 
+                                <h1> Sign up </h1> 
+                                <p> 
+                                    <label for="usernamesignup" class="uname" >Your username</label>
+                                    <input ng-model="credentials.username" id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="mysuperusername690" />
+                                </p>
+                                <p> 
+                                    <label for="emailsignup" class="youmail"  > Your email</label>
+                                    <input ng-model="credentials.email" id="emailsignup" name="emailsignup" required="required" type="email" placeholder="mysupermail@mail.com"/> 
+                                </p>
+                                <p> 
+                                    <label for="passwordsignup" class="youpasswd" >Your password </label>
+                                    <input ng-model="credentials.password" id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                                </p>
+                                <p> 
+                                    <label for="passwordsignup_confirm" class="youpasswd" >Please confirm your password </label>
+                                    <input ng-model="credentials.confirmPassword" id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                                </p>
+                                <p>
+                                    <label for="passwordsignup_confirm" class="youpasswd" >Please select your status </label>
+                                    <select ng-model="credentials.host" id="sel1">
+                                        <option>parent</option>
+                                        <option>babysitter</option>
+                                    </select>
+                                </p>
+
+                                <p class="signin button"> 
+                                    <input type="submit" value="Sign up"/> 
+                                </p>
+                                <p class="change_link">  
+                                    Already a member ?
+                                    <a href="/#/login" class="to_register"> Go and log in </a>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>  
+            </section>
+        </div>

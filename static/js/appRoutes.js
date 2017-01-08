@@ -21,11 +21,11 @@ authApp.config(['$routeProvider',
 	function($routeProvider) {
 		$routeProvider
 			.when('/login', {
-				templateUrl: '/static/partials/login.html',
+				templateUrl: '/static/partials/__login__.html',
 				controller: 'LoginController',
 			})
 			.when('/signup', {
-				templateUrl: '/static/partials/signup.html',
+				templateUrl: '/static/partials/__signup__.html',
 				controller: 'SignupController',
 			})
 			.when('/dashboard', {

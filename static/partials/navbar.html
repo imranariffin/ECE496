@@ -1,0 +1,32 @@
+<nav class="navbar navbar-default navbar-fixed-top" ng-controller="AuthNavbarController">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Project name</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+      <form class="navbar-form navbar-left" ng-controller="MapController">
+        <select ng-model="cityProfile" class="form-control"  id="selectCity"  ng-options="city.city for city in cities" ng-change="changeCity()"> 
+            <option value="">Search By City</option>
+        </select>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-if="!currentUser"><a href="/#/signup">Signup</a></li>
+        <li ng-if="!currentUser"><a href="/#/login">Login</a></li>
+        <li ng-if="currentUser"><a href="/#/dashboard">{{ currentUser.username }}</a></li>
+        <li ng-if="currentUser" ng-controller="LogoutController"><a href="" ng-click="logout()">Logout</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
