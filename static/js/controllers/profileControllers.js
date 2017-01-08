@@ -6,7 +6,7 @@ function ProfileRatingAndReviewController($scope, $http, $cookies, $routeParams)
   $scope.errorMessage = null;
   $scope.reviews = null;
   $scope.ratings = null;
-  $scope.subject = "";
+  $scope.title = "";
   $scope.rating = 0;
   $scope.review = "";
 
@@ -81,7 +81,7 @@ function ProfileSubmitRatingAndReviewController($scope, $http, $cookies, $routeP
 
     $http
       .post(reviewApiUrl, {
-        subject: $scope.subject,
+        title: $scope.title,
         review: $scope.review,
         username: $cookies.get('current-user'),
       })

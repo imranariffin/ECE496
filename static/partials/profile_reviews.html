@@ -1,15 +1,23 @@
 <div class = "row">
 	<div class="col-md-12">
-		<p>average sitter rating:</p>
 		<span uib-rating ng-model="ratingAvg" max="5" read-only="true" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
-		<!-- average star rating -->
 	</div>
-	<div class="col-md-12">
-		<div ng-repeat="(username, review) in reviews" class="row">
-			<p>{{review.username}}:</p>
-			<p>review: {{review.value}}</p>
-		</div>
+</div>
+<div ng-repeat="(index, review) in reviews" class="row">
+	<div class = "col-md-4">
+		<p>{{review.title}}</p>
 	</div>
+	<div class = "col-md-3">
+	</div>
+	<div class = "col-md-5">
+		<p font size="3"  color="grey">Post by {{review.username}} on {{review.date.year}}, {{review.date.month}}, {{review.date.day}}</p>
+	</div>
+	<div class = "col-md-12">
+		{{review.value}}
+	</div>
+</div>
+
+
               <!-- Contextual button for informational alert messages -->
   <button type = "button" class = "btn btn-info" data-toggle="modal" data-target="#myModal">Reviews</button>
             </div>
@@ -38,7 +46,7 @@
 	          		</div>
 	        		</div>  
 			        <div class="form-group">
-			          <input ng-model="subject" type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+			          <input ng-model="title" type="text" class="form-control" id="title" name="title" placeholder="Title" required>
 			        </div>
 		          <div class="form-group">
 			        	<textarea ng-model="review" m class="form-control" type="textarea" id="message" placeholder="Message" maxlength="140" rows="7"></textarea>
