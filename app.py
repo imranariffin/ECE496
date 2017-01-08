@@ -106,12 +106,11 @@ def signup():
     response = {'error_message': 'username has been registered'}
     return jsonify(response), status.HTTP_409_CONFLICT 
   else:
-    #Check if the user is a babysitter
-    if form['host'].lower() == "true":
-      success,err=profile_fillup(form)
-      if not success:
-        return jsonify(err), status.HTTP_417_EXPECTATION_FAILED
-    
+    if form['host'].lower() == "parent":
+      form['host'] = False
+    else:
+      form['host'] = True
+      
     #Insert user credentials
     user_info = {
       'username': username,
