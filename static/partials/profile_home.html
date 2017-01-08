@@ -2,46 +2,53 @@
   <!-- basic information -->
   <div>
     <p class = "panel-title">About me<p>
-    <div> 
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
+    <div>
+      {{profile.service.about}}
+    </div>
     <hr width= "100%">
   </div>
 
 <!-- General Informaion -->
   <div>
-    <p class = "panel-title">General Informaion<p>
+    <p class = "panel-title">General Information<p>
     <div class = "row"> 
       <div class = "col-md-6">
         <i class="glyphicon glyphicon glyphicon-time"></i> 
         How often
         <br/> 
-        <span class = "panel-data">Part time</span>
+        <span class = "panel-data">{{general_info.sitter_status}}</span>
+        <br/>
+        <br/>
+        <i class="glyphicon glyphicon glyphicon-time"></i> 
+        Gender
+        <br/> 
+        <span class = "panel-data">{{general_info.gender}}</span>
         <br/>
         <br/>
         <i class="glyphicon glyphicon glyphicon-time"></i> 
         baby age range
         <br/> 
-        <span class = "panel-data">1 - 5 years old</span>
-        <br/>
-        <br/>
-        <i class="glyphicon glyphicon-home"></i> 
-        Service locations
-        <br/>
-        <span class = "panel-data">Babysitter's house only</span>
+        <span class = "panel-data">{{general_info.age_range}}</span>
         <br/>
         <br/>
       </div>
       <div class = "col-md-6">
+        <i class="glyphicon glyphicon-home"></i> 
+        Service locations
+        <br/>
+        <span class = "panel-data">{{general_info.service_location}}</span>
+        <br/>
+        <br/>
         <i class="glyphicon glyphicon glyphicon-time"></i> 
         Pick up service
         <br/> 
-        <span class = "panel-data">Yes</span>
+        <span class = "panel-data">{{general_info.pickup}}</span>
         <br/>
         <br/>
         <i class="glyphicon glyphicon glyphicon-time"></i> 
         Speaking language
         <br/> 
-        <span class = "panel-data">English, Chinese</span>
+        <span class = "panel-data">{{languages}}</span>
         <br/>
         <br/>
       </div>
@@ -52,21 +59,18 @@
 
   <!-- price Informaion -->
   <div>
-    <p class = "panel-title">Price<p>
-    <div class = "row"> 
+    <p class = "panel-title">Price
+    <p>
+    <div class = "row">
       <div class = "col-md-6">
-        Hourly Rate: <span class = "panel-data">$30 per Baby</span>
+        Hourly Rate: <span class = "panel-data">${{price.weekday_hourly}} per Baby</span>
         <br/>
-        Weekend Hourly Rate: <span class = "panel-data">$40 per Baby</span>
+        Weekend Hourly Rate: <span class = "panel-data">${{price.weekend_hourly}} per Baby</span>
         <br/>
-        Security Deposit: <span class = "panel-data">$100</span>
-        <br/> 
       </div>
       <div class = "col-md-6">
-        20 - 40 hours Discount: <span class = "panel-data">18%</span>
-        <br/>
-        40 hours above Discount: <span class = "panel-data">30%</span>
-        <br/>
+        Security Deposit: <span class = "panel-data">${{price.security_deposit}}</span>
+        <br/> 
       </div>
     </div>
     <hr width= "100%">
@@ -77,22 +81,33 @@
   <div>
     <p class = "panel-title">Extra information<p>
     <div class = "row"> 
+<!--       <div ng-repeat="(key, value) in extra" class="col-md-6">
+        <div ng-if="1">
+          <i class="glyphicon glyphicon-tag"></i>
+          <span class = "panel-data">Free parking on premises</span>
+        </div>
+      </div> -->
       <div class = "col-md-6">
         <i class="glyphicon glyphicon-tag"></i> 
-        <span class = "panel-data">Free parking on premises </span>
+        <span ng-if="extra.free_parking" class = "panel-data">Free parking on premises</span>
+        <span ng-if="!extra.free_parking" class = "panel-data"><del> Free parking on premises</del></span>
         <br/>
         <i class="glyphicon glyphicon-tag"></i> 
-        <span class = "panel-data">Wireless Internet</span>
+        <span ng-if="extra.wireless_internet" class = "panel-data">Wireless Internet</span>
+        <span ng-if="!extra.wireless_internet" class = "panel-data"><del>Wireless Internet</del></span>
         <br/>
         <i class="glyphicon glyphicon-tag"></i> 
-        <span class = "panel-data">Air conditioning</span>
+        <span ng-if="extra.air_condition" class = "panel-data">Air conditioning</span>
+        <span ng-if="!extra.air_condition" class = "panel-data"><del>Air conditioning</del></span>
       </div>
       <div class = "col-md-6">
         <i class="glyphicon glyphicon-tag"></i> 
-        <span class = "panel-data">Child education</span>
+        <span ng-if="extra.child_education" class = "panel-data">Child education</span>
+        <span ng-if="!extra.child_education" class = "panel-data"><del>Child education</del></span>
         <br/>
         <i class="glyphicon glyphicon-tag"></i> 
-        <span class = "panel-data">Meal service</span>
+        <span ng-if="extra.meal" class = "panel-data">Meal service</span>
+        <span ng-if="!extra.meal" class = "panel-data"><del>Meal service</del></span>
         <br/>
       </div>
     </div>
@@ -103,7 +118,8 @@
   <div>
     <p class = "panel-title">Babysitter's policy<p>
     <div> 
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
+      {{policy}}
+    </div>
     <hr width= "100%">
   </div>
 
