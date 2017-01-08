@@ -80,8 +80,8 @@ ls_babysitters = [{
         "personal_info": {
           "display_name": "Imran",
           "gender":"male",
-          "profile_pic": "xxxxxxxxxxxxxxxxx",
-          "cover_pic": "xxxxxxxxxxxxxxxxxx",
+          "profile_pic": "https://upload.wikimedia.org/wikipedia/en/1/17/Batman-BenAffleck.jpg",
+          "cover_pic": "http://wallpapercave.com/wp/VmVdtfm.jpg",
           "city": {
             "city":"Toronto",
             "prov_state": "Ontario",
@@ -171,8 +171,8 @@ ls_babysitters = [{
         "personal_info": {
           "display_name": "Host 1",
           "gender":"male",
-          "profile_pic": "xxxxxxxxxxxxxxxxx",
-          "cover_pic": "xxxxxxxxxxxxxxxxxx",
+          "profile_pic": "http://res.cloudinary.com/rrigrp/image/upload/v1483392914/gxxpnb3e7ohmbviknihj.jpg",
+          "cover_pic": "http://res.cloudinary.com/rrigrp/image/upload/v1483375032/sample.jpg",
           "city": {
             "city":"Toronto",
             "prov_state": "Ontario",
@@ -222,8 +222,8 @@ ls_babysitters = [{
         "personal_info": {
           "display_name": "Host 2",
           "gender":"male",
-          "profile_pic": "xxxxxxxxxxxxxxxxx",
-          "cover_pic": "xxxxxxxxxxxxxxxxxx",
+          "profile_pic": "http://res.cloudinary.com/rrigrp/image/upload/v1483392914/gxxpnb3e7ohmbviknihj.jpg",
+          "cover_pic": "http://res.cloudinary.com/rrigrp/image/upload/v1483375032/sample.jpg",
           "city": {
             "city":"Toronto",
             "prov_state": "Ontario",
