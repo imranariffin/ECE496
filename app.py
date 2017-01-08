@@ -204,6 +204,7 @@ def get_babysitter_review_list(sitter_username, token1, token2):
       'value': babysitter['review'][parent]['value'],
       "date": babysitter['review'][parent]['date'],
       "title": babysitter['review'][parent]['title'],
+
     } for parent in babysitter['review']]
 
     return jsonify(ls_reviews), status.HTTP_200_OK
@@ -234,7 +235,9 @@ def get_babysitter_review_list(sitter_username, token1, token2):
   # add current user's review for babysitter
   review = form['review']
   currentuser_username = form['username']
+
   title = form['title']
+
   #storing current time
   d = datetime.datetime.now().timetuple()
   date = {"year": d[0], "month": d[1], "day": d[2]}
