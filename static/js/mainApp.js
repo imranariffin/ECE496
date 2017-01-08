@@ -13,3 +13,11 @@ var mainApp = angular.module('mainApp',
 mainApp
   .controller('MapController', MapController)
 ;
+
+mainApp
+	.directive('navBar', function() {
+		return {
+			templateUrl: 'static/partials/navbar.html',
+		};
+	})
+;
