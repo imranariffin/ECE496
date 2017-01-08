@@ -12,7 +12,6 @@
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
 
-<link rel="stylesheet" type="text/css" href="../css/signup.css">
 
 <!-- jquery -->
 <script type="text/javascript" src="../js/jquery-3.1.0.min.js"></script>
@@ -28,6 +27,7 @@
 
 </head>
     <body>
+        <link rel="stylesheet" type="text/css" href="../css/signup.css">
         <div class="container">
            
             <header>
@@ -84,6 +84,14 @@
                                     <label for="passwordsignup_confirm" class="youpasswd" >Please confirm your password </label>
                                     <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
                                 </p>
+                                <p> 
+                                    <label for="passwordsignup_confirm" class="youpasswd" >Please select your status </label>
+                                     <select id="sel1 ">
+                                        <option>parent</option>
+                                        <option>babysitter</option>
+                                        </select>
+                                </p>
+
                                 <p class="signin button"> 
                                     <input type="submit" value="Sign up"/> 
                                 </p>
