@@ -139,6 +139,9 @@ function ProfileServiceController($scope, $http, $cookies, $routeParams) {
       $scope.contact_info = response.data.profile.basic.contact_info;
       $scope.languages = $scope.personal_info.languages.join(", ");
       $scope.policy = response.data.profile.service.policy;
+
+      // debug
+      console.log($scope.personal_info.cover_pic);
     })
     .catch(function(errorResponse) {
       $scope.errorMessage = errorResponse;
