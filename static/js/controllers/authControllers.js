@@ -133,8 +133,14 @@ function LogoutController($scope, $http, $cookies, $window) {
 	}
 }
 
-function AuthNavbarController($scope, $cookies) {
+function AuthNavbarController($scope, $cookies, $window) {
 	$scope.currentUser = $cookies.get('current-user');
+
+	// show my profile
+	$scope.toMyProfile = function() {
+		$window.location.href = '/#/babysitter/' + 
+			$cookies.get('current-user') + '?tab=profile';
+	}
 }
 
 function DashboardController($scope, $cookies) {

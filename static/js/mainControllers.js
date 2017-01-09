@@ -41,22 +41,14 @@ function MapController($scope, $http, $cookies) {
     called when dropdown item is select item (id:selectCity) is clicked
     to change map.
   */
-  $scope.changeCity = function () {  
-    var index = $scope.cityProfile;
-    var cityLocation = index;
+  $scope.changeCity = function (cityInfo) {  
 
-    // map = new google.maps.Map(document.getElementById('map'), {
-    //   center: {lat: cityLocation.lat, lng: cityLocation.lng},
-    //   zoom: 8
-    // });
     map = new CityGoogleMap({
       zoom: 10,
-      center: {lat: cityLocation.lat, lng: cityLocation.lng}
+      center: {lat: cityInfo.lat, lng: cityInfo.lng}
     });
-    // map.setCenter({lat: cityLocation.lat, lng: cityLocation.lng});
-    // map.setZoom(8);
 
-    var hosts = cityLocation.hoster
+    var hosts = cityInfo.hoster;
     for (i = 0; i < hosts.length; i++) {
       map.addHosterMarker(createHosterMarker(map.gMap, hosts[i]));
     }

@@ -114,6 +114,11 @@ function ProfilePageController($scope, $cookies, $routeParams, $http) {
     $scope.tab = tab;
   }
 
+  if ($routeParams.tab)
+    $scope.changeTab($routeParams.tab);
+  else
+    $scope.changeTab('service');
+
   // get sitter info
   var sitterApiUrl = '/api/babysitter/' + 
     $routeParams.sitter_username + '/profile';
