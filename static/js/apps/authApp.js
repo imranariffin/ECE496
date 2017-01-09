@@ -31,7 +31,7 @@ authApp.run(function($rootScope, $cookies, $location, $http) {
     if (!publicPages.has(currentPath)) {
       // redirect to login page if not logged in
       // if (!$rootScope.currentUser) {
-      if (!$cookies.get('session-token-1' || !$cookies.get('session-token-2'))) {
+      if (!$cookies.getObject('tokens')) {
           $location.path('/login');
       }
     }

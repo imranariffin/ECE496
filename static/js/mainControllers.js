@@ -9,14 +9,16 @@ function MapController($scope, $http, $cookies) {
       This controller also uses a few map-related functions defined 
       in map.js
   */
+  var req = {
+    method: "GET",
+    url: "/api/city",
+    headers: $cookies.getObject('tokens'),
+  };
 
-  var sessionToken1 = $cookies.get('session-token-1');
-  var sessionToken2 = $cookies.get('session-token-2');
-
-  $http
-    .get('/api/city/' + sessionToken1 + '/' + sessionToken2)
-    .success(function(data) { 
-      var cities = data; 
+  $http(req)
+    // .get('/api/city/', config)
+    .then(function(response) { 
+      var cities = response.data; 
       $scope.cities = cities;
 
       var mapOptions = {
@@ -24,13 +26,14 @@ function MapController($scope, $http, $cookies) {
           center: new google.maps.LatLng(45.8996835,-95.2071532)
       }
 
-
       // map = new google.maps.Map(document.getElementById('map'), mapOptions);
       map = new WorldGoogleMap(mapOptions);
       
       for (i = 0; i < cities.length; i++) {
           map.addCityMarker(createCityMarker(map.gMap, cities[i]));
     }
+  }).catch(function(errResponse) {
+    console.log(errResponse);
   });
 
   /* 

@@ -10,25 +10,25 @@ function ProfileRatingAndReviewController($scope, $http, $cookies, $routeParams)
   $scope.rating = 0;
   $scope.review = "";
 
-  var reviewApiUrl = '/api/babysitter/' + 
-    $routeParams.sitter_username + '/review/' + 
-    $cookies.get('session-token-1') + '/' + 
-    $cookies.get('session-token-2');
-
   var ratingApiUrl = '/api/babysitter/' + 
-    $routeParams.sitter_username + '/rating/' + 
-    $cookies.get('session-token-1') + '/' + 
-    $cookies.get('session-token-2');
+    $routeParams.sitter_username + '/rating';
+
+  var reviewApiUrl = '/api/babysitter/' + 
+    $routeParams.sitter_username + '/review';
 
   /*
     get average rating
   */
+  var reqRating = {
+    method: "GET",
+    url: ratingApiUrl,
+    headers: $cookies.getObject('tokens')
+  };
 
-  $http
-    .get(ratingApiUrl)
+  $http(reqRating)
+    // .get(ratingApiUrl)
     .then(function(response) {
       $scope.ratingAvg = response.data.rating;
-      console.log(response);
     })
     .catch(function(errorResponse) {
       console.log(errorResponse);
@@ -37,11 +37,16 @@ function ProfileRatingAndReviewController($scope, $http, $cookies, $routeParams)
   /*
     get reviews from backend
   */
-  $http
-    .get(reviewApiUrl)
+  var reqReview = {
+    method: "GET",
+    url: reviewApiUrl,
+    headers: $cookies.getObject('tokens')
+  };
+
+  $http(reqReview)
+    // .get(reviewApiUrl)
     .then(function(response) {
       $scope.reviews = response.data;
-      console.log(response);
     })
     .catch(function(errorResponse) {
       $scope.errorMessage = errorResponse;
@@ -52,25 +57,38 @@ function ProfileRatingAndReviewController($scope, $http, $cookies, $routeParams)
 function ProfileSubmitRatingAndReviewController($scope, $http, $cookies, $routeParams) {
 
   var reviewApiUrl = '/api/babysitter/' + 
-    $routeParams.sitter_username + '/review/' + 
-    $cookies.get('session-token-1') + '/' + 
-    $cookies.get('session-token-2');
+    $routeParams.sitter_username + '/review';
 
   var ratingApiUrl = '/api/babysitter/' + 
-    $routeParams.sitter_username + '/rating/' + 
-    $cookies.get('session-token-1') + '/' + 
-    $cookies.get('session-token-2');
+    $routeParams.sitter_username + '/rating';
 
   /*
     POST rating and review
   */
   $scope.postRateAndReview = function() {
 
-    $http
-      .post(ratingApiUrl, {
+    var reqRating = {
+      method: "POST",
+      url: ratingApiUrl,
+      headers: $cookies.getObject('tokens'),
+      data: {
         rating: $scope.rating,
-        username: $cookies.get('current-user'),
-      })
+        username: $cookies.get('current-user')
+      }
+    };
+
+    var reqReview = {
+      method: "POST",
+      url: reviewApiUrl,
+      headers: $cookies.getObject('tokens'),
+      data: {
+        title: $scope.title,
+        review: $scope.review,
+        username: $cookies.get('current-user')
+      }
+    };
+
+    $http(reqRating)
       .then(function(response) {
         console.log(response);
       })
@@ -79,12 +97,7 @@ function ProfileSubmitRatingAndReviewController($scope, $http, $cookies, $routeP
         console.log(errorResponse);
       });
 
-    $http
-      .post(reviewApiUrl, {
-        title: $scope.title,
-        review: $scope.review,
-        username: $cookies.get('current-user'),
-      })
+    $http(reqReview)
       .then(function(response) {
         console.log(response);
       })
@@ -102,17 +115,21 @@ function ProfilePageController($scope, $cookies, $routeParams, $http) {
   }
 
   // get sitter info
-  var sitter_username = $routeParams.sitter_username;
   var sitterApiUrl = '/api/babysitter/' + 
-    sitter_username + '/profile/' +
-    $cookies.get('session-token-1') + '/' + 
-    $cookies.get('session-token-2');
-  $http
-    .get(sitterApiUrl)
+    $routeParams.sitter_username + '/profile';
+
+  var reqSitter = {
+    method: "GET",
+    url: sitterApiUrl,
+    headers: $cookies.getObject('tokens')
+  };
+
+  $http(reqSitter)
     .then(function(response) {
       $scope.sitter = response.data;
     })
     .catch(function(errorResponse) {
+      $scope.errorMessage = errorResponse;
       console.log(errorResponse);
     });
 }
@@ -122,12 +139,15 @@ function ProfileServiceController($scope, $http, $cookies, $routeParams) {
   $scope.errorMessage = null;
 
   var profileApiUrl = '/api/babysitter/' + 
-    $routeParams.sitter_username + '/profile/' +
-    $cookies.get('session-token-1') + '/' + 
-    $cookies.get('session-token-2');
+    $routeParams.sitter_username + '/profile';
 
-  $http
-    .get(profileApiUrl)
+  var reqProfile = {
+    method: "GET",
+    url: profileApiUrl,
+    headers: $cookies.getObject('tokens')
+  };
+
+  $http(reqProfile)
     .then(function(response) {
       $scope.profile = response.data.profile;
 
@@ -140,8 +160,6 @@ function ProfileServiceController($scope, $http, $cookies, $routeParams) {
       $scope.languages = $scope.personal_info.languages.join(", ");
       $scope.policy = response.data.profile.service.policy;
 
-      // debug
-      console.log($scope.personal_info.cover_pic);
     })
     .catch(function(errorResponse) {
       $scope.errorMessage = errorResponse;
