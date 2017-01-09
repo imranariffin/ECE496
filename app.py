@@ -134,7 +134,6 @@ def mainPage():
 #find all the cities and host for initial map
 @app.route('/api/city')
 def city():
-  form = request.get_json()
   token1 = request.headers['Token1']
   token2 = request.headers['Token2']
   

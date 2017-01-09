@@ -39,6 +39,5 @@ profileApp.config(['$routeProvider',
 		$routeProvider
      .when('/babysitter/:sitter_username', {
      	templateUrl: '/static/partials/__profile__.html',
-     	controller: "ProfilePageController",
      });
 }]);
