@@ -77,9 +77,26 @@ html, body {
 	margin-top: 40px 
 }
 
+.side-bar {
+	color:rgb(118, 118, 118);
+	font-family: Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size:17px;
+	padding-bottom: 6px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 6px;
+}
 
-
-
+/*color: ;
+*/
+.side-bar > p > a:hover,
+.side-bar > p > a:focus {
+  background-color: rgba(255,255,255,0.70);
+  color: #4285F4;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: transparent;
+}
 
 
 
