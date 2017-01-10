@@ -17,7 +17,7 @@ mainApp
 mainApp
 	.directive('navBar', function() {
 		return {
-			templateUrl: 'static/partials/navbar.html',
+			templateUrl: 'static/partials/__navbar__.html',
 		};
 	})
 ;

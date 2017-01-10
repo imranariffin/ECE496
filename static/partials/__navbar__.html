@@ -1,0 +1,37 @@
+<div class="container-fiuld">
+  <nav class="navbar-margin navbar navbar-inverse bs-dark" ng-controller="AuthNavbarController">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Logo</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="dropdown" ng-controller="MapController">
+            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select your City <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li ng-repeat="(index, city) in cities"><a href="" ng-click="changeCity(city)">{{city.city}}</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="" class="dropdown-toggle navbar-img" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            {{currentUser}}
+            <img src="http://placehold.it/150x150" class="img-circle" alt="Profile Image" />
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="" ng-click="toMyProfile()">My Profile</a></li>
+              <li role="separator" class="divider"></li>
+              <li ng-controller="LogoutController"><a href="" ng-click="logout()">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+  </nav>
+</div>

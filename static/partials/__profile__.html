@@ -73,10 +73,10 @@
       <!-- Nav tabs -->
       <div class="card">
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="" aria-controls="home" role="tab" data-toggle="tab" ng-click="changeTab('home')">Service</a></li>
-            <li role="presentation"><a href="" aria-controls="profile" role="tab" data-toggle="tab" ng-click="changeTab('profile')">Profile</a></li>
-            <li role="presentation"><a href="" aria-controls="reviews" role="tab" data-toggle="tab" ng-click="changeTab('reviews')">Reviews</a></li>
-            <li role="presentation"><a href="" aria-controls="settings" role="tab" data-toggle="tab" ng-click="changeTab('settings')">Settings</a></li>
+            <li role="presentation" ng-class="{true:'active', false:''}[tab=='service']"><a href="" aria-controls="home" role="tab" data-toggle="tab" ng-click="changeTab('home')">Service</a></li>
+            <li role="presentation" ng-class="{true:'active', false:''}[tab=='profile']"><a href="" aria-controls="profile" role="tab" data-toggle="tab" ng-click="changeTab('profile')">Profile</a></li>
+            <li role="presentation" ng-class="{true:'active', false:''}[tab=='reviews']"><a href="" aria-controls="reviews" role="tab" data-toggle="tab" ng-click="changeTab('reviews')">Reviews</a></li>
+            <li role="presentation" ng-class="{true:'active', false:''}[tab=='settings']"><a href="" aria-controls="settings" role="tab" data-toggle="tab" ng-click="changeTab('settings')">Settings</a></li>
         </ul>
 
         <!-- Tab panes -->
