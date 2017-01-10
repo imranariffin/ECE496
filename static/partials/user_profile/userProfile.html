@@ -1,24 +1,22 @@
-<!DOCTYPE html>
-<html>
-   <head>
+<html><head>
       <title>Profile page</title>
       <!-- Bootstrap core CSS -->
-      <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-      <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css">
-      <link rel="stylesheet" type="text/css" href="../css/style.css">
+      <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
+      <link rel="stylesheet" type="text/css" href="../../css/style.css">
       <!-- jquery -->
-      <script type="text/javascript" src="../js/jquery-3.1.0.min.js"></script>
+      <script type="text/javascript" src="../../js/jquery-3.1.0.min.js"></script>
       <!-- bootstrap -->
-      <script type="text/javascript" src="../js/bootstrap.js"></script>
+      <script type="text/javascript" src="../../js/bootstrap.js"></script>
       <!-- rating -->
-      <script type="text/javascript" src="../js/rating.js"></script>
-      <script type="text/javascript" src="../js/review-form.js"></script>
+      <script type="text/javascript" src="../../js/rating.js"></script>
+      <script type="text/javascript" src="../../js/review-form.js"></script>
    </head>
    <body>
       <!-- user information &  -->
       <div class="container">
-         <div class = "row">
-            <div class = "col-md-3">
+         <div class="nav-bar-margin row">
+            <div class="col-md-3">
                <p>Edit profile</p>
                <p>Upload picture</p>
                <p>Time availability</p>
@@ -26,120 +24,147 @@
                <p>Reset the password</p>
                <p>view profile</p>
             </div>
-            <div class = "col-md-9">
+            <div class="col-md-9">
                <div class="panel panel-primary">
                   <div class="panel-heading">
                      Edit the profile
                   </div>
                   <div class="panel-body">
                      <form>
-                        </br>
+                        <br>
                         <label for="exampleInputEmail1">Personal information</label>
-                        </br>
-                        <div class = "row">
-                           <div class="form-group col-md-3">
+                        <br>
+                        <div class="row">
+                           <div class="form-group col-md-4">
                               <p>Education</p>
-                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="University/College" required="">
                            </div>
-                           <div class="form-group col-md-3">
+                           <div class="col-md-2"></div>
+                           <div class="form-group col-md-4">
                               <p>Working Experience</p>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Place, Years" required="">
                            </div>
-                           <div class="form-group col-md-3">
+                           <div class="col-md-2"></div>
+                        </div>
+                        <div class="row">
+                           <div class="form-group col-md-4">
                               <p>Address</p>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="City, Street name, Post code" required="">
                            </div>
-                           <div class="form-group col-md-3">
+                           <div class="col-md-2"></div>
+                           <div class="form-group col-md-4">
+                              <p>Province</p>
+                              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Province" required="">
+                           </div>
+                           <div class="col-md-2"></div>
+                        </div>
+                        <div class="row">
+                           <div class="form-group col-md-4 push-left">
                               <p>Gender</p>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Female/Male" required="">
                            </div>
                         </div>
-                        </br>
-                        <hr width= "100%">
-                        </br>
-                        </br>
+
+                        <br>
+                        <hr width="100%">
+                        <br>
+                        <br>
                         <label for="exampleInputEmail1">Contact Information</label>
-                        </br>
-                        <div class = "row">
+                        <br>
+                        <div class="row">
                            <div class="form-group col-md-4">
                               <p>Email</p>
-                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required="">
                            </div>
                            <div class="form-group col-md-4">
                               <p>Internet</p>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required="">
                            </div>
                            <div class="form-group col-md-4">
                               <p>Phone number</p>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required="">
                            </div>
                         </div>
-                        </br>
-                        <hr width= "100%">
-                        </br>
+                        <br>
+                        <hr width="100%">
+                        <br>
                         <div class="form-group">
                            <label for="exampleTextarea">About me</label>
-                           <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                           <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Talk about yourself"></textarea>
                         </div>
-                        </br>
-                        <hr width= "100%">
-                        </br>
-                        </br>
+                        <br>
+                        <hr width="100%">
+                        <br>
+                        <br>
                         <label for="exampleInputEmail1">General information</label>
-                        </br>
-                        <div class = "row">
+                        <br>
+                        <div class="row">
                            <div class="form-group col-md-4">
                               <p>How often</p>
-                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Part time/Full time" required="">
                            </div>
+                           <div class="col-md-2"></div>
                            <div class="form-group col-md-4">
-                              <p> baby age range  </p>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                              <p>Baby age range</p>
+                              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Ex: 1 - 5 years old" required="">
                            </div>
-                           <div class="form-group col-md-4">
-                              <p>Service locations </p>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                           </div>
+                           <div class="col-md-2"></div>
                         </div>
-                        <div class = "row">
+                        <div class="row">
                            <div class="form-group col-md-4">
                               <p>Pick up service </p>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Yes/No" required="">
                            </div>
+                           <div class="col-md-2"></div>
                            <div class="form-group col-md-4">
-                              <p>Speaking language</p>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                              <p>Service locations</p>
+                              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Babysitter / Parent's home" required="">
+                           </div>
+                           <div class="col-md-2"></div>
+                        </div>
+                        <div class="row">
+
+                           <div class="form-group col-md-5">
+                              <p>Speaking language
+                              <small for="sel2">(hold shift to select more than one):</small></p>
+                              <select multiple="" class="form-control" id="sel2" rows="2" required="">
+                                <option>English</option>
+                                <option>Chinese</option>
+                                <option>Bengali</option>
+                                <option>French</option>
+                                <option>Japanese</option>
+                                <option>Spanish</option>
+                                <option>Telugu</option>
+                                <option>Russian</option>
+                              </select>
                            </div>
                         </div>
-                        </br>
-                        <hr width= "100%">
-                        </br>
+                        <br>
+                        <hr width="100%">
+                        <br>
                         <label for="exampleInputEmail1">Price</label>
-                        </br>
-                        <div class = "row">
+                        <br>
+                        <div class="row">
                            <div class="form-group col-md-4">
                               <p>Hourly Rate </p>
-                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="per hour"> 
+                              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="per hour" required=""> 
                            </div>
                            <div class="form-group col-md-4">
                               <p>Weekend Hourly Rate</p>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="per hour">
+                              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="per hour" required="">
                            </div>
                            <div class="form-group col-md-4">
                               <p>Security Deposit</p>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password" required="">
                            </div>
                         </div>
-                        </br>
-                        <hr width= "100%">
-                        </br>
+                        <br>
+                        <hr width="100%">
+                        <br>
                         <label for="exampleInputEmail1">Extra Information</label>
-                        </br>
+                        <br>
                         <div class="form-group">
-                           <div class = "row">
+                           <div class="row">
                               <div class="col-md-4">
                                  <label class="form-check-label">
                                  <input type="checkbox" class="form-check-input">
@@ -159,7 +184,7 @@
                                  </label>
                               </div>
                            </div>
-                           <div class = "row">
+                           <div class="row">
                               <div class="col-md-4">
                                  <label class="form-check-label">
                                  <input type="checkbox" class="form-check-input">
@@ -174,24 +199,24 @@
                               </div>
                            </div>
                         </div>
-                        </br>
-                        <hr width= "100%">
+                        <br>
+                        <hr width="100%">
                         <div class="form-group">
                            <label for="exampleTextarea">Policy</label>
-                           <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                           <textarea class="form-control" id="exampleTextarea" rows="5" placeholder="Enter your policy" required=""></textarea>
                         </div>
-                        </br>
-                        <hr width= "100%">
-                        </br>
+                        <br>
+                        <hr width="100%">
+                        <br>
                         <div class="form-group">
                            <label for="exampleInputFile">Cover Image Upload</label>
-                           <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-                           <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+                           <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" required="">
+                           <small id="fileHelp" class="form-text text-muted">This is This is some placeholder block-level help text for the above input. Please upload large size image.</small>
                         </div>
                         <div class="form-group">
                            <label for="exampleInputFile">Profile Image Upload</label>
-                           <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-                           <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+                           <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" required="">
+                           <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. Please upload small size image.</small>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                      </form>
@@ -200,5 +225,5 @@
             </div>
          </div>
       </div>
-   </body>
-</html>
+   
+</body></html>
