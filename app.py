@@ -8,6 +8,7 @@ import pprint
 import dbsetup
 
 # create random key
+import os
 from os import urandom
 
 # http status return
@@ -21,13 +22,16 @@ import datetime
 
 #cloudinary
 import cloudinary
-from cloudinary.uploader import upload
+from cloudinary.uploader import upload,destroy
 from cloudinary.utils import cloudinary_url
 cloudinary.config(
   cloud_name = 'rrigrp',
   api_key = '498192978171332',
   api_secret = 'F1NecNDuIBOTu8-TlwGwXQMRxkA'
 )
+
+#Regex
+import re
 
 app = Flask(__name__)
 
@@ -347,9 +351,9 @@ def rating(sitter_username):
   response = {'rating': avg_rating}
   return jsonify(response), status.HTTP_200_OK
 
-#FIRST-TIME BABYSITTER PROFILE UPLOAD
+#BABYSITTER PROFILE UPLOAD/EDIT
 @app.route('/api/babysitter/<sitter_username>/profile_upload',methods=['POST'])
-def profile_upload(sitter_username):
+def sitter_profile_upload(sitter_username):
   form = json.loads(request.headers['Json'])
   token1 = request.headers['Token1']
   token2 = request.headers['Token2']
@@ -358,11 +362,29 @@ def profile_upload(sitter_username):
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
 
+  org_profile_pic = None
+  org_cover_pic = None
+  Edit = False  #True if this is an Edit request; otherwise it is the first time upload
   if handle.babysitter.find({'username': sitter_username}).count() != 0:
-    response = {'error_message': 'babysitter exists'}
-    return jsonify(response), status.HTTP_409_CONFLICT 
+    Edit = True
+    cursor = handle.babysitter.find_one({'username':sitter_username})
+    org_profile_pic = cursor['profile']['basic']['personal_info']['profile_pic']
+    org_cover_pic = cursor['profile']['basic']['personal_info']['cover_pic']
+    handle.babysitter.delete_many({'username': sitter_username})
 
-  #UPLOAD PICTURES & GET PIC URLS
+  #delete existing profile/cover pictures
+  if org_profile_pic != None:
+    match = re.search('.*\/(\S+)\.\S+', org_profile_pic)
+    if match:
+      public_id = match.group(1)
+      delete_res = destroy(public_id)
+  if org_cover_pic != None:
+    match = re.search('.*\/(\S+)\.\S+', org_cover_pic)
+    if match:
+      public_id = match.group(1)
+      delete_res = destroy(public_id)
+
+  #upload pictures and get pic urls
   upload_result = None
   profile_pic_url = None
   cover_pic_url = None
@@ -384,12 +406,63 @@ def profile_upload(sitter_username):
   else:
     form['profile']['basic']['personal_info']['cover_pic'] = ""
   
-  #UPLOAD THE PROFILE BODY
-  success,response=profile_fillup(form,sitter_username)
+  #upload the profile body
+  success,response=profile_fillup(form,sitter_username,Edit)
   if not success:
     return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
   else:
     return jsonify(response), status.HTTP_200_OK
+
+#PARENT PROFILE UPLOAD/EDIT
+@app.route('/api/parent/<parent_username>/profile_upload',methods=['POST'])
+def parent_profile_upload(parent_username):
+  form = json.loads(request.headers['Json'])
+  token1 = request.headers['Token1']
+  token2 = request.headers['Token2']
+
+  if hashing.Decrypted([token1, token2]) != True:
+    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
+    return jsonify(response), status.HTTP_403_FORBIDDEN
+
+  org_profile_pic = None
+  Edit = False  #True if this is an Edit request; otherwise it is the first time upload
+  if handle.parent.find({'username': parent_username}).count() != 0:
+    Edit = True
+    cursor = handle.parent.find_one({'username':parent_username})
+    org_profile_pic = cursor['profile_pic']
+    handle.parent.delete_many({'username': parent_username})
+
+  #delete existing profile/cover pictures
+  if org_profile_pic != None:
+    match = re.search('.*\/(\S+)\.\S+', org_profile_pic)
+    if match:
+      public_id = match.group(1)
+      delete_res = destroy(public_id)
+
+  #upload pictures and get pic urls
+  upload_result = None
+  profile_pic_url = None
+  profile_pic = request.files['profile_pic']
+  if profile_pic:
+    upload_result = upload(profile_pic)
+    profile_pic_url  = upload_result['url']
+
+  if profile_pic_url != None:
+    form['profile_pic'] = profile_pic_url
+  else:
+    form['profile_pic'] = ""
+  
+  #upload the profile body
+  parent = {
+    'username':parent_username,
+    'profile_pic':form['profile_pic']
+  }
+  handle.parent.insert(parent)
+  if Edit == True:
+    response={"message":"successfully updated parent profile"}
+  else:
+    response={"message":"successfully inserted parent profile"}
+  return jsonify(response), status.HTTP_200_OK
 
 #GET BABYSITTER PROFILE
 @app.route('/api/babysitter/<sitter_username>/profile',methods=['GET'])
@@ -507,7 +580,7 @@ def pw_change():
 
 #HELPER FUNCTIONS
 #this function is called when first signed up as a babysitter
-def profile_fillup(form,username):
+def profile_fillup(form,username,edit):
   #username = form['username']
   if 'profile' not in form:
     response = {'error_message': 'request data should contain babysitter profile'}
@@ -530,7 +603,10 @@ def profile_fillup(form,username):
     'profile':profile
   }
   handle.babysitter.insert(sitter)
-  response = {'message': 'successfully insert babysitter profile'}
+  if edit == True:
+    response = {'message': 'successfully updated babysitter profile'}
+  else:
+    response = {'message': 'successfully inserted babysitter profile'}
   return True, response
 
 
