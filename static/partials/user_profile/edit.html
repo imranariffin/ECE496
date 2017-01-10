@@ -1,0 +1,172 @@
+<div class = "col-md-9" ng-controller="UserProfileEditController">
+   <div class="panel panel-primary">
+      <div class="panel-heading">
+         Edit the profile
+         <span ng-if="errorMessage">{{errorMessage}}</span>
+      </div>
+      <div class="panel-body">
+         <form>
+            </br>
+            <label for="exampleInputEmail1">Personal information</label>
+            </br>
+            <div class = "row">
+               <div class="form-group col-md-3">
+                  <p>Education</p>
+                  <input ng-model="personal_info.education" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+               </div>
+               <div class="form-group col-md-3">
+                  <p>Working Experience</p>
+                  <input ng-model="personal_info.experience" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+               </div>
+               <div class="form-group col-md-3">
+                  <p>Address</p>
+                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+               </div>
+               <div class="form-group col-md-3">
+                  <p>Gender</p>
+                  <input ng-model="personal_info.gender" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+               </div>
+            </div>
+            </br>
+            <hr width= "100%">
+            </br>
+            </br>
+            <label for="exampleInputEmail1">Contact Information</label>
+            </br>
+            <div class = "row">
+               <div class="form-group col-md-4">
+                  <p>Email</p>
+                  <input ng-model="contact_info.email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+               </div>
+               <div class="form-group col-md-4">
+                  <p>Internet</p>
+                  <input ng-model="contact_info.website" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+               </div>
+               <div class="form-group col-md-4">
+                  <p>Phone number</p>
+                  <input ng-model="contact_info.phone" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+               </div>
+            </div>
+            </br>
+            <hr width= "100%">
+            </br>
+            <div class="form-group">
+               <label for="exampleTextarea">About me</label>
+               <textarea ng-model="profile.service.about" class="form-control" id="exampleTextarea" rows="3"></textarea>
+            </div>
+            </br>
+            <hr width= "100%">
+            </br>
+            </br>
+            <label for="exampleInputEmail1">General information</label>
+            </br>
+            <div class = "row">
+               <div class="form-group col-md-4">
+                  <p>How often</p>
+                  <input ng-model="general_info.sitter_status" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+               </div>
+               <div class="form-group col-md-4">
+                  <p> baby age range  </p>
+                  <input ng-model="general_info.age_range" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+               </div>
+               <div class="form-group col-md-4">
+                  <p>Service locations </p>
+                  <input ng-model="general_info.service_location" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+               </div>
+            </div>
+            <div class = "row">
+               <div class="form-group col-md-4">
+                  <p>Pick up service </p>
+                  <input ng-model="general_info.pickup" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+               </div>
+               <div class="form-group col-md-4">
+                  <p>Speaking language</p>
+                  <input ng-model="languages" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+               </div>
+            </div>
+            </br>
+            <hr width= "100%">
+            </br>
+            <label for="exampleInputEmail1">Price</label>
+            </br>
+            <div class = "row">
+               <div class="form-group col-md-4">
+                  <p>Hourly Rate </p>
+                  <input ng-model="price.weekday_hourly" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="per hour"> 
+               </div>
+               <div class="form-group col-md-4">
+                  <p>Weekend Hourly Rate</p>
+                  <input ng-model="price.weekend_hourly" type="text" class="form-control" id="exampleInputPassword1" placeholder="per hour">
+               </div>
+               <div class="form-group col-md-4">
+                  <p>Security Deposit</p>
+                  <input ng-model="price.security_deposit" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+               </div>
+            </div>
+            </br>
+            <hr width= "100%">
+            </br>
+            <label for="exampleInputEmail1">Extra Information</label>
+            </br>
+            <div class="form-group">
+               <div class = "row">
+                  <div class="col-md-4">
+                     <label class="form-check-label">
+                     <input ng-model="extra.free_parking" type="checkbox" class="form-check-input">
+                     Free parking on premises 
+                     </label>
+                  </div>
+                  <div class="col-md-4">   
+                     <label class="form-check-label">
+                     <input ng-model="extra.child_education" type="checkbox" class="form-check-input">
+                     Child education 
+                     </label>
+                  </div>
+                  <div class="col-md-4">
+                     <label class="form-check-label">
+                     <input ng-model="extra.wireless_internet" type="checkbox" class="form-check-input">
+                     Wireless Internet 
+                     </label>
+                  </div>
+               </div>
+               <div class = "row">
+                  <div class="col-md-4">
+                     <label class="form-check-label">
+                     <input ng-model="extra.air_condition" type="checkbox" class="form-check-input">
+                     Air conditioning
+                     </label>
+                  </div>
+                  <div class="col-md-4">
+                     <label class="form-check-label">
+                     <input ng-model="extra.meal" type="checkbox" class="form-check-input">
+                     Meal service 
+                     </label>
+                  </div>
+               </div>
+            </div>
+            </br>
+            <hr width= "100%">
+            <div class="form-group">
+               <label for="exampleTextarea">Policy</label>
+               <textarea ng-model="policy" class="form-control" id="exampleTextarea" rows="3"></textarea>
+            </div>
+            </br>
+            <hr width= "100%">
+            </br>
+            <div class="form-group">
+               <label for="exampleInputFile">Cover Image Upload</label>
+               <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+               <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+            </div>
+            <div class="form-group">
+               <label for="exampleInputFile">Profile Image Upload</label>
+               <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+               <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+         </form>
+      </div>
+   </div>
+</div>

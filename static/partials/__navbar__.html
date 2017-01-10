@@ -7,12 +7,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Logo</a>
+        <a class="navbar-brand" href="/#/">Logo</a>
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="dropdown" ng-controller="MapController">
+          <li ng-if="isMapPage()" class="dropdown" ng-controller="MapController">
             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select your City <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li ng-repeat="(index, city) in cities"><a href="" ng-click="changeCity(city)">{{city.city}}</a></li>
@@ -26,7 +26,7 @@
             <img src="http://placehold.it/150x150" class="img-circle" alt="Profile Image" />
             </a>
             <ul class="dropdown-menu">
-              <li><a href="" ng-click="toMyProfile()">My Profile</a></li>
+              <li><a href="/#/user/{{currentUser}}">My Profile</a></li>
               <li role="separator" class="divider"></li>
               <li ng-controller="LogoutController"><a href="" ng-click="logout()">Logout</a></li>
             </ul>

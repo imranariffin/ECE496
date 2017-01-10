@@ -21,15 +21,15 @@ authApp.config(['$routeProvider',
 	function($routeProvider) {
 		$routeProvider
 			.when('/login', {
-				templateUrl: '/static/partials/__login__.html',
+				templateUrl: '/static/partials/auth/__login__.html',
 				controller: 'LoginController',
 			})
 			.when('/signup', {
-				templateUrl: '/static/partials/__signup__.html',
+				templateUrl: '/static/partials/auth/__signup__.html',
 				controller: 'SignupController',
 			})
 			.when('/dashboard', {
-				templateUrl: '/static/partials/dashboard.html',
+				templateUrl: '/static/partials/auth/dashboard.html',
 				controller: 'DashboardController',
 			});
 	}]);
@@ -38,6 +38,14 @@ profileApp.config(['$routeProvider',
 	function($routeProvider) {
 		$routeProvider
      .when('/babysitter/:sitter_username', {
-     	templateUrl: '/static/partials/__profile__.html',
+     	templateUrl: '/static/partials/profile/__profile__.html',
      });
+}]);
+
+userProfileApp.config(['$routeProvider',
+	function($routeProvider) {
+		$routeProvider
+			.when('/user/:username', {
+				templateUrl: '/static/partials/user_profile/main.html',
+			})
 }]);

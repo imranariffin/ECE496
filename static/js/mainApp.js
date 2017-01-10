@@ -6,6 +6,7 @@ var mainApp = angular.module('mainApp',
     'ui.bootstrap',
     'authApp',
     'profileApp',
+    'userProfileApp',
     'paymentApp',
     'calendarApp',
   ]);
