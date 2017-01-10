@@ -19,13 +19,20 @@ import hashing
 #for the review system
 import datetime
 
+#cloudinary
+import cloudinary
+from cloudinary.uploader import upload
+from cloudinary.utils import cloudinary_url
+cloudinary.config(
+  cloud_name = 'rrigrp',
+  api_key = '498192978171332',
+  api_secret = 'F1NecNDuIBOTu8-TlwGwXQMRxkA'
+)
 
 app = Flask(__name__)
 
 #setupDB
 handle = dbsetup.setupDB()
-
-
 
 
 
@@ -68,16 +75,18 @@ def login():
     return jsonify(response), status.HTTP_200_OK
 
 
-@app.route("/api/logout/<token1>/<token2>", methods=['POST'])
-def logout(token1, token2):
+@app.route("/api/logout", methods=['POST'])
+def logout():
   # response: status: 200
   #   200: success
+  token1 = request.headers['Token1']
+  token2 = request.headers['Token2']
+  form = request.get_json()
 
   if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
 
-  form = request.get_json()
   if form == None or len(form) == 0 or 'username' not in form:
     response = {'error_message': 'bad request, need to have username as in data'}
     return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
@@ -110,7 +119,7 @@ def signup():
       form['host'] = False
     else:
       form['host'] = True
-      
+
     #Insert user credentials
     user_info = {
       'username': username,
@@ -130,8 +139,11 @@ def mainPage():
   return send_file("templates/index.html")
 
 #find all the cities and host for initial map
-@app.route('/api/city/<token1>/<token2>')
-def city(token1, token2):
+@app.route('/api/city')
+def city():
+  token1 = request.headers['Token1']
+  token2 = request.headers['Token2']
+  
   if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
@@ -140,8 +152,11 @@ def city(token1, token2):
   return dumps(cursor)
 
 #return all the info or one city
-@app.route('/api/find/babysitter/<name>/<token1>/<token2>', methods = ['GET'])
-def getBabysitterInfo(name, token1, token2):
+@app.route('/api/find/babysitter/<name>', methods = ['GET'])
+def getBabysitterInfo(name):
+  token1 = request.headers['Token1']
+  token2 = request.headers['Token2']
+
   if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
@@ -153,8 +168,11 @@ def getBabysitterInfo(name, token1, token2):
     cursor = handle.babysitter.find( {"city": name} )
     return dumps(cursor)
 
-@app.route('/api/insert/babysitter/<token1>/<token2>', methods=['GET', 'POST'])
-def add_message(token1, token2):
+@app.route('/api/insert/babysitter', methods=['GET', 'POST'])
+def add_message():
+
+  token1 = request.headers['Token1']
+  token2 = request.headers['Token2']
   if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
@@ -184,8 +202,12 @@ REVIEW API: get all reviews for a babysitter
 response: list of review string with respective reviewer username
 error: 400, 404 with message
 """
-@app.route('/api/babysitter/<sitter_username>/review/<token1>/<token2>', methods=['GET', 'POST'])
-def get_babysitter_review_list(sitter_username, token1, token2):
+@app.route('/api/babysitter/<sitter_username>/review', methods=['GET', 'POST'])
+def get_babysitter_review_list(sitter_username):
+
+  token1 = request.headers['Token1']
+  token2 = request.headers['Token2']
+
   if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
@@ -265,8 +287,12 @@ GET response: {INT} average rating of the sitter
 POST response: success message
 error: 400, 404 with message
 """
-@app.route('/api/babysitter/<sitter_username>/rating/<token1>/<token2>', methods=['GET', 'POST'])
-def rating(sitter_username, token1, token2):
+@app.route('/api/babysitter/<sitter_username>/rating', methods=['GET', 'POST'])
+def rating(sitter_username):
+
+  token1 = request.headers['Token1']
+  token2 = request.headers['Token2']
+
   if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
@@ -321,11 +347,55 @@ def rating(sitter_username, token1, token2):
   response = {'rating': avg_rating}
   return jsonify(response), status.HTTP_200_OK
 
+#FIRST-TIME BABYSITTER PROFILE UPLOAD
+@app.route('/api/babysitter/<sitter_username>/profile_upload',methods=['POST'])
+def profile_upload(sitter_username):
+  form = json.loads(request.headers['Json'])
+  token1 = request.headers['Token1']
+  token2 = request.headers['Token2']
 
+  if hashing.Decrypted([token1, token2]) != True:
+    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
+    return jsonify(response), status.HTTP_403_FORBIDDEN
+
+  if handle.babysitter.find({'username': sitter_username}).count() != 0:
+    response = {'error_message': 'babysitter exists'}
+    return jsonify(response), status.HTTP_409_CONFLICT 
+
+  #UPLOAD PICTURES & GET PIC URLS
+  upload_result = None
+  profile_pic_url = None
+  cover_pic_url = None
+  profile_pic = request.files['profile_pic']
+  cover_pic = request.files['cover_pic']
+  if profile_pic:
+    upload_result = upload(profile_pic)
+    profile_pic_url  = upload_result['url']
+  if cover_pic:
+    upload_result = upload(cover_pic)
+    cover_pic_url = upload_result['url']
+
+  if profile_pic_url != None:
+    form['profile']['basic']['personal_info']['profile_pic'] = profile_pic_url
+  else:
+    form['profile']['basic']['personal_info']['profile_pic'] = ""
+  if cover_pic_url != None:
+    form['profile']['basic']['personal_info']['cover_pic'] = cover_pic_url
+  else:
+    form['profile']['basic']['personal_info']['cover_pic'] = ""
+  
+  #UPLOAD THE PROFILE BODY
+  success,response=profile_fillup(form,sitter_username)
+  if not success:
+    return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
+  else:
+    return jsonify(response), status.HTTP_200_OK
 
 #GET BABYSITTER PROFILE
-@app.route('/api/babysitter/<sitter_username>/profile/<token1>/<token2>',methods=['GET'])
-def profile_get(sitter_username, token1, token2):
+@app.route('/api/babysitter/<sitter_username>/profile',methods=['GET'])
+def profile_get(sitter_username):
+  token1 = request.headers['Token1']
+  token2 = request.headers['Token2']
   if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
@@ -339,16 +409,46 @@ def profile_get(sitter_username, token1, token2):
     return jsonify(response), status.HTTP_404_NOT_FOUND
   else:
     cursor = handle.babysitter.find_one( {"username": sitter_username},projection={'profile':True, '_id': False})
-    return dumps(cursor)
+    return dumps(cursor), status.HTTP_200_OK
+
+#EDIT BABYSITTER PROFILE
+@app.route('/api/babysitter/<sitter_username>/profile/edit',methods=['POST'])
+def profile_edit(sitter_username):
+  token1 = request.headers['Token1']
+  token2 = request.headers['Token2']
+
+  profile = form['profile']
+  if hashing.Decrypted([token1, token2]) != True:
+    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
+    return jsonify(response), status.HTTP_403_FORBIDDEN
+
+  if sitter_username == None:
+    response = {'error_message': 'request data should contain babysitter name'}
+    return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
+
+  elif handle.babysitter.find_one({'username': sitter_username}) is None:
+    response = {"err": "babysitter does not exist"}
+    return jsonify(response), status.HTTP_404_NOT_FOUND
+  else:
+    handle.babysitter.update_one(
+      {'username': sitter_username},
+      {'$set': {'profile': profile}})
+    cursor = handle.babysitter.find_one( {"username": sitter_username},projection={'profile':True, '_id': False})
+    return dumps(cursor), status.HTTP_200_OK
 
 
 #HELPER FUNCTIONS
 #this function is called when first signed up as a babysitter
-def profile_fillup(form):
-  username = form['username']
+def profile_fillup(form,username):
+  #username = form['username']
   if 'profile' not in form:
     response = {'error_message': 'request data should contain babysitter profile'}
     return False, response
+  
+  if handle.babysitter.find({'username': username}).count() != 0:
+    response = {'error_message': 'Babysitter already exists!'}
+    return False, response
+  
   profile = form['profile']
   if 'basic' not in profile or 'service' not in profile:
     response = {'error_message': 'profile should contain basic and service information'}
@@ -362,7 +462,8 @@ def profile_fillup(form):
     'profile':profile
   }
   handle.babysitter.insert(sitter)
-  return True, "Success"
+  response = {'message': 'successfully insert babysitter profile'}
+  return True, response
 
 
 if __name__ == "__main__":

@@ -25,13 +25,11 @@ function LoginController($scope, $http, $cookies, $window) {
 				// session is saved on backend
 
 				// save sessionToken and user on cookies
-				var username = response.data.user;
-				var sessionToken1 = response.data.session_token[0];
-				var sessionToken2 = response.data.session_token[1];
-
-				$cookies.put('current-user', username);
-				$cookies.put('session-token-1', sessionToken1);
-				$cookies.put('session-token-2', sessionToken2);
+				$cookies.put('current-user', response.data.user);
+				$cookies.putObject('tokens', {
+					'Token1': response.data.session_token[0],
+					'Token2': response.data.session_token[1],
+				});
 
 				// redirect to map page
 				$window.location.href = '/';
@@ -82,13 +80,11 @@ function SignupController($scope, $http, $cookies, $window) {
 				// session is saved on backend
 
 				// save sessionToken and user on cookies
-				var currentUser = user.username;
-				var sessionToken1 = response.data.session_token[0];
-				var sessionToken2 = response.data.session_token[1];
-
-				$cookies.put('current-user', currentUser);
-				$cookies.put('session-token-1', sessionToken1);
-				$cookies.put('session-token-2', sessionToken2);
+				$cookies.put('current-user', user.username);
+				$cookies.putObject('tokens', {
+					'Token1': response.data.session_token[0],
+					'Token2': response.data.session_token[1],
+				});
 
 				// redirect to map page
 				$window.location.href = '/';
@@ -108,20 +104,21 @@ function LogoutController($scope, $http, $cookies, $window) {
 	*/
 	$scope.logout = function() {
 		try {
-			var username = $scope.currentUser;
-			var data = {username: username};
 
-		  var sessionToken1 = $cookies.get('session-token-1');
-		  var sessionToken2 = $cookies.get('session-token-2');
+			var req = {
+				method: "POST",
+				url: "/api/logout",
+				headers: $cookies.getObject('tokens'),
+				data: {username: $cookies.get('current-user')}
+			};
 
-			$http
-				.post('/api/logout/' + sessionToken1 + '/' + sessionToken2 , data)
+			$http(req)
+				// .post('/api/logout/', config)
 				.then(function(response) {
 					// clear scope and cookies
 					$scope.currentUser = null;
 					$cookies.remove('current-user');
-					$cookies.remove('session-token-1');
-					$cookies.remove('session-token-2');
+					$cookies.remove('tokens');
 
 					// redirect to main page
 					$window.location.href = '/';

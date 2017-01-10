@@ -5,3 +5,5 @@ pip install flask-sqlalchemy
 sudo pip install pymongo==2.7.2
 sudo pip install pycrypto
 
+pip install cloudinary
+
