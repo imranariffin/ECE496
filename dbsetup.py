@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from seed_data import ls_cities, ls_babysitters, ls_users
+from seed_data import ls_cities, ls_babysitters, ls_users, ls_parents
 
 def initDB():
     url = "mongodb://user1:kuncikunci@ds141108.mlab.com:41108/baby"
@@ -10,12 +10,14 @@ def setupDB():
   handle = initDB()
 
   # clear db of seed data
-  for city in ls_cities: 
-    handle['city'].delete_many({'city': city['city']})
-  for sitter in ls_babysitters: 
-    handle['babysitter'].delete_many({'host': sitter['host']})
-  for user in ls_users:
-    handle['user'].delete_many({'username': user['username']})
+
+  handle['city'].remove({})
+
+  handle['babysitter'].remove({})
+
+  handle['user'].remove({})
+
+  handle['parent'].remove({})
 
   # seed default city data
   handle['city'].insert(ls_cities)
@@ -28,5 +30,8 @@ def setupDB():
 
   # seed default user data
   handle['user'].insert(ls_users)
+
+  # seed default parent data
+  handle['parent'].insert(ls_parents)
 
   return handle

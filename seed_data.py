@@ -272,25 +272,33 @@ seed user info
 ls_users = [{
   'username': 'imran',
   'password': 'password',
-  'Host': True
+  'host': True
 }, {
   'username': 'richard',
   'password': 'password',
-  'Host': False
+  'host': False
 }, {
   'username': 'parent1',
   'password': 'password',
-  'Host': False  
+  'host': False  
 }, {
   'username': 'parent2',
   'password': 'password',
-  'Host': False  
+  'host': False  
 }, {
   'username': 'host1',
   'password': 'password',
-  'Host': True
+  'host': True
 }, {
   'username': 'host2',
   'password': 'password',
-  'Host': True
+  'host': True
+}]
+
+'''
+parent seed
+'''
+ls_parents = [{
+  'username':'parent1',
+  'profile_pic':'https://v.cdn.vine.co/r/avatars/8FA8F516C61211899383466061824_pic-r-14319135186558d72e0b19d.jpg.jpg?versionId=ZAYQev_ezlElQYl00cirvmi8LUg_TJnA'
 }]

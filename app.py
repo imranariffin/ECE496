@@ -436,6 +436,29 @@ def profile_edit(sitter_username):
     cursor = handle.babysitter.find_one( {"username": sitter_username},projection={'profile':True, '_id': False})
     return dumps(cursor), status.HTTP_200_OK
 
+#GET PROFILE PICTURE ICON
+@app.route('/api/<username>/profile_pic',methods=['GET'])
+def get_profile_pic(username):
+  token1 = request.headers['Token1']
+  token2 = request.headers['Token2']
+  if hashing.Decrypted([token1, token2]) != True:
+    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
+    return jsonify(response), status.HTTP_403_FORBIDDEN
+
+  if handle.user.find_one({'username': username}) is None:
+    response = {"err": "user does not exist"}
+    return jsonify(response), status.HTTP_404_NOT_FOUND
+
+  user_type = handle.user.find_one( {"username": username},projection={'host':True, '_id': False})
+  host = user_type['host']
+  if host == True:
+    cursor = handle.babysitter.find_one( {"username": username},projection={'profile':True, '_id': False})
+    profile_pic = {"profile_pic":cursor['profile']['basic']['personal_info']['profile_pic']}
+    return dumps(profile_pic), status.HTTP_200_OK
+  else:
+    cursor = handle.parent.find_one( {"username": username},projection={'profile_pic':True, '_id': False})
+    return dumps(cursor), status.HTTP_200_OK
+
 
 #HELPER FUNCTIONS
 #this function is called when first signed up as a babysitter
