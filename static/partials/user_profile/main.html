@@ -1,0 +1,20 @@
+<!-- Fixed navbar -->
+<nav-bar></nav-bar>
+<!-- /Fixed navbar -->
+
+<div class="container">
+   <div class = "row" ng-controller="UserProfileTabController">
+      <div class = "col-md-3">
+         <p ng-click="changeUserTab(EDIT_TAB)">Edit profile</p>
+         <p ng-click="changeUserTab(TIME_TAB)">Time availability</p>
+         <p ng-click="changeUserTab(PAYMENT_TAB)">Payment system</p>
+         <p ng-click="changeUserTab(RESET_PASSWORD_TAB)">Reset the password</p>
+         <p ng-click="changeUserTab(VIEW_PROFILE_TAB)">view profile</p>
+      </div>
+     	<user-profile-edit ng-show="tab===EDIT_TAB"></user-profile-edit>
+      <time-availability ng-show="tab===TIME_TAB"></time-availability>
+      <payment-system ng-show="tab===PAYMENT_TAB"></payment-system>
+      <reset-password ng-show="tab===RESET_PASSWORD_TAB"></reset-password>
+      <view-profile ng-show="tab===VIEW_PROFILE_TAB"></view-profile>
+   </div>
+</div>

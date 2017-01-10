@@ -6,6 +6,7 @@ var mainApp = angular.module('mainApp',
     'ui.bootstrap',
     'authApp',
     'profileApp',
+    'userProfileApp',
     'paymentApp',
     'calendarApp',
   ]);
@@ -17,7 +18,7 @@ mainApp
 mainApp
 	.directive('navBar', function() {
 		return {
-			templateUrl: 'static/partials/navbar.html',
+			templateUrl: 'static/partials/__navbar__.html',
 		};
 	})
 ;

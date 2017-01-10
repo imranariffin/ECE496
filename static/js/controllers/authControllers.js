@@ -133,8 +133,12 @@ function LogoutController($scope, $http, $cookies, $window) {
 	}
 }
 
-function AuthNavbarController($scope, $cookies) {
+function AuthNavbarController($scope, $cookies, $window) {
 	$scope.currentUser = $cookies.get('current-user');
+
+	$scope.isMapPage = function() {
+		return $window.location.hash === "#/";
+	}
 }
 
 function DashboardController($scope, $cookies) {
