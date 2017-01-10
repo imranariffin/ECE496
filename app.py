@@ -441,6 +441,7 @@ def profile_edit(sitter_username):
 def get_profile_pic(username):
   token1 = request.headers['Token1']
   token2 = request.headers['Token2']
+
   if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
@@ -458,6 +459,50 @@ def get_profile_pic(username):
   else:
     cursor = handle.parent.find_one( {"username": username},projection={'profile_pic':True, '_id': False})
     return dumps(cursor), status.HTTP_200_OK
+
+
+#PASSWORD CHANGE
+@app.route('/api/password_change',methods=['POST'])
+def pw_change():
+  token1 = request.headers['Token1']
+  token2 = request.headers['Token2']
+
+  if hashing.Decrypted([token1, token2]) != True:
+    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
+    return jsonify(response), status.HTTP_403_FORBIDDEN
+
+  form = request.get_json()
+  if 'username' not in form or 'org_pw' not in form or 'new_pw' not in form or 'new_pw_conf' not in form:
+    response = {'error_message': 'request data should contain username, the orginal password, new password and the confirmed new password'}
+    return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
+
+  username = form['username']
+  org_pw = form['org_pw']
+  new_pw = form['new_pw']
+  new_pw_conf = form['new_pw_conf']
+
+  result = handle.user.find({'username': username})
+  if result.count() == 0:
+    response = {'error_message': 'user does not exist'}
+    return jsonify(response), status.HTTP_404_NOT_FOUND
+  elif list(result)[0]["password"] != org_pw:
+    response = {'error_message': 'wrong password'}
+    return jsonify(response), status.HTTP_401_UNAUTHORIZED
+  elif new_pw != new_pw_conf:
+    response = {'error_message': 'Confirmed new password does not match the new password'}
+    return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
+  elif org_pw == new_pw:
+    response = {'error_message': 'New password is the same as the old one'}
+    return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
+  else:
+    handle.user.update_one(
+      {'username': username},
+      {'$set': {'password': new_pw}})
+    response = {
+      'message': 'successfully changed password',
+      'session_token': hashing.Encrypted(username+new_pw),
+    }
+    return jsonify(response), status.HTTP_200_OK
 
 
 #HELPER FUNCTIONS
