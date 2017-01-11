@@ -6,8 +6,10 @@ var userProfileApp = angular.module('userProfileApp',
 // controllers
 userProfileApp
   .controller('UserProfileEditController', UserProfileEditController)
+  .controller('ParentProfileEditController', ParentProfileEditController)
   .controller('UserProfileTabController', UserProfileTabController)
-  .controller('UserProfilePasswordController', UserProfilePasswordController)
+  // .controller('UserProfilePasswordController', UserProfilePasswordController)
+  .controller('UserController', UserController)
 ;
 
 // directives
@@ -27,4 +29,21 @@ userProfileApp
 			};
 	})
 ;
-	
+
+userProfileApp
+	.directive('fileModel', ['$parse', function ($parse) {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attrs) {
+        var model = $parse(attrs.fileModel);
+        var modelSetter = model.assign;
+        
+        element.bind('change', function(){
+          scope.$apply(function(){
+             modelSetter(scope, element[0].files[0]);
+          });
+        });
+      }
+    };
+}])
+;

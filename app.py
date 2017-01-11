@@ -358,6 +358,9 @@ def sitter_profile_upload(sitter_username):
   token1 = request.headers['Token1']
   token2 = request.headers['Token2']
 
+  print form
+  print type(form)
+
   if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
@@ -388,8 +391,14 @@ def sitter_profile_upload(sitter_username):
   upload_result = None
   profile_pic_url = None
   cover_pic_url = None
+
+  print "before files"
+
   profile_pic = request.files['profile_pic']
   cover_pic = request.files['cover_pic']
+
+  print "after files"
+
   if profile_pic:
     upload_result = upload(profile_pic)
     profile_pic_url  = upload_result['url']
@@ -609,6 +618,24 @@ def profile_fillup(form,username,edit):
     response = {'message': 'successfully inserted babysitter profile'}
   return True, response
 
+@app.route('/api/user/<username>', methods=["GET"])
+def get_user(username):
+  token1 = request.headers['Token1']
+  token2 = request.headers['Token2']
+
+  if hashing.Decrypted([token1, token2]) != True:
+    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
+    return jsonify(response), status.HTTP_403_FORBIDDEN
+
+  user = handle['user'].find_one(
+    {'username': username}, 
+    projection={'_id': False})
+  if user is None:
+    response = {'error_message': 'user does not exist!'}
+    return jsonify(response), status.HTTP_404_NOT_FOUND
+
+  response = {'user': user}
+  return jsonify(response), status.HTTP_200_OK
 
 if __name__ == "__main__":
   app.run(host='0.0.0.0', port=8000)
