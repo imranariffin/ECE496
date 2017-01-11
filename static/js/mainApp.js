@@ -13,6 +13,7 @@ var mainApp = angular.module('mainApp',
 
 mainApp
   .controller('MapController', MapController)
+  .controller('NavBarController', NavBarController)
 ;
 
 mainApp
