@@ -2,14 +2,16 @@
 <nav-bar></nav-bar>
 <!-- /Fixed navbar -->
 
-<div class="container">
-   <div class = "row" ng-controller="UserProfileTabController">
-      <div class = "col-md-3">
-         <p ng-click="changeUserTab(EDIT_TAB)">Edit profile</p>
-         <p ng-click="changeUserTab(TIME_TAB)">Time availability</p>
-         <p ng-click="changeUserTab(PAYMENT_TAB)">Payment system</p>
-         <p ng-click="changeUserTab(RESET_PASSWORD_TAB)">Reset the password</p>
-         <p ng-click="changeUserTab(VIEW_PROFILE_TAB)">view profile</p>
+<div class="container" ng-controller="UserController">
+   <div class="nav-bar-margin row" ng-controller="UserProfileTabController">
+      <div class = "col-md-1"></div>
+
+      <div class="side-bar col-md-2">
+         <p ng-click="changeUserTab(EDIT_TAB)"><a href="">Edit profile</a></p>
+         <p ng-show="isHost()" ng-click="changeUserTab(TIME_TAB)"><a href="">Time availability</a></p>
+         <p ng-click="changeUserTab(PAYMENT_TAB)"><a href="">Payment system</a></p>
+         <p ng-click="changeUserTab(RESET_PASSWORD_TAB)"><a href="">Reset the password</a></p>
+         <p ng-show="isHost()"><a href="/#/babysitter/{{user.username}}">view profile</a></p>
       </div>
      	<user-profile-edit ng-show="tab===EDIT_TAB"></user-profile-edit>
       <time-availability ng-show="tab===TIME_TAB"></time-availability>

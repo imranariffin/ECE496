@@ -80,8 +80,8 @@ ls_babysitters = [{
         "personal_info": {
           "display_name": "Imran",
           "gender":"male",
-          "profile_pic": "http://res.cloudinary.com/rrigrp/image/upload/v1484081865/mowvopnphcrmtcmbgdyb.jpg",
-          "cover_pic": "http://res.cloudinary.com/rrigrp/image/upload/v1484081865/pjn0zdy9yltcdhbjyhmj.jpg",
+          "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
+          "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
           "city": {
             "city":"Toronto",
             "prov_state": "Ontario",

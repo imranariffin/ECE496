@@ -1,171 +1,209 @@
-<div class = "col-md-9" ng-controller="UserProfileEditController">
+<div class="col-md-9">
    <div class="panel panel-primary">
       <div class="panel-heading">
          Edit the profile
-         <span ng-if="errorMessage">{{errorMessage}}</span>
       </div>
-      <div class="panel-body">
-         <form>
-            </br>
+      <div class="panel-body" ng-controller="UserProfileEditController">
+         <form ng-show="user.host" ng-submit="updateProfile()">
+            <br>
             <label for="exampleInputEmail1">Personal information</label>
-            </br>
-            <div class = "row">
-               <div class="form-group col-md-3">
+            <br>
+            <div class="row">
+               <div class="form-group col-md-4">
                   <p>Education</p>
-                  <input ng-model="personal_info.education" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  <input ng-model="education" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="University/College" required="">
                </div>
-               <div class="form-group col-md-3">
+               <div class="col-md-2"></div>
+               <div class="form-group col-md-4">
                   <p>Working Experience</p>
-                  <input ng-model="personal_info.experience" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  <input ng-model="experience" type="text" class="form-control" id="exampleInputPassword1" placeholder="Place, Years" required="">
                </div>
-               <div class="form-group col-md-3">
+               <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+               <div class="form-group col-md-4">
                   <p>Address</p>
-                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  <input ng-model="city" type="text" class="form-control" id="exampleInputPassword1" placeholder="City, Street name, Post code" required="">
                </div>
-               <div class="form-group col-md-3">
+               <div class="col-md-2"></div>
+               <div class="form-group col-md-4">
+                  <p>Province</p>
+                  <input ng-model="prov_state" type="text" class="form-control" id="exampleInputPassword1" placeholder="Province" required="">
+               </div>
+               <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+               <div class="form-group col-md-4 push-left">
                   <p>Gender</p>
-                  <input ng-model="personal_info.gender" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  <input ng-model="gender" type="text" class="form-control" id="exampleInputPassword1" placeholder="Female/Male" required="">
                </div>
             </div>
-            </br>
-            <hr width= "100%">
-            </br>
-            </br>
+
+            <br>
+            <hr width="100%">
+            <br>
+            <br>
             <label for="exampleInputEmail1">Contact Information</label>
-            </br>
-            <div class = "row">
+            <br>
+            <div class="row">
                <div class="form-group col-md-4">
                   <p>Email</p>
-                  <input ng-model="contact_info.email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  <input ng-model="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required="">
                </div>
                <div class="form-group col-md-4">
                   <p>Internet</p>
-                  <input ng-model="contact_info.website" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  <input ng-model="website" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required="">
                </div>
                <div class="form-group col-md-4">
                   <p>Phone number</p>
-                  <input ng-model="contact_info.phone" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  <input ng-model="phone" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required="">
                </div>
             </div>
-            </br>
-            <hr width= "100%">
-            </br>
+            <br>
+            <hr width="100%">
+            <br>
             <div class="form-group">
                <label for="exampleTextarea">About me</label>
-               <textarea ng-model="profile.service.about" class="form-control" id="exampleTextarea" rows="3"></textarea>
+               <textarea ng-model="about" class="form-control" id="exampleTextarea" rows="3" placeholder="Talk about yourself"></textarea>
             </div>
-            </br>
-            <hr width= "100%">
-            </br>
-            </br>
+            <br>
+            <hr width="100%">
+            <br>
+            <br>
             <label for="exampleInputEmail1">General information</label>
-            </br>
-            <div class = "row">
+            <br>
+            <div class="row">
                <div class="form-group col-md-4">
                   <p>How often</p>
-                  <input ng-model="general_info.sitter_status" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  <input ng-model="sitter_status" type="text" class="form-control" id="exampleInputEmail1" placeholder="Part time/Full time" required="">
                </div>
+               <div class="col-md-2"></div>
                <div class="form-group col-md-4">
-                  <p> baby age range  </p>
-                  <input ng-model="general_info.age_range" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  <p>Baby age range</p>
+                  <input ng-model="age_range" type="text" class="form-control" id="exampleInputPassword1" placeholder="Ex: 1 - 5 years old" required="">
                </div>
-               <div class="form-group col-md-4">
-                  <p>Service locations </p>
-                  <input ng-model="general_info.service_location" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
-               </div>
+               <div class="col-md-2"></div>
             </div>
-            <div class = "row">
+            <div class="row">
                <div class="form-group col-md-4">
                   <p>Pick up service </p>
-                  <input ng-model="general_info.pickup" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  <input ng-model="pickup" type="text" class="form-control" id="exampleInputPassword1" placeholder="Yes/No" required="">
                </div>
+               <div class="col-md-2"></div>
                <div class="form-group col-md-4">
-                  <p>Speaking language</p>
-                  <input ng-model="languages" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  <p>Service locations</p>
+                  <input ng-model="service_location" type="text" class="form-control" id="exampleInputPassword1" placeholder="Babysitter / Parent's home" required="">
+               </div>
+               <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+
+               <div class="form-group col-md-5">
+                  <p>Speaking language
+                  <small for="sel2">(hold shift to select more than one):</small></p>
+                  <select ng-model="langArr" multiple="" class="form-control" id="sel2" rows="2" required="">
+                    <option>English</option>
+                    <option>Chinese</option>
+                    <option>Bengali</option>
+                    <option>French</option>
+                    <option>Japanese</option>
+                    <option>Spanish</option>
+                    <option>Telugu</option>
+                    <option>Russian</option>
+                  </select>
                </div>
             </div>
-            </br>
-            <hr width= "100%">
-            </br>
+            <br>
+            <hr width="100%">
+            <br>
             <label for="exampleInputEmail1">Price</label>
-            </br>
-            <div class = "row">
+            <br>
+            <div class="row">
                <div class="form-group col-md-4">
                   <p>Hourly Rate </p>
-                  <input ng-model="price.weekday_hourly" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="per hour"> 
+                  <input ng-model="weekday_hourly" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="per hour" required=""> 
                </div>
                <div class="form-group col-md-4">
                   <p>Weekend Hourly Rate</p>
-                  <input ng-model="price.weekend_hourly" type="text" class="form-control" id="exampleInputPassword1" placeholder="per hour">
+                  <input ng-model="weekend_hourly" type="text" class="form-control" id="exampleInputPassword1" placeholder="per hour" required="">
                </div>
                <div class="form-group col-md-4">
                   <p>Security Deposit</p>
-                  <input ng-model="price.security_deposit" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  <input ng-model="security_deposit" type="text" class="form-control" id="exampleInputPassword1" placeholder="Password" required="">
                </div>
             </div>
-            </br>
-            <hr width= "100%">
-            </br>
+            <br>
+            <hr width="100%">
+            <br>
             <label for="exampleInputEmail1">Extra Information</label>
-            </br>
+            <br>
             <div class="form-group">
-               <div class = "row">
+               <div class="row">
                   <div class="col-md-4">
                      <label class="form-check-label">
-                     <input ng-model="extra.free_parking" type="checkbox" class="form-check-input">
+                     <input ng-model="free_parking" type="checkbox" class="form-check-input">
                      Free parking on premises 
                      </label>
                   </div>
                   <div class="col-md-4">   
                      <label class="form-check-label">
-                     <input ng-model="extra.child_education" type="checkbox" class="form-check-input">
+                     <input ng-model="child_education" type="checkbox" class="form-check-input">
                      Child education 
                      </label>
                   </div>
                   <div class="col-md-4">
                      <label class="form-check-label">
-                     <input ng-model="extra.wireless_internet" type="checkbox" class="form-check-input">
+                     <input ng-model="wireless_internet" type="checkbox" class="form-check-input">
                      Wireless Internet 
                      </label>
                   </div>
                </div>
-               <div class = "row">
+               <div class="row">
                   <div class="col-md-4">
                      <label class="form-check-label">
-                     <input ng-model="extra.air_condition" type="checkbox" class="form-check-input">
+                     <input ng-model="air_condition" type="checkbox" class="form-check-input">
                      Air conditioning
                      </label>
                   </div>
                   <div class="col-md-4">
                      <label class="form-check-label">
-                     <input ng-model="extra.meal" type="checkbox" class="form-check-input">
+                     <input ng-model="meal" type="checkbox" class="form-check-input">
                      Meal service 
                      </label>
                   </div>
                </div>
             </div>
-            </br>
-            <hr width= "100%">
+            <br>
+            <hr width="100%">
             <div class="form-group">
                <label for="exampleTextarea">Policy</label>
-               <textarea ng-model="policy" class="form-control" id="exampleTextarea" rows="3"></textarea>
+               <textarea ng-model="policy" class="form-control" id="exampleTextarea" rows="5" placeholder="Enter your policy" required=""></textarea>
             </div>
-            </br>
-            <hr width= "100%">
-            </br>
+            <br>
+            <hr width="100%">
+            <br>
             <div class="form-group">
                <label for="exampleInputFile">Cover Image Upload</label>
-               <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-               <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+               <input file-model="coverPic" type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" required="">
+               <small id="fileHelp" class="form-text text-muted">This is This is some placeholder block-level help text for the above input. Please upload large size image.</small>
             </div>
             <div class="form-group">
                <label for="exampleInputFile">Profile Image Upload</label>
-               <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-               <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+               <input file-model="profilePic" type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" required="">
+               <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. Please upload small size image.</small>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
+         </form>
+
+
+         <form ng-controller="ParentProfileEditController" ng-show="!user.host" ng-submit="uploadProfilePic()">
+            <div class="form-group">
+               <label for="exampleInputFile">Profile Image Upload</label>
+               <input file-model="parentProfilePic" type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" required="">
+               <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. Please upload small size image.</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload Profile</button>
+<!--             <button type="submit" class="btn btn-primary">Submit</button> -->
          </form>
       </div>
    </div>
