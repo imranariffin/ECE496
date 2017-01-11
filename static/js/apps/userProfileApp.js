@@ -8,7 +8,7 @@ userProfileApp
   .controller('UserProfileEditController', UserProfileEditController)
   .controller('ParentProfileEditController', ParentProfileEditController)
   .controller('UserProfileTabController', UserProfileTabController)
-  // .controller('UserProfilePasswordController', UserProfilePasswordController)
+  .controller('UserProfilePasswordController', UserProfilePasswordController)
   .controller('UserController', UserController)
 ;
 

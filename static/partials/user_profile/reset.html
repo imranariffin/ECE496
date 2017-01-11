@@ -1,5 +1,4 @@
-<!-- <div class = "col-md-9" ng-controller="UserProfilePasswordController"> -->
-<div class = "col-md-9">
+<div class = "col-md-9" ng-controller="UserProfilePasswordController">
    <div class="panel panel-primary">
       <div class="panel-heading">
          Reset the password
@@ -10,7 +9,7 @@
                <div class = "col-md-4 push-left">
                   <div class="form-group">
                      <label>Enter your old password</label>
-                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+                     <input ng-model="org_pw" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
                   </div>
                </div>
             </div>
@@ -18,7 +17,7 @@
                <div class = "col-md-4  push-left">
                   <div class="form-group">
                      <label>Enter your new password</label>
-                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+                     <input ng-model="new_pw" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
                   </div>
                </div>
             </div>
@@ -26,11 +25,11 @@
                <div class = "col-md-4  push-left">
                   <div class="form-group">
                      <label>Confirm your new password</label>
-                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+                     <input ng-model="new_pw_conf" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
                   </div>
                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" ng-click="reset_password()">Submit</button>
          </form>
       </div>
    </div>

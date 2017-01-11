@@ -44,7 +44,6 @@ function UserProfileTabController($scope) {
 }
 
 function UserProfileEditController($scope, $cookies, $routeParams, $http) {
-  $scope.sitterProfile = null;
   $scope.errorMessage = null;
 
   var profileApiUrl = '/api/babysitter/' + 
@@ -216,5 +215,43 @@ function ParentProfileEditController($scope, $routeParams, $cookies, $http) {
       console.log(errorResponse);
       $scope.errorMessage = errorResponse;
     });
+  }
+}
+
+
+
+
+
+
+function UserProfilePasswordController($scope, $http, $cookies) {
+
+  $scope.errorMessage = null;
+
+  var profileApiUrl = "/api/password_change";
+
+  /*
+    POST the reset password
+  */
+  $scope.reset_password = function() {
+      var reqProfile = {
+        method: "POST",
+        url: profileApiUrl,
+        headers: $cookies.getObject('tokens'),
+        data: {
+            username: $cookies.get('current-user'),
+            org_pw: $scope.org_pw,
+            new_pw: $scope.new_pw,
+            new_pw_conf: $scope.new_pw_conf
+        }
+      };
+
+      $http(reqProfile)
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(errorResponse) {
+          $scope.errorMessage = errorResponse;
+          console.log(errorResponse);
+        });
   }
 }
