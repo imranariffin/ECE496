@@ -55,3 +55,30 @@ function MapController($scope, $http, $cookies) {
     map.clusterizeHosterMarkers();
   }
 }
+
+
+
+
+function NavBarController($scope, $http, $cookies) {
+  $scope.errorMessage = null;
+
+  var profileApiUrl = '/api/' + $cookies.get('current-user') + '/profile_pic';
+
+  var reqProfile = {
+    method: "GET",
+    url: profileApiUrl,
+    headers: $cookies.getObject('tokens')
+  };
+
+  $http(reqProfile)
+    .then(function(response) {
+      $scope.profile_pic = response.data.profile_pic
+    })
+    .catch(function(errorResponse) {
+      $scope.errorMessage = errorResponse;
+      console.log(errorResponse);
+    });
+}
+
+
+
