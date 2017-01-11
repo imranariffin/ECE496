@@ -80,8 +80,8 @@ ls_babysitters = [{
         "personal_info": {
           "display_name": "Imran",
           "gender":"male",
-          "profile_pic": "https://upload.wikimedia.org/wikipedia/en/1/17/Batman-BenAffleck.jpg",
-          "cover_pic": "http://wallpapercave.com/wp/VmVdtfm.jpg",
+          "profile_pic": "http://res.cloudinary.com/rrigrp/image/upload/v1484081865/mowvopnphcrmtcmbgdyb.jpg",
+          "cover_pic": "http://res.cloudinary.com/rrigrp/image/upload/v1484081865/pjn0zdy9yltcdhbjyhmj.jpg",
           "city": {
             "city":"Toronto",
             "prov_state": "Ontario",
