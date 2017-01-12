@@ -193,6 +193,15 @@
                <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. Please upload small size image.</small>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
+
+            <div ng-if="successMessage" class="alert alert-success alert-dismissable">
+               <a href="" class="close" data-dismiss="alert" aria-label="close">×</a>
+               <strong>Success!</strong> {{successMessage}}
+            </div>
+            <div ng-if="errorMessage" class="alert alert-danger alert-dismissable">
+               <a href="" class="close" data-dismiss="alert" aria-label="close">×</a>
+               <strong>Error</strong> {{errorMessage}}
+            </div>
          </form>
 
 
@@ -204,6 +213,15 @@
             </div>
             <button type="submit" class="btn btn-primary">Upload Profile</button>
 <!--             <button type="submit" class="btn btn-primary">Submit</button> -->
+
+            <div ng-if="successMessage" class="alert alert-success alert-dismissable">
+               <a href="" class="close" data-dismiss="alert" aria-label="close">×</a>
+               <strong>Success!</strong> {{successMessage}}
+            </div>
+            <div ng-if="errorMessage" class="alert alert-danger alert-dismissable">
+               <a href="" class="close" data-dismiss="alert" aria-label="close">×</a>
+               <strong>Error</strong> {{errorMessage}}
+            </div>
          </form>
       </div>
    </div>

@@ -31,6 +31,7 @@ function ProfileRatingAndReviewController($scope, $http, $cookies, $routeParams)
       $scope.ratingAvg = response.data.rating;
     })
     .catch(function(errorResponse) {
+      $scope.errorMessage = errorResponse.data.error_message;
       console.log(errorResponse);
     });
 
@@ -49,7 +50,7 @@ function ProfileRatingAndReviewController($scope, $http, $cookies, $routeParams)
       $scope.reviews = response.data;
     })
     .catch(function(errorResponse) {
-      $scope.errorMessage = errorResponse;
+      $scope.errorMessage = errorResponse.data.error_message;
       console.log(errorResponse);
     });
 }
@@ -93,7 +94,7 @@ function ProfileSubmitRatingAndReviewController($scope, $http, $cookies, $routeP
         console.log(response);
       })
       .catch(function(errorResponse) {
-        $scope.errorMessage = errorResponse;
+        $scope.errorMessage = errorResponse.data.error_message;
         console.log(errorResponse);
       });
 
@@ -102,7 +103,7 @@ function ProfileSubmitRatingAndReviewController($scope, $http, $cookies, $routeP
         console.log(response);
       })
       .catch(function(errorResponse) {
-        $scope.errorMessage = errorResponse;
+        $scope.errorMessage = errorResponse.data.error_message;
         console.log(errorResponse);
       });
   }
@@ -134,7 +135,7 @@ function ProfilePageController($scope, $cookies, $routeParams, $http) {
       $scope.sitter = response.data;
     })
     .catch(function(errorResponse) {
-      $scope.errorMessage = errorResponse;
+      $scope.errorMessage = errorResponse.data.error_message;
       console.log(errorResponse);
     });
 }
@@ -167,7 +168,7 @@ function ProfileServiceController($scope, $http, $cookies, $routeParams) {
 
     })
     .catch(function(errorResponse) {
-      $scope.errorMessage = errorResponse;
+      $scope.errorMessage = errorResponse.data.error_message;
       console.log(errorResponse);
     });
 }

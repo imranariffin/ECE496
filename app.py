@@ -221,7 +221,7 @@ def get_babysitter_review_list(sitter_username):
     babysitter = handle['babysitter'].find_one({'username': sitter_username})
 
     if babysitter is None:
-      response = {"err": "Error 404: No babysitter with such username %s"%sitter_username}
+      response = {"error_message": "Error 404: No babysitter with such username %s"%sitter_username}
       return jsonify(response), status.HTTP_404_NOT_FOUND
 
     ls_reviews = [{
@@ -239,22 +239,22 @@ def get_babysitter_review_list(sitter_username):
 
   if 'username' not in form:
     # error, should log first
-    response = {"err": "Should log in"}
+    response = {"error_message": "Should log in"}
     return jsonify(response), status.HTTP_400_BAD_REQUEST
 
   if 'review' not in form or form['review'] == "":
     # error, review should not be empty
-    response = {"err": "Review should not be empty"}
+    response = {"error_message": "Review should not be empty"}
     return jsonify(response), status.HTTP_400_BAD_REQUEST
 
   if 'title' not in form or form['title'] == "":
     # error, review should not be empty
-    response = {"err": "Review title should not be empty"}
+    response = {"error_message": "Review title should not be empty"}
     return jsonify(response), status.HTTP_400_BAD_REQUEST
 
   if handle['user'].find_one({'username': form['username']}) is None:
     # error, user should exist
-    response = {"err": "user does not exist"}
+    response = {"error_message": "user does not exist"}
     return jsonify(response), status.HTTP_400_BAD_REQUEST
 
   # add current user's review for babysitter
@@ -276,7 +276,7 @@ def get_babysitter_review_list(sitter_username):
 
   if res.matched_count == 0:
     # error, babysitter doesn't exist
-    response = {"err": "babysitter %s doesn't exist"%sitter_username}
+    response = {"error_message": "babysitter %s doesn't exist"%sitter_username}
     return jsonify(response), status.HTTP_400_BAD_REQUEST
 
   response = {"message": "Success post review"}
@@ -302,7 +302,7 @@ def rating(sitter_username):
     return jsonify(response), status.HTTP_403_FORBIDDEN
 
   if handle['babysitter'].find_one({'username': sitter_username}) is None:
-    response = {"err": "babysitter does not exist"}
+    response = {"error_message": "babysitter does not exist"}
     return jsonify(response), status.HTTP_404_NOT_FOUND
 
   if request.method == 'POST':
@@ -310,22 +310,22 @@ def rating(sitter_username):
     form = request.get_json()
 
     if 'username' not in form:
-      response = {"err": "should log in"}
+      response = {"error_message": "should log in"}
       return jsonify(response), status.HTTP_400_BAD_REQUEST
 
     if 'rating' not in form:
-      response = {"err": "must give rating"}
+      response = {"error_message": "must give rating"}
       return jsonify(response), status.HTTP_400_BAD_REQUEST
 
     currentuser_username = form['username']
     rating = int(form['rating'])
 
     if handle['user'].find_one({'username': currentuser_username}) is None:
-      response = {"err": "no such user %s"%currentuser_username}
+      response = {"error_message": "no such user %s"%currentuser_username}
       return jsonify(response), status.HTTP_404_NOT_FOUND
 
     if rating < 1 or rating > 5:
-      response = {"err": "rating should range from 1 to 5"}
+      response = {"error_message": "rating should range from 1 to 5"}
       return jsonify(response), status.HTTP_400_BAD_REQUEST
 
     # all good, save rating in database
@@ -358,9 +358,6 @@ def sitter_profile_upload(sitter_username):
   token1 = request.headers['Token1']
   token2 = request.headers['Token2']
 
-  print form
-  print type(form)
-
   if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
@@ -392,12 +389,8 @@ def sitter_profile_upload(sitter_username):
   profile_pic_url = None
   cover_pic_url = None
 
-  print "before files"
-
   profile_pic = request.files['profile_pic']
   cover_pic = request.files['cover_pic']
-
-  print "after files"
 
   if profile_pic:
     upload_result = upload(profile_pic)
@@ -487,7 +480,7 @@ def profile_get(sitter_username):
     return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
 
   elif handle.babysitter.find_one({'username': sitter_username}) is None:
-    response = {"err": "babysitter does not exist"}
+    response = {"error_message": "babysitter does not exist"}
     return jsonify(response), status.HTTP_404_NOT_FOUND
   else:
     cursor = handle.babysitter.find_one( {"username": sitter_username},projection={'profile':True, '_id': False})
@@ -509,7 +502,7 @@ def profile_edit(sitter_username):
     return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
 
   elif handle.babysitter.find_one({'username': sitter_username}) is None:
-    response = {"err": "babysitter does not exist"}
+    response = {"error_message": "babysitter does not exist"}
     return jsonify(response), status.HTTP_404_NOT_FOUND
   else:
     handle.babysitter.update_one(
@@ -529,7 +522,7 @@ def get_profile_pic(username):
     return jsonify(response), status.HTTP_403_FORBIDDEN
 
   if handle.user.find_one({'username': username}) is None:
-    response = {"err": "user does not exist"}
+    response = {"error_message": "user does not exist"}
     return jsonify(response), status.HTTP_404_NOT_FOUND
 
   user_type = handle.user.find_one( {"username": username},projection={'host':True, '_id': False})

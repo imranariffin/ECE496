@@ -1,4 +1,10 @@
 <div class = "row">
+
+  <div ng-if="errorMessage" class="alert alert-danger alert-dismissable">
+     <a href="" class="close" data-dismiss="alert" aria-label="close">×</a>
+     <strong>Error</strong> {{errorMessage}}
+  </div>
+
 	<div class="col-md-12">
 		<span uib-rating ng-model="ratingAvg" max="5" read-only="true" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
 	</div>

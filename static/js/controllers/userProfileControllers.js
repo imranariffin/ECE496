@@ -46,6 +46,7 @@ function UserProfileTabController($scope) {
 function UserProfileEditController($scope, $cookies, $routeParams, $http) {
   $scope.sitterProfile = null;
   $scope.errorMessage = null;
+  $scope.successMessage = null;
 
   var profileApiUrl = '/api/babysitter/' + 
     $routeParams.username + '/profile';
@@ -109,12 +110,14 @@ function UserProfileEditController($scope, $cookies, $routeParams, $http) {
 
     })
     .catch(function(errorResponse) {
-      $scope.errorMessage = errorResponse;
+      $scope.errorMessage = errorResponse.data.error_message;
       console.log(errorResponse);
     });
 
   /* POST profile */
   $scope.updateProfile = function () {
+    $scope.errorMessage = null;
+
 
     var updateProfileApiUrl = '/api/babysitter/' +
       $routeParams.username + '/profile_upload';
@@ -181,9 +184,11 @@ function UserProfileEditController($scope, $cookies, $routeParams, $http) {
         }
     })
     .then(function(response){
+      $scope.successMessage = response.data.message;
       console.log(response);
     })
     .catch(function(errorResponse){
+      $scope.errorMessage = response.data.error_message;
       console.log(errorResponse);
     });
   };
@@ -192,6 +197,7 @@ function UserProfileEditController($scope, $cookies, $routeParams, $http) {
 function ParentProfileEditController($scope, $routeParams, $cookies, $http) {
   $scope.parentProfilePic = null;
   $scope.errorMessage = null;
+  $scope.successMessage = null;
 
   $scope.uploadProfilePic = function () {
 
@@ -211,10 +217,11 @@ function ParentProfileEditController($scope, $routeParams, $cookies, $http) {
     })
     .then(function(response){
       console.log(response);
+      $scope.successMessage = response.data.message;
     })
     .catch(function(errorResponse){
       console.log(errorResponse);
-      $scope.errorMessage = errorResponse;
+      $scope.errorMessage = errorResponse.data.error_message;
     });
   }
 }
