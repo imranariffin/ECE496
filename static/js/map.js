@@ -110,15 +110,41 @@ function GMapMarker(type, options) {
 
 var createHosterMarker = function (map, place){
   // imran tests infoWindow @ imran-7-infowindow
+  console.log(place);
+  var sitter_username = place.username;
+  var sitter_email, profile_pic;
+  if (
+    place.profile && 
+    place.profile.basic && 
+    place.profile.basic.contact_info)
+    sitter_email = place.profile.basic.contact_info.email;
+  else
+    sitter_email = "N/A";
+
+  if (
+    place.profile &&
+    place.profile.basic &&
+    place.profile.basic.personal_info &&
+    place.profile.basic.personal_info.profile_pic)
+    profile_pic = place.profile.basic.personal_info.profile_pic;
+  else
+    profile_pic = 'https://s3-media4.fl.yelpcdn.com/bphoto/GqZdB0uAO54gbDHlG_VI6A/90s.jpg';
+
   var marker = GMapMarker('hoster', {
     map: map,
     position: new google.maps.LatLng(place.lat, place.lng),
     title: place.host
   });
+
+
+
   var contentString = '<div id="content" Style = "width: 483px; height: 144px">'+
     '<div id = "wi-head" class = "row">'+
       '<div class="col-xs-2">'+
-        '<img src="https://s3-media4.fl.yelpcdn.com/bphoto/GqZdB0uAO54gbDHlG_VI6A/90s.jpg" alt="Porcelain Factory of Vista Alegre" height="60" width="60">'+
+        '<img src="' +
+          // https://s3-media4.fl.yelpcdn.com/bphoto/GqZdB0uAO54gbDHlG_VI6A/90s.jpg
+          profile_pic + 
+        '" alt="Porcelain Factory of Vista Alegre" height="60" width="60">'+
       '</div>'+
       '<div Style = "padding-left: 5px"; class="col-xs-5" >'+
         '<h4 id="firstHeading">'+
@@ -127,16 +153,24 @@ var createHosterMarker = function (map, place){
         '<p>Rating: <img src="http://cliparts.co/cliparts/gce/oXx/gceoXx7gi.png" height="20" width="50"></p>'+
       '</div>'+
       '<div Style = "padding-top: 3px"; class="col-xs-5">'+
-        '<p Style = "margin-bottom: 5px">Phone: 647-830-8636</p>' +
-        '<p>Email: richard874410593@gmail.com</p>' +
+        '<p Style = "margin-bottom: 5px">Phone: ' +
+          // ' 647-830-8636' + 
+          place.phone + 
+        '</p>' + 
+        '<p>Email: ' + 
+          // 'richard874410593@gmail.com' + 
+          sitter_email + 
+        '</p>' +
       '</div>'+
     '</div>' +
     '<div  id="bodyContent">'+
-      '<p>Description: sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-      'Aboriginal people of the area. It has many springs, waterholes, '+
-      'Heritage Site. <a href="url">Read more</a></p>'+
+      '<p>Description: ' +
+        // 'sacred to the Pitjantjatjara and Yankunytjatjara, the ' +
+        // 'Aboriginal people of the area. It has many springs, waterholes, ' +
+        // 'Heritage Site. ' + 
+        place.desc + 
+        '<a href="/#/babysitter/' + sitter_username + '">Read more</a></p>'+
       '<hr Style = "margin-bottom: 5px; margin-top: 5px">'+
-      '<p> <a href="url">Save</a>  |  <a href="url">Facebook</a>   |   <a href="url">Twitter</a>   </p>' + 
     '</div>'+
   '</div>';
   if (infoWindow)
