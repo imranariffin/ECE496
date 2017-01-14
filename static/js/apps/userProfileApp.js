@@ -21,11 +21,19 @@ userProfileApp
 	})
 ;
 
+userProfileApp
+  .directive('resetPassword', function() {
+      return {
+        templateUrl: 'static/partials/user_profile/reset.html',
+      };
+  })
+;
+
 
 userProfileApp
-	.directive('resetPassword', function() {
+	.directive('paymentSystem', function() {
 			return {
-				templateUrl: 'static/partials/user_profile/reset.html',
+				templateUrl: 'static/partials/user_profile/payment.html',
 			};
 	})
 ;
