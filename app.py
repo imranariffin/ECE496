@@ -1,4 +1,4 @@
-from flask import Flask, url_for, json, request, send_file, jsonify, Response
+from flask import Flask, url_for, json, request, send_file, jsonify, Response,render_template, redirect
 
 from bson.json_util import dumps
 
@@ -25,13 +25,28 @@ import cloudinary
 from cloudinary.uploader import upload,destroy
 from cloudinary.utils import cloudinary_url
 cloudinary.config(
-  cloud_name = 'rrigrp',
-  api_key = '498192978171332',
-  api_secret = 'F1NecNDuIBOTu8-TlwGwXQMRxkA'
+  cloud_name = os.environ['CLOUDINARY_CLOUD_NAME'],
+  api_key = os.environ['CLOUDINARY_API_KEY'],
+  api_secret = os.environ['CLOUDINARY_API_SECRET']
 )
 
 #Regex
 import re
+
+#Stripe Payment Credentials
+import requests
+import urllib
+import stripe
+stripe_keys = {
+  'secret_key': os.environ['SECRET_KEY'],
+  'publishable_key': os.environ['PUBLISHABLE_KEY'],
+  'client_id':os.environ['CLIENT_ID']
+}
+stripe.api_key = stripe_keys['secret_key']
+
+#Global username for payment use
+glob_username = None
+
 
 app = Flask(__name__)
 
@@ -63,6 +78,10 @@ def login():
   username = form['username']
   password = form['password']
 
+  #save global username for payment
+  global glob_username
+  glob_username = username
+
   result = handle.user.find({'username': username})
   if result.count() == 0:
     response = {'error_message': 'user does not exist'}
@@ -86,6 +105,10 @@ def logout():
   token1 = request.headers['Token1']
   token2 = request.headers['Token2']
   form = request.get_json()
+
+  #Clear Global username
+  global glob_username
+  glob_username = None
 
   if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
@@ -114,6 +137,11 @@ def signup():
 
   username = form['username']
   password = form['password']
+
+  #save global username for payment
+  global glob_username
+  glob_username = username
+
   host = form['host']
   if handle.user.find({'username': username}).count() != 0:
     response = {'error_message': 'username has been registered'}
@@ -128,7 +156,7 @@ def signup():
     user_info = {
       'username': username,
       'password': password,
-      'host': host
+      'host': form['host']
     }
     handle.user.insert(user_info)
 
@@ -358,8 +386,6 @@ def sitter_profile_upload(sitter_username):
   token1 = request.headers['Token1']
   token2 = request.headers['Token2']
 
-  print form
-  print type(form)
 
   if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
@@ -493,30 +519,6 @@ def profile_get(sitter_username):
     cursor = handle.babysitter.find_one( {"username": sitter_username},projection={'profile':True, '_id': False})
     return dumps(cursor), status.HTTP_200_OK
 
-#EDIT BABYSITTER PROFILE
-@app.route('/api/babysitter/<sitter_username>/profile/edit',methods=['POST'])
-def profile_edit(sitter_username):
-  token1 = request.headers['Token1']
-  token2 = request.headers['Token2']
-
-  profile = form['profile']
-  if hashing.Decrypted([token1, token2]) != True:
-    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
-    return jsonify(response), status.HTTP_403_FORBIDDEN
-
-  if sitter_username == None:
-    response = {'error_message': 'request data should contain babysitter name'}
-    return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
-
-  elif handle.babysitter.find_one({'username': sitter_username}) is None:
-    response = {"err": "babysitter does not exist"}
-    return jsonify(response), status.HTTP_404_NOT_FOUND
-  else:
-    handle.babysitter.update_one(
-      {'username': sitter_username},
-      {'$set': {'profile': profile}})
-    cursor = handle.babysitter.find_one( {"username": sitter_username},projection={'profile':True, '_id': False})
-    return dumps(cursor), status.HTTP_200_OK
 
 #GET PROFILE PICTURE ICON
 @app.route('/api/<username>/profile_pic',methods=['GET'])
@@ -585,6 +587,84 @@ def pw_change():
       'session_token': hashing.Encrypted(username+new_pw),
     }
     return jsonify(response), status.HTTP_200_OK
+
+#AUTHORIZE STRIPE CONNECTION
+@app.route('/api/payment_authorize')
+def authorize():
+  site   = "https://connect.stripe.com/oauth/authorize"
+  params = {
+             'response_type': 'code',
+             'scope': 'read_write',
+             'client_id': stripe_keys['client_id']
+           }
+
+  # Redirect to Stripe /oauth/authorize endpoint
+  url = site + '?' + urllib.urlencode(params)
+  return redirect(url)
+
+
+#SAVE PAYMENT ACCOUNT INFO IN THE DATABASE
+@app.route('/api/payment_callback')
+def connect_payment_account():
+  #do this after authorization
+  code   = request.args.get('code')
+  data   = {
+             'client_secret': stripe_keys['secret_key'],
+             'grant_type': 'authorization_code',
+             'client_id': stripe_keys['client_id'],
+             'code': code
+           }
+
+  # Make /oauth/token endpoint POST request
+  url = 'https://connect.stripe.com/oauth/token'
+  resp = requests.post(url, params=data)
+
+  # Get User ID
+  stripe_id = resp.json().get('stripe_user_id')
+  # Get access_token
+  token = resp.json().get('access_token')
+  # Grap publishable_key
+  p_key = resp.json().get('stripe_publishable_key')
+
+  if glob_username == None:
+    response = {'error_message': 'username not defined'}
+    return jsonify(response), status.HTTP_404_NOT_FOUND
+  
+  #CHECK IF THE PAYMENT INFO EXIST
+  if handle.payment.find({'username': glob_username}).count() != 0:
+    response = {'error_message': 'username exists in DB'}
+    return render_template('paymentConnectFail.html') 
+  
+  #Store the information into the database
+  payment = {
+    'username': glob_username,
+    'stripe_id': stripe_id,
+    'access_token': token,
+    'publishable_key': p_key
+  }
+  handle.payment.insert(payment)
+
+  return render_template('paymentConnectSuccess.html')
+
+#SET UP A PAYMENT
+@app.route('/api/payment/<username>/<amount>')
+def payment(username,amount):
+  return render_template('charge.html',key=stripe_keys['publishable_key'],username=username,amount=amount)
+
+#CHARGE THE MONEY
+@app.route('/api/charge/<username>/<amount>', methods=['POST'])
+def charge(username,amount):
+    payment_info=handle.payment.find_one({'username':username})
+    account = payment_info['stripe_id']
+
+    charge = stripe.Charge.create(
+        source=request.form['stripeToken'],
+        amount=amount,
+        currency='cad',
+        description='Babysitting Charge',
+        stripe_account=account
+    )
+    return redirect('/#')
 
 
 #HELPER FUNCTIONS

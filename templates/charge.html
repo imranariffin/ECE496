@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stripe</title>
+  <style type="text/css" media="screen">
+    form article label {
+      display: block;
+      margin: 5px;
+    }
+
+    form .submit {
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+<div role="tabpanel" class="tab-pane" id="settings">
+    <form action="/api/charge/{{username}}/{{amount}}" method="post">
+      <article>
+        <label>
+          <span>Payment Amount is ${{amount}} cents</span>
+          }
+        </label>
+      </article>
+
+      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="{{key}}"
+              data-description="A Flask Charge"
+              data-amount="{{amount}}"
+              data-locale="auto"></script>
+    </form>
+</div>
+</body>
+</html>

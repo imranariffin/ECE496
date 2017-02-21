@@ -1,18 +1,1 @@
-<div role="tabpanel" class="tab-pane" id="settings">
-	{% extends "layout.html" %}
-	{% block content %}
-	  <form action="/charge" method="post">
-	    <article>
-	      <label>
-	        <span>Amount is $1.00</span>
-	      </label>
-	    </article>
-
-	    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-	            data-key="{{ key }}"
-	            data-description="A Flask Charge"
-	            data-amount="100"
-	            data-locale="auto"></script>
-	  </form>
-	{% endblock %}
-</div>
+<a href="/api/payment/{{sitter_username}}/2000">Pay to this babysitter</a>

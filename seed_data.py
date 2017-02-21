@@ -302,3 +302,17 @@ ls_parents = [{
   'username':'parent1',
   'profile_pic':'https://v.cdn.vine.co/r/avatars/8FA8F516C61211899383466061824_pic-r-14319135186558d72e0b19d.jpg.jpg?versionId=ZAYQev_ezlElQYl00cirvmi8LUg_TJnA'
 }]
+
+'''
+babysitter payment info
+'''
+ls_sitterpayments = [{
+ 'username':'dummy',
+ 'secret_key':'',
+ 'publishable_key':'' 
+},
+    {"username": "imran",
+    "access_token": "sk_test_yBDhdmlkIJ6HlSwVNTK3veK2",
+    "publishable_key": "pk_test_PC3gAzSYv5pLRjmanrIdJbRq",
+    "stripe_id": "acct_19pk8mBXl5tvlOhX"}
+]

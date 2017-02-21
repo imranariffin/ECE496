@@ -173,4 +173,6 @@ function ProfileServiceController($scope, $http, $cookies, $routeParams) {
 }
 
 function ProfileProfileController($scope) {;}
-function ProfileSettingsController($scope) {;}
+function ProfileSettingsController($scope, $routeParams) {
+  $scope.sitter_username = $routeParams.sitter_username;
+}
