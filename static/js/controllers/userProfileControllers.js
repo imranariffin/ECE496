@@ -264,3 +264,128 @@ function ParentAddressEditController($scope, $routeParams, $cookies, $http) {
       });
   }
 }
+
+function NameSearchController($scope, $cookies, $http) {
+  $scope.sitter_name = "";
+  $scope.nameSearchRes = null;
+  $scope.errorMessage = null;
+
+  $scope.nameSearch = function(sitter_name) {
+    console.log(sitter_name);
+
+    var searchApiUrl = '/api/namesearch/' + sitter_name;
+    var reqSearch = {
+      method: "GET",
+      url: searchApiUrl,
+      headers: $cookies.getObject('tokens')
+    };
+
+    // $scope.nameSearchRes = 
+    // [
+    //   {
+    //     'name': 'Cherry',
+    //     'username': 'lichuanr',
+    //     'city': 'Toronto'
+    //   },
+    //   {
+    //     'name': 'Imran',
+    //     'username': 'imran',
+    //     'city': 'Toronto'
+    //   },
+    //   {
+    //     'name': 'Flower',
+    //     'username': 'changqi',
+    //     'city': 'Toronto'
+    //   }
+    // ];
+
+    $http(reqSearch)
+      .then(function(response) {
+        console.log(response);
+        $scope.nameSearchRes = response.data;
+        $scope.errorMessage = null;
+      })
+      .catch(function(errorResponse) {
+        $scope.nameSearchRes = null;
+        if (errorResponse.data && errorResponse.data.err)
+          $scope.errorMessage = errorResponse.data.err;
+        else
+          $scope.errorMessage = errorResponse.data;
+      });
+  };
+}
+
+function FilterSearchController($scope, $routeParams, $cookies, $http) {
+  $scope.errorMessage = null;
+  $scope.rating = 0;
+  $scope.distance = 0;
+  $scope.price = 0;
+  $scope.ratings = [
+    "No selection", 
+    1, 
+    2, 
+    3, 
+    4, 
+    5
+  ];
+  $scope.distances = [
+    "No selection", 
+    "less than 1km", 
+    "1 - 5km", 
+    "5 - 10km", 
+    "10 - 50km",
+    "greater than 50km"
+  ];
+  $scope.prices = [
+    "No selection",
+    "Under $20",
+    "$20 - $30",
+    "$30 - $40",
+    "greater than $40"
+  ];
+
+  $scope.filterSearch = function(rating, distance, price) {
+
+    var searchApiUrl = '/api/' + 
+      $routeParams.username + 
+      '/SearchByFilter/' +
+      rating + '/' + 
+      distance + '/' +
+      price;
+    var reqSearch = {
+      method: "GET",
+      url: searchApiUrl,
+      headers: $cookies.getObject('tokens')
+    };
+
+    $http(reqSearch)
+      .then(function(response) {
+        console.log(response.data);
+        $scope.filterSearchRes = response.data;
+        $scope.errorMessage = null;
+      })
+      .catch(function(errorResponse) {
+        $scope.errorMessage = errorResponse;
+        $scope.filterSearchRes = null;
+      });
+
+    // $scope.filterSearchRes =  
+    // [
+    //   {
+    //     'name': 'Cherry',
+    //     'username': 'lichuanr',
+    //     'city': 'Toronto'
+    //   },
+    //   {
+    //     'name': 'Imran',
+    //     'username': 'imran',
+    //     'city': 'Toronto'
+    //   },
+    //   {
+    //     'name': 'Flower',
+    //     'username': 'changqi',
+    //     'city': 'Toronto'
+    //   }
+    // ];
+  };
+}

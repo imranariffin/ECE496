@@ -11,6 +11,8 @@ userProfileApp
   // .controller('UserProfilePasswordController', UserProfilePasswordController)
   .controller('UserController', UserController)
   .controller('ParentAddressEditController', ParentAddressEditController)
+  .controller('NameSearchController', NameSearchController)
+  .controller('FilterSearchController', FilterSearchController)
 ;
 
 // directives

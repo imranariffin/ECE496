@@ -1,0 +1,166 @@
+
+<div class="col-md-8">
+   <div class="panel panel-primary">
+      <div class="panel-heading">
+         Search Babysitters
+      </div>
+      <div class="panel-body">
+         <form ng-controller="NameSearchController">
+            <br>
+            <label for="exampleInputEmail1"><font size="5">Search by Name</font></label>
+            </br>
+            </br>
+            <div class="row">
+               <div class="form-group col-md-12">
+               <nav class="navbar">
+                  <div class="nav nav-justified navbar-nav">
+                      <div class="input-group">
+                        <input type="text" ng-model="sitter_name" class="form-control">
+                        <div class="input-group-btn">
+                          <button ng-click="nameSearch(sitter_name)" type="button" class="btn btn-search btn-info">
+                            <span class="glyphicon glyphicon-search"></span>
+                            <span class="label-icon">Search</span>
+                          </button>
+                        </div>
+                      </div>  
+                  </div>
+               </nav>
+               </div>
+            </div>
+            <div class="row col-md-12">
+               <table ng-if="nameSearchRes" class="table table-list-search">
+                 <thead>
+                   <tr>
+                     <th>Name</th>
+                     <th>Username</th>
+                     <th>City</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr ng-repeat="sitter in nameSearchRes">
+                     <td><a href="/#/babysitter/{{sitter.username}}">{{sitter.name}}</a></td>
+                     <td>{{sitter.username}}</td>
+                     <td>{{sitter.city}}</td>
+                   </tr>
+                 </tbody>
+               </table>
+               <p ng-if="errorMessage">
+                  {{errorMessage}}
+               </p>
+            </div>
+            </br>
+          </form>
+          <form ng-controller="FilterSearchController">
+            <hr width="100%">
+            <br>
+            <br>
+            <div class="row">
+               <div class = "col-md-12">
+                  <label for="exampleInputEmail1"><font size="5">Search by options</font></label>
+                  </br>
+                  </br>
+                  <label>Rating</label>
+                  </br>
+                  <!-- not use ng-repeat -->
+                  <label class="radio-inline">
+                    <input ng-model="rating" ng-value="0" type="radio" name="optradio">No selection
+                  </label>
+                  <label class="radio-inline">
+                    <input ng-model="rating" ng-value="1" type="radio" name="optradio">1
+                  </label>
+                  <label class="radio-inline">
+                    <input ng-model="rating" ng-value="2" type="radio" name="optradio">2
+                  </label>
+                  <label class="radio-inline">
+                    <input ng-model="rating" ng-value="3" type="radio" name="optradio">3
+                  </label>
+                  <label class="radio-inline">
+                    <input ng-model="rating" ng-value="4" type="radio" name="optradio">4
+                  </label>
+                  <label class="radio-inline">
+                    <input ng-model="rating" ng-value="5" type="radio" name="optradio">5
+                  </label>
+                  </br>
+                  </br>
+                  <label>Distance(km)</label>
+                  </br>
+                  <label class="radio-inline">
+                    <input ng-model="distance" ng-value="0" type="radio">{{distances[0]}}
+                  </label>
+                  <label class="radio-inline">
+                    <input ng-model="distance" ng-value="1" type="radio">{{distances[1]}}
+                  </label>
+                  <label class="radio-inline">
+                    <input ng-model="distance" ng-value="2" type="radio">{{distances[2]}}
+                  </label>
+                  <label class="radio-inline">
+                    <input ng-model="distance" ng-value="3" type="radio">{{distances[3]}}
+                  </label>
+                  <label class="radio-inline">
+                    <input ng-model="distance" ng-value="4" type="radio">{{distances[4]}}
+                  </label>
+                  <label class="radio-inline">
+                    <input ng-model="distance" ng-value="5" type="radio">{{distances[5]}}
+                  </label>
+                  </br>
+                  </br>
+                  <label>Price(hourly)</label>
+                  </br>
+                  <label class="radio-inline">
+                    <input ng-model="price" ng-value="0" type="radio" name="optradio2">{{prices[0]}}
+                  </label>
+                  <label class="radio-inline">
+                    <input ng-model="price" ng-value="1" type="radio" name="optradio2">{{prices[1]}}
+                  </label>
+                  <label class="radio-inline">
+                    <input ng-model="price" ng-value="2" type="radio" name="optradio2">{{prices[2]}}
+                  </label>
+                  <label class="radio-inline">
+                    <input ng-model="price" ng-value="3" type="radio" name="optradio2">{{prices[3]}}
+                  </label>
+                  <label class="radio-inline">
+                    <input ng-model="price" ng-value="4" type="radio" name="optradio2">{{prices[4]}}
+                  </label>
+
+<!--                   <label class="radio-inline"><input type="radio" name="optradio2"></label>
+                  <label class="radio-inline"><input type="radio" name="optradio2">$20 - $30</label>
+                  <label class="radio-inline"><input type="radio" name="optradio2">$30 - $40</label>
+                  <label class="radio-inline"><input type="radio" name="optradio2">greater than $40</label> -->
+                  </br>
+                  </br>
+                  <button ng-click="filterSearch(rating, distance, price)" type="button" class="btn btn-search btn-info">
+                      <span class="glyphicon glyphicon-search"></span>
+                      <span class="label-icon">Search</span>
+                  </button>
+                  </br>
+                  </br>
+                  </br>
+                  <div class="row col-md-12">
+                   <table ng-if="filterSearchRes" class="table table-list-search">
+                     <thead>
+                       <tr>
+                         <th>Name</th>
+                         <th>Username</th>
+                         <th>City</th>
+                       </tr>
+                     </thead>
+                     <tbody>
+                       <tr ng-repeat="sitter in filterSearchRes">
+                         <td><a href="/#/babysitter/{{sitter.username}}">{{sitter.name}}</a></td>
+                         <td>{{sitter.username}}</td>
+                         <td>{{sitter.city}}</td>
+                       </tr>
+                     </tbody>
+                   </table>
+                   <p ng-if="errorMessage">
+                      {{errorMessage}}
+                   </p>
+                </div>
+                </br>
+               </div>
+            </div>
+            <br>
+         </form>
+      </div>
+   </div>
+</div>

@@ -12,11 +12,13 @@
          <p ng-click="changeUserTab(PAYMENT_TAB)"><a href="">Payment system</a></p>
          <p ng-click="changeUserTab(RESET_PASSWORD_TAB)"><a href="">Reset the password</a></p>
          <p ng-show="isHost()"><a href="/#/babysitter/{{user.username}}">view profile</a></p>
+         <p ng-show="!isHost()" ng-click="changeUserTab(SEARCH_TAB)"><a href="">Search Babysitters</a></p>
       </div>
-     	<user-profile-edit ng-show="tab===EDIT_TAB"></user-profile-edit>
+      <user-profile-edit ng-show="tab===EDIT_TAB"></user-profile-edit>
       <time-availability ng-show="tab===TIME_TAB"></time-availability>
       <payment-system ng-show="tab===PAYMENT_TAB"></payment-system>
       <reset-password ng-show="tab===RESET_PASSWORD_TAB"></reset-password>
       <view-profile ng-show="tab===VIEW_PROFILE_TAB"></view-profile>
+      <search ng-show="tab===SEARCH_TAB"></search>
    </div>
 </div>

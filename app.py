@@ -750,5 +750,33 @@ def parent_address(parent_username):
   response = {"message": "Success update parent address"}
   return jsonify(response), status.HTTP_200_OK
 
+#SEARCH ACTIONS -> by name 
+@app.route('/api/SearchByName/<displayName>',methods=['GET'])
+def search_by_name(displayName):
+  token1 = request.headers['Token1']
+  token2 = request.headers['Token2']
+
+  if hashing.Decrypted([token1, token2]) != True:
+    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
+    return jsonify(response), status.HTTP_403_FORBIDDEN
+
+  if handle.babysitter.find({'profile.basic.personal_info.display_name': {'$regex': re.compile(displayName, re.IGNORECASE)}}) is None:
+    response = {"err": "user does not exist"}
+    return jsonify(response), status.HTTP_404_NOT_FOUND
+
+  result = handle.babysitter.find({'profile.basic.personal_info.display_name': {'$regex': re.compile(displayName, re.IGNORECASE)}})
+
+  response = []
+  for item in result:
+    #print  displayName, item["username"], item['city']
+    newObj = { 
+      "name":  item['profile']['basic']['personal_info']['display_name'],
+      "username": item["username"],
+      "city": item["city"]
+    }
+    response.append(newObj)
+
+  return jsonify(response), status.HTTP_200_OK
+
 if __name__ == "__main__":
   app.run(host='0.0.0.0', port=8000)
