@@ -205,6 +205,24 @@
             <button type="submit" class="btn btn-primary">Upload Profile</button>
 <!--             <button type="submit" class="btn btn-primary">Submit</button> -->
          </form>
+         <form ng-controller="ParentAddressEditController" ng-show="!user.host" ng-submit="updateAddress()">
+<br>
+            <label for="exampleInputEmail1">Update Address</label>
+            <br>
+            <div class="row">
+               <div class="form-group col-md-4">
+                  <p>Address</p>
+                  <input ng-model="addr.addr" type="text" class="form-control" placeholder="15 Ross Street, Toronto">
+               </div>
+               <div class="col-md-2"></div>
+               <div class="form-group col-md-4">
+                  <p>Province</p>
+                  <input ng-model="addr.prov_state" type="text" class="form-control" placeholder="Ontario">
+               </div>
+               <div class="col-md-2"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Address</button>
+         </form>
       </div>
    </div>
 </div>

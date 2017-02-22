@@ -300,6 +300,10 @@ parent seed
 '''
 ls_parents = [{
   'username':'parent1',
+  'addr': {
+    "addr": "15 Ross St Toronto",
+    "prov_state": "Ontario",
+    },
   'profile_pic':'https://v.cdn.vine.co/r/avatars/8FA8F516C61211899383466061824_pic-r-14319135186558d72e0b19d.jpg.jpg?versionId=ZAYQev_ezlElQYl00cirvmi8LUg_TJnA'
 }]
 
