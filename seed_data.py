@@ -40,12 +40,12 @@ ls_babysitters = [{
   "host": "Trust Child Care",
   "phone": "+1-416-594-0100",
   "image": "https://s3-media3.fl.yelpcdn.com/bphoto/4jqa-wa-NEzajkwT83E09Q/ms.jpg",
-  "display_addr": [
-    "29 Birch Avenue",
-    "Summer Hill",
-    "Toronto, ON M4V 1E2",
-    "Canada"
-  ],
+  "addrr": {
+    "street_num": 15,
+    "street_name": "Ross Street",
+    "city":"Toronto",
+    "prov_state": "Ontario",
+  },
   "lat": 43.6809387,
   "lng": -79.3928223,
   # rating: integer from 0 to 5
@@ -85,7 +85,11 @@ ls_babysitters = [{
           "city": {
             "city":"Toronto",
             "prov_state": "Ontario",
-          },  
+          }, 
+          "addr": {
+            "addr": "633 Bay St Toronto",
+            "prov_state": "Ontario",
+          }, 
           "education": "University of Toronto",
           "experience": "Worked at Sickkids for 8 years",
           "languages": [
@@ -110,7 +114,7 @@ ls_babysitters = [{
         "pickup":"yes",
       },
       "price":{
-        "weekday_hourly": 30.5,
+        "weekday_hourly": 20.5,
         "weekend_hourly": 35.5,
         "security_deposit": 100,
       },
@@ -132,12 +136,12 @@ ls_babysitters = [{
   "host": "Play 'n Stay Daycare",
   "phone": "None",
   "image": "None",
-  "display_addr": [
-    "811 Gerrard Street E",
-    "Riverdale",
-    "Toronto, ON M4M 1Y7",
-    "Canada"
-  ],
+  "addrr": {
+    "street_num": 15,
+    "street_name": "Ross Street",
+    "city":"Toronto",
+    "prov_state": "Ontario",
+  },
   "lat": 43.6671308,
   "lng": -79.3449661,
   # rating integer from 0 to 5
@@ -177,6 +181,10 @@ ls_babysitters = [{
             "city":"Toronto",
             "prov_state": "Ontario",
           },  
+          "addr": {
+            "addr": "633 Bay St Toronto",
+            "prov_state": "Ontario",
+          },
           "education": "University of Toronto",
           "experience": "Worked at Sickkids for 8 years",
           "languages": [
@@ -228,6 +236,10 @@ ls_babysitters = [{
             "city":"Toronto",
             "prov_state": "Ontario",
           },  
+          "addr": {
+            "addr": "633 Bay St Toronto",
+            "prov_state": "Ontario",
+          },
           "education": "University of Toronto",
           "experience": "Worked at Sickkids for 8 years",
           "languages": [
