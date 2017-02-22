@@ -667,6 +667,74 @@ def charge(username,amount):
     return redirect('/#')
 
 
+#SEARCH ACTIONS -> by filter
+@app.route('/api/<parent>/SearchByFilter/<rating>/<distance>/<price>',methods=['GET'])
+def search_by_filter(parent,rating,distance,price):
+  token1 = request.headers['Token1']
+  token2 = request.headers['Token2']
+
+  if hashing.Decrypted([token1, token2]) != True:
+    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
+    return jsonify(response), status.HTTP_403_FORBIDDEN
+
+  #RATING FILTER
+  all_sitters = [b for b in handle.babysitter.find()]
+  avgrating = lambda ls_rating: reduce(lambda e, n: e+n, ls_rating.values())/len(ls_rating)
+  rating_result = [b for b in all_sitters if 'rating' in b and avgrating(b['rating']) >= int(rating)]
+
+  #print "rating result ---------------",[rating_result[n]['username'] for n in range(len(rating_result))]
+
+  #PRICE FILTER
+  price_range = {'1': (0,19),'2':(20,29),'3':(30,39)}
+  if int(price) > 0 and int(price) < 4:
+    price_result = [b for b in rating_result if price_range[price][0]<= b['profile']['service']['price']['weekday_hourly'] and b['profile']['service']['price']['weekday_hourly'] <= price_range[price][1]]
+  elif int(price) == 4:
+    price_result = [b for b in rating_result if b['profile']['service']['price']['weekday_hourly'] > 40]
+  else:
+    price_result = rating_result
+  
+  #print "price result ---------------", dumps([price_result[n]['username'] for n in range(len(price_result))])
+  
+  #DISTANCE FILTER
+  distance_range = {'1': (0,1000),'2':(1001,5000),'3':(5001,10000),'4':(10001,50000)}
+  if handle.parent.find_one({"username":parent}) is None:
+    response = {"err": "user does not exist"}
+    return jsonify(response), status.HTTP_404_NOT_FOUND
+
+  p = handle.parent.find_one({"username":parent})
+  #parent address
+  parent_addr = p['addr']['addr'] +' '+ p['addr']['prov_state']
+  dist_result = []
+  for b in price_result:
+    #sitter address
+    sitter_addr = b['profile']['basic']['personal_info']['addr']['addr'] + ' '+ b['profile']['basic']['personal_info']['addr']['prov_state']
+    #CALCULATE DISTANCE
+    googlemap_api_url = 'https://maps.googleapis.com/maps/api/distancematrix/json?origins='+ parent_addr +'&destinations='+sitter_addr+'&mode=driving&language=en-US&key=AIzaSyD3xxYrQTk4eCQajHxacHVlcR9QXvpr1uM'
+    r = requests.get(googlemap_api_url).json()
+    dist = r['rows'][0]['elements'][0]['distance']['value']
+    
+    if int(distance) > 0 and int(distance) < 5:
+      if distance_range[distance][0] <= dist and dist <= distance_range[distance][1]:
+        dist_result.append(b)
+    elif int(distance) == 5:
+      if dist > 50000:
+        dist_result.append(b)
+    else:
+      dist_result.append(b)
+
+  response = []
+  for item in dist_result:
+    newObj = { 
+      "name":  item['profile']['basic']['personal_info']['display_name'],
+      "username": item["username"],
+      "city": item["city"]
+    }
+    response.append(newObj)
+
+  return jsonify(response), status.HTTP_200_OK
+
+
+
 #HELPER FUNCTIONS
 #this function is called when first signed up as a babysitter
 def profile_fillup(form,username,edit):
