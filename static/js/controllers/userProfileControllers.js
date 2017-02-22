@@ -1,5 +1,5 @@
 /*
-	All controllers within userProfileApp should be defined here
+  All controllers within userProfileApp should be defined here
 */
 
 function UserController ($scope, $routeParams, $cookies, $http) {
@@ -29,7 +29,7 @@ function UserController ($scope, $routeParams, $cookies, $http) {
 }
 
 function UserProfileTabController($scope) {
-	$scope.tab = 'edit';
+  $scope.tab = 'edit';
 
   // tabs constants
   $scope.EDIT_TAB = 'edit';
@@ -37,6 +37,7 @@ function UserProfileTabController($scope) {
   $scope.PAYMENT_TAB = 'payment';
   $scope.RESET_PASSWORD = 'reset-password';
   $scope.VIEW_PROFILE_TAB = 'view-profile';
+  $scope.SEARCH_TAB = 'search';
 
   $scope.changeUserTab = function(tab) {
     $scope.tab = tab;
@@ -216,5 +217,50 @@ function ParentProfileEditController($scope, $routeParams, $cookies, $http) {
       console.log(errorResponse);
       $scope.errorMessage = errorResponse;
     });
+  }
+}
+
+function ParentAddressEditController($scope, $routeParams, $cookies, $http) {
+  $scope.errorMessage = null;
+  console.log("ParentAddressEditController");
+
+  var parentAddressApiUrl = '/api/parent/' + 
+    $routeParams.username + '/address';
+
+  var reqGetAddress = {
+    method: "GET",
+    url: parentAddressApiUrl,
+    headers: $cookies.getObject('tokens')
+  };
+  $http(reqGetAddress)
+    .then(function(response) {
+      console.log(response);
+      $scope.addr = response.data.addr;
+      $scope.errorMessage = null;
+    })
+    .catch(function(errorResponse) {
+      $scope.errorMessage = errorResponse;
+      $scope.addr = {};
+    });
+
+  $scope.updateAddress = function () {
+
+    var reqUpdateAddress = {
+      method: "POST",
+      url: parentAddressApiUrl,
+      headers: $cookies.getObject('tokens'),
+      data: {
+        addr: $scope.addr
+      }
+    };
+
+    $http(reqUpdateAddress)
+      .then(function(response){
+        console.log(response.data.message);
+      })
+      .catch(function(errorResponse){
+        console.log(errorResponse.data.err);
+        $scope.errorMessage = errorResponse;
+      });
   }
 }

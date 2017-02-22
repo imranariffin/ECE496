@@ -10,15 +10,16 @@ userProfileApp
   .controller('UserProfileTabController', UserProfileTabController)
   // .controller('UserProfilePasswordController', UserProfilePasswordController)
   .controller('UserController', UserController)
+  .controller('ParentAddressEditController', ParentAddressEditController)
 ;
 
 // directives
 userProfileApp
-	.directive('userProfileEdit', function() {
-		return {
-			templateUrl: 'static/partials/user_profile/edit.html',
-		};
-	})
+  .directive('userProfileEdit', function() {
+    return {
+      templateUrl: 'static/partials/user_profile/edit.html',
+    };
+  })
 ;
 
 userProfileApp
@@ -31,15 +32,23 @@ userProfileApp
 
 
 userProfileApp
-	.directive('paymentSystem', function() {
-			return {
-				templateUrl: 'static/partials/user_profile/payment.html',
-			};
-	})
+  .directive('paymentSystem', function() {
+      return {
+        templateUrl: 'static/partials/user_profile/payment.html',
+      };
+  })
 ;
 
 userProfileApp
-	.directive('fileModel', ['$parse', function ($parse) {
+  .directive('search', function() {
+      return {
+        templateUrl: 'static/partials/user_profile/search.html',
+      };
+  })
+;
+
+userProfileApp
+  .directive('fileModel', ['$parse', function ($parse) {
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {

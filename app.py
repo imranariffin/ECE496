@@ -717,5 +717,38 @@ def get_user(username):
   response = {'user': user}
   return jsonify(response), status.HTTP_200_OK
 
+@app.route('/api/parent/<parent_username>/address', methods=['GET', 'POST'])
+def parent_address(parent_username):
+  token1 = request.headers['Token1']
+  token2 = request.headers['Token2']
+
+  if hashing.Decrypted([token1, token2]) != True:
+    response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
+    return jsonify(response), status.HTTP_403_FORBIDDEN
+
+  if request.method == 'GET':
+
+    parent_address = handle.parent.find_one(
+      {'username': parent_username}, 
+      projection={'addr':True, '_id': False}
+    )
+
+    return jsonify(parent_address), status.HTTP_200_OK
+
+  addr = request.get_json()['addr']
+  res = handle['parent'].update_one(
+    {"username": parent_username},
+    {"$set": {
+      "addr": addr
+    }})
+
+  if res.matched_count == 0:
+    # error, babysitter doesn't exist
+    response = {"err": "parent %s doesn't exist"%parent_username}
+    return jsonify(response), status.HTTP_400_BAD_REQUEST
+
+  response = {"message": "Success update parent address"}
+  return jsonify(response), status.HTTP_200_OK
+
 if __name__ == "__main__":
   app.run(host='0.0.0.0', port=8000)
