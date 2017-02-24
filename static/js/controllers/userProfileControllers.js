@@ -273,7 +273,7 @@ function NameSearchController($scope, $cookies, $http) {
   $scope.nameSearch = function(sitter_name) {
     console.log(sitter_name);
 
-    var searchApiUrl = '/api/namesearch/' + sitter_name;
+    var searchApiUrl = '/api/SearchByName/' + sitter_name;
     var reqSearch = {
       method: "GET",
       url: searchApiUrl,
