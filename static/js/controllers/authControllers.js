@@ -35,7 +35,12 @@ function LoginController($scope, $http, $cookies, $window) {
 				$window.location.href = '/';
 			})
 			.catch(function(errorResponse) {
-				$scope.errorMessage = errorResponse;
+				$scope.errorMessage = errorResponse.data.error_message;
+				if (errorResponse.status == 401)
+					$scope.errorIncorrectPassword = true;
+				if (errorResponse.status == 404)
+					$scope.errorUserDoesNotExist = true;
+				console.log(errorResponse);
 			});
 	}
 }
@@ -90,7 +95,14 @@ function SignupController($scope, $http, $cookies, $window) {
 				$window.location.href = '/';
 			})
 			.catch(function(errorResponse) {
-				$scope.errorMessage = errorResponse;
+				$scope.errorMessage = errorResponse.data.message;
+				if (errorResponse.status == 417)
+					$scope.errorIncompleteInfo = true;
+				if (errorResponse.status == 409)
+					$scope.errorConflict = true;
+				if (errorResponse.status == 406)
+					$scope.errorPasswordNotConfirmed = true;
+				console.log(errorResponse);
 			});
 	}
 }

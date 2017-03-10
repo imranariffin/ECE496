@@ -190,15 +190,29 @@
             <br>
             <div class="form-group">
                <label for="exampleInputFile">Cover Image Upload</label>
-               <input file-model="coverPic" type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" required="">
+               <input file-model="coverPic" type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
                <small id="fileHelp" class="form-text text-muted">This is This is some placeholder block-level help text for the above input. Please upload large size image.</small>
             </div>
             <div class="form-group">
                <label for="exampleInputFile">Profile Image Upload</label>
-               <input file-model="profilePic" type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" required="">
+               <input file-model="profilePic" type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
                <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. Please upload small size image.</small>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
+
+            <!-- success and error message -->
+            <div ng-show="editProfileSuccess" class="alert alert-success alert-dismissable">
+               <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+               <strong>Success!</strong> You've successfully edited your profile.
+            </div>
+            <div ng-show="editProfileError" class="alert alert-warning alert-dismissable">
+               <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+               <strong>Oops!</strong> There's a problem editing your profile. <br>
+               <p>
+                  {{editProfileError}}
+               </p>
+            </div>
+
          </form>
 
 
@@ -208,7 +222,21 @@
                <input file-model="parentProfilePic" type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" required="">
                <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. Please upload small size image.</small>
             </div>
-            <button type="submit" class="btn btn-primary">Upload Profile</button>
+            <button type="submit" class="btn btn-primary">Edit Profile</button>
+
+            <!-- success and error message -->
+            <div ng-show="editParentPhotoSuccess" class="alert alert-success alert-dismissable">
+               <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+               <strong>Success!</strong> You've successfully edited your profile.
+            </div>
+            <div ng-show="editParentPhotoSuccess" class="alert alert-warning alert-dismissable">
+               <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+               <strong>Oops!</strong> There's a problem editing your profile. <br>
+               <p>
+                  {{editParentPhotoSuccess}}
+               </p>
+            </div>
+
 <!--             <button type="submit" class="btn btn-primary">Submit</button> -->
          </form>
          <form ng-controller="ParentAddressEditController" ng-show="!user.host" ng-submit="updateAddress()">
@@ -228,6 +256,20 @@
                <div class="col-md-2"></div>
             </div>
             <button type="submit" class="btn btn-primary">Update Address</button>
+            
+            <!-- success and error message -->
+            <div ng-show="editParentPhotoSuccess" class="alert alert-success alert-dismissable">
+               <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+               <strong>Success!</strong> You've successfully edited your profile.
+            </div>
+            <div ng-show="editParentPhotoSuccess" class="alert alert-warning alert-dismissable">
+               <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+               <strong>Oops!</strong> There's a problem editing your profile. <br>
+               <p>
+                  {{editParentPhotoSuccess}}
+               </p>
+            </div>
+
          </form>
       </div>
    </div>

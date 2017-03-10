@@ -183,16 +183,20 @@ function UserProfileEditController($scope, $cookies, $routeParams, $http) {
     })
     .then(function(response){
       console.log(response);
+      $scope.editProfileSuccess = true;
     })
     .catch(function(errorResponse){
+      $scope.editProfileSuccess = false;
+      $scope.editProfileError = errorResponse.data.error_message;
       console.log(errorResponse);
+      console.log($scope.editProfileSuccess);
+      console.log($scope.editProfileError);
     });
   };
 }
 
 function ParentProfileEditController($scope, $routeParams, $cookies, $http) {
   $scope.parentProfilePic = null;
-  $scope.errorMessage = null;
 
   $scope.uploadProfilePic = function () {
 
@@ -212,10 +216,12 @@ function ParentProfileEditController($scope, $routeParams, $cookies, $http) {
     })
     .then(function(response){
       console.log(response);
+      $scope.editParentPhotoSuccess = true;
     })
     .catch(function(errorResponse){
       console.log(errorResponse);
-      $scope.errorMessage = errorResponse;
+      $scope.editParentPhotoSuccess = false;
+      $scope.editParentPhotoError = errorResponse.data.error_message;
     });
   }
 }
@@ -237,10 +243,14 @@ function ParentAddressEditController($scope, $routeParams, $cookies, $http) {
       console.log(response);
       $scope.addr = response.data.addr;
       $scope.errorMessage = null;
+      $scope.editParentAddressSuccess = true;
     })
     .catch(function(errorResponse) {
+      console.log(errorResponse);
       $scope.errorMessage = errorResponse;
       $scope.addr = {};
+      $scope.editParentAddressSuccess = false;
+      $scope.editParentAddressError = errorResponse.data.error_message;
     });
 
   $scope.updateAddress = function () {

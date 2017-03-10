@@ -30,7 +30,7 @@
                                     <input ng-model="credentials.confirmPassword" id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
                                 </p>
                                 <p>
-                                    <label for="passwordsignup_confirm" class="youpasswd" >Please select your status </label>
+                                    <label for="passwordsignup_confirm" class="youpasswd" required="required">Please select your status </label>
                                     <select ng-model="credentials.host" id="sel1">
                                         <option>parent</option>
                                         <option>babysitter</option>
@@ -40,6 +40,21 @@
                                 <p class="signin button"> 
                                     <input type="submit" value="Sign up"/> 
                                 </p>
+
+                                <!-- error Message -->
+                                <div ng-show="errorConflict" class="alert alert-danger alert-dismissable">
+                                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Oops!</strong> Username taken.
+                                </div>
+                                <div ng-show="errorIncompleteInfo" class="alert alert-danger alert-dismissable">
+                                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Oops!</strong> Please fill up all the required fields.
+                                </div>
+                                <div ng-show="errorPasswordNotConfirmed" class="alert alert-danger alert-dismissable">
+                                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Oops!</strong> Please make sure password matches confirmation password.
+                                </div>
+
                                 <p class="change_link">  
                                     Already a member ?
                                     <a href="/#/login" class="to_register"> Go and log in </a>
