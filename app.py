@@ -24,10 +24,15 @@ import datetime
 import cloudinary
 from cloudinary.uploader import upload,destroy
 from cloudinary.utils import cloudinary_url
+
+
+
+
+
 cloudinary.config(
-  cloud_name = os.environ['CLOUDINARY_CLOUD_NAME'],
-  api_key = os.environ['CLOUDINARY_API_KEY'],
-  api_secret = os.environ['CLOUDINARY_API_SECRET']
+  cloud_name = 'rrigrp',
+  api_key = '498192978171332',
+  api_secret = "F1NecNDuIBOTu8-TlwGwXQMRxkA"
 )
 
 #Regex
@@ -38,9 +43,9 @@ import requests
 import urllib
 import stripe
 stripe_keys = {
-  'secret_key': os.environ['SECRET_KEY'],
-  'publishable_key': os.environ['PUBLISHABLE_KEY'],
-  'client_id':os.environ['CLIENT_ID']
+  'secret_key': 'sk_live_OOOPWm8PBwB830QuWilKhxAp',
+  'publishable_key': 'pk_live_RtNLSTZHCgoJrN3Ne6FMC5hH',
+  'client_id': 'ca_9ueSVIxaEMsjbkhuTqRVhmigZVYwruYH'
 }
 stripe.api_key = stripe_keys['secret_key']
 
