@@ -109,7 +109,6 @@ function ProfileSubmitRatingAndReviewController($scope, $http, $cookies, $routeP
 }
 
 function ProfilePageController($scope, $cookies, $routeParams, $http) {
-  $scope.tab = 'home';
   $scope.changeTab = function (tab) {
     $scope.tab = tab;
   }
@@ -132,6 +131,7 @@ function ProfilePageController($scope, $cookies, $routeParams, $http) {
   $http(reqSitter)
     .then(function(response) {
       $scope.sitter = response.data;
+      $scope.tab = 'home';
     })
     .catch(function(errorResponse) {
       $scope.errorMessage = errorResponse;

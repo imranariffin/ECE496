@@ -11,7 +11,7 @@
   </div>
 </div>
   <!-- user information &  -->
-<div class="container" ng-controller="ProfilePageController">
+<div class="container">
   <div class = "row">
     <div class = "col-md-3" ng-controller="ProfileServiceController">
       <img src="{{personal_info.profile_pic}}"
@@ -71,9 +71,9 @@
 
     <div class = "col-md-9">
       <!-- Nav tabs -->
-      <div class="card">
+      <div class="card" ng-controller="ProfilePageController">
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" ng-class="{true:'active', false:''}[tab=='service']"><a href="" aria-controls="home" role="tab" data-toggle="tab" ng-click="changeTab('home')">Service</a></li>
+            <li role="presentation" ng-class="{true:'active', false:''}[tab=='home']"><a href="" aria-controls="home" role="tab" data-toggle="tab" ng-click="changeTab('home')">Service</a></li>
             <li role="presentation" ng-class="{true:'active', false:''}[tab=='profile']"><a href="" aria-controls="profile" role="tab" data-toggle="tab" ng-click="changeTab('profile')">Profile</a></li>
             <li role="presentation" ng-class="{true:'active', false:''}[tab=='reviews']"><a href="" aria-controls="reviews" role="tab" data-toggle="tab" ng-click="changeTab('reviews')">Reviews</a></li>
             <li role="presentation" ng-class="{true:'active', false:''}[tab=='settings']"><a href="" aria-controls="settings" role="tab" data-toggle="tab" ng-click="changeTab('settings')">Settings</a></li>
@@ -86,10 +86,10 @@
           <div role="tabpanel" class="tab-pane" id="reviews"></div>
           <div role="tabpanel" class="tab-pane" id="settings"></div> -->
 
-          <profile-home ng-if="tab=='home'" role="tabpanel" class="tab-pane active" id="home" ng-controller="ProfileServiceController"></profile-home>
-          <profile-profile ng-if="tab=='profile'" role="tabpanel" class="tab-pane active" id="profile"></profile-profile>
-          <profile-reviews ng-if="tab=='reviews'" role="tabpanel" class="tab-pane active" id="reviews" ng-controller="ProfileRatingAndReviewController"></profile-reviews>
-          <profile-settings ng-if="tab=='settings'" role="tabpanel" class="tab-pane active" id="settings" ng-controller="ProfileSettingsController"></profile-settings>
+          <profile-home ng-show="tab=='home'" role="tabpanel" class="tab-pane active" id="home" ng-controller="ProfileServiceController"></profile-home>
+          <profile-profile ng-show="tab=='profile'" role="tabpanel" class="tab-pane active" id="profile"></profile-profile>
+          <profile-reviews ng-show="tab=='reviews'" role="tabpanel" class="tab-pane active" id="reviews" ng-controller="ProfileRatingAndReviewController"></profile-reviews>
+          <profile-settings ng-show="tab=='settings'" role="tabpanel" class="tab-pane active" id="settings" ng-controller="ProfileSettingsController"></profile-settings>
         </div>
       </div>
     </div>

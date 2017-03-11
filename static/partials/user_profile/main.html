@@ -9,7 +9,7 @@
       <div class="side-bar col-md-2">
          <p ng-click="changeUserTab(EDIT_TAB)"><a href="">Edit profile</a></p>
          <p ng-show="isHost()" ng-click="changeUserTab(TIME_TAB)"><a href="">Time availability</a></p>
-         <p ng-click="changeUserTab(PAYMENT_TAB)"><a href="">Payment system</a></p>
+         <p ng-show="isHost()" ng-click="changeUserTab(PAYMENT_TAB)"><a href="">Payment system</a></p>
          <p ng-click="changeUserTab(RESET_PASSWORD_TAB)"><a href="">Reset the password</a></p>
          <p ng-show="isHost()"><a href="/#/babysitter/{{user.username}}">view profile</a></p>
          <p ng-show="!isHost()" ng-click="changeUserTab(SEARCH_TAB)"><a href="">Search Babysitters</a></p>
