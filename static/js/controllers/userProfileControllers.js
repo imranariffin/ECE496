@@ -332,6 +332,9 @@ function NameSearchController($scope, $cookies, $http) {
 
 function FilterSearchController($scope, $routeParams, $cookies, $http) {
   $scope.errorMessage = null;
+  $scope.showRatingCol = false;
+  $scope.showDistanceCol = false;
+  $scope.showPricegCol = false;
   $scope.rating = 0;
   $scope.distance = 0;
   $scope.price = 0;
@@ -376,6 +379,11 @@ function FilterSearchController($scope, $routeParams, $cookies, $http) {
     $http(reqSearch)
       .then(function(response) {
         console.log(response.data);
+
+        $scope.showRatingCol = (rating != 0);
+        $scope.showDistanceCol = (distance != 0)
+        $scope.showPriceCol = (price != 0);
+
         $scope.filterSearchRes = response.data;
         $scope.errorMessage = null;
       })
