@@ -867,6 +867,7 @@ def search_by_name(displayName):
     newObj = { 
       "name":  item['profile']['basic']['personal_info']['display_name'],
       "username": item["username"],
+      "phone": item['profile']['basic']['contact_info']['phone'],
       "city": item["city"]
     }
     response.append(newObj)
