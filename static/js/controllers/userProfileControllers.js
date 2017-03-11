@@ -412,3 +412,32 @@ function FilterSearchController($scope, $routeParams, $cookies, $http) {
     // ];
   };
 }
+
+function UserProfilePasswordController($scope, $routeParams, $cookies, $http) {
+
+  $scope.changePassword = function () {
+
+    var req = {
+        method: "POST",
+        data: {
+          'username': $cookies.get('current-user'),
+          'org_pw': $scope.originalPassword,
+          'new_pw': $scope.newPassword,
+          'new_pw_conf': $scope.confirmPassword
+        },
+        url: '/api/password_change',
+        headers: $cookies.getObject('tokens')   
+    };
+
+    $http(req)
+      .then(function(response) {
+        $scope.passwordChangeSuccess = true;
+        console.log(response);
+      })
+      .catch(function(errorResponse) {
+        $scope.passwordChangeError = true;
+        console.log(errorResponse);
+        $scope.errorMessage = errorResponse.data.error_message;
+      });
+  };
+}

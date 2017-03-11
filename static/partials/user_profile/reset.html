@@ -1,16 +1,15 @@
-<!-- <div class = "col-md-9" ng-controller="UserProfilePasswordController"> -->
-<div class = "col-md-9">
+<div class = "col-md-9" ng-controller="UserProfilePasswordController">
    <div class="panel panel-primary">
       <div class="panel-heading">
          Reset the password
       </div>
       <div class="panel-body">
-         <form>
+         <form ng-submit="changePassword()">
             <div class = "row">
                <div class = "col-md-4 push-left">
                   <div class="form-group">
                      <label>Enter your old password</label>
-                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+                     <input ng-model="originalPassword" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
                   </div>
                </div>
             </div>
@@ -18,7 +17,7 @@
                <div class = "col-md-4  push-left">
                   <div class="form-group">
                      <label>Enter your new password</label>
-                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+                     <input ng-model="newPassword" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
                   </div>
                </div>
             </div>
@@ -26,11 +25,22 @@
                <div class = "col-md-4  push-left">
                   <div class="form-group">
                      <label>Confirm your new password</label>
-                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+                     <input ng-model="confirmPassword" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
                   </div>
                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Change Password</button>
+
+            <!-- error Message -->
+            <div ng-show="passwordChangeSuccess" class="alert alert-success alert-dismissable">
+               <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Success!</strong> You've successfully changed your password.
+            </div>
+            <div ng-show="passwordChangeError" class="alert alert-danger alert-dismissable">
+                <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Oops!</strong> {{errorMessage}}.
+            </div>
+
          </form>
       </div>
    </div>
