@@ -16,6 +16,31 @@ function ProfileRatingAndReviewController($scope, $http, $cookies, $routeParams)
   var reviewApiUrl = '/api/babysitter/' + 
     $routeParams.sitter_username + '/review';
 
+  var userApiUrl = "/api/user/" + 
+    $cookies.get('current-user');
+
+  $scope.isHost = function() {
+    if ($scope.user) {
+      return $scope.user.host===true;
+    }
+  }
+
+  var reqUser = {
+    method: "GET",
+    url: userApiUrl,
+    headers: $cookies.getObject('tokens')
+  };
+
+  /* GET user */
+  $http(reqUser)
+    .then(function(response) {
+      $scope.user = response.data.user;
+      console.log($scope.user);
+    })
+    .catch(function(errorResponse) {
+      console.log(errorResponse);
+    });
+
   /*
     get average rating
   */
