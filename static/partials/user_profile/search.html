@@ -141,14 +141,22 @@
                        <tr>
                          <th>Name</th>
                          <th>Username</th>
-                         <th>City</th>
+                         <th>Phone</th>
+                         <th>Address</th>
+                         <th ng-show="showRatingCol">Rating</th>
+                         <th ng-show="showDistanceCol">Distance</th>
+                         <th ng-show="showPriceCol">Price</th>
                        </tr>
                      </thead>
                      <tbody>
                        <tr ng-repeat="sitter in filterSearchRes">
                          <td><a href="/#/babysitter/{{sitter.username}}">{{sitter.name}}</a></td>
                          <td>{{sitter.username}}</td>
-                         <td>{{sitter.city}}</td>
+                         <td>{{sitter.phone}}</td>
+                         <td>{{sitter.address}}</td>
+                         <th ng-show="showRatingCol">{{sitter.rating}}</th>
+                         <th ng-show="showDistanceCol">{{sitter.distance}}</th>
+                         <th ng-show="showPriceCol">{{sitter.price}}</th>
                        </tr>
                      </tbody>
                    </table>
