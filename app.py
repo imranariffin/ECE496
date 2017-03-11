@@ -692,8 +692,8 @@ def charge(username,amount):
 
 
 #SEARCH ACTIONS -> by filter
-@app.route('/api/<parent>/SearchByFilter/<rating>/<distance>/<price>',methods=['GET'])
-def search_by_filter(parent,rating,distance,price):
+@app.route('/api/<parent>/SearchByFilter/<rating>/<price>/<distance>',methods=['GET'])
+def search_by_filter(parent,rating,price,distance):
   token1 = request.headers['Token1']
   token2 = request.headers['Token2']
 
@@ -703,10 +703,12 @@ def search_by_filter(parent,rating,distance,price):
 
   #RATING FILTER
   all_sitters = [b for b in handle.babysitter.find()]
-  avgrating = lambda ls_rating: reduce(lambda e, n: e+n, ls_rating.values())/len(ls_rating)
+  avgrating = lambda ls_rating: reduce(lambda e, n: e+n, ls_rating.values())/float(len(ls_rating))
   rating_result = [b for b in all_sitters if 'rating' in b and avgrating(b['rating']) >= int(rating)]
+  rating_dict = {b['username']: avgrating(b['rating']) for b in all_sitters if 'rating' in b and avgrating(b['rating']) >= int(rating)}
 
   #print "rating result ---------------",[rating_result[n]['username'] for n in range(len(rating_result))]
+  #print "RATING DICT:-------------",rating_dict
 
   #PRICE FILTER
   price_range = {'1': 20,'2':30,'3':40}
@@ -736,6 +738,7 @@ def search_by_filter(parent,rating,distance,price):
     googlemap_api_url = 'https://maps.googleapis.com/maps/api/distancematrix/json?origins='+ parent_addr +'&destinations='+sitter_addr+'&mode=driving&language=en-US&key=AIzaSyD3xxYrQTk4eCQajHxacHVlcR9QXvpr1uM'
     r = requests.get(googlemap_api_url).json()
     dist = r['rows'][0]['elements'][0]['distance']['value']
+    b['distance'] = dist
     
     if int(distance) > 0 and int(distance) < 5:
       if distance_range[distance][0] <= dist and dist <= distance_range[distance][1]:
@@ -751,9 +754,17 @@ def search_by_filter(parent,rating,distance,price):
     newObj = { 
       "name":  item['profile']['basic']['personal_info']['display_name'],
       "username": item["username"],
-      "city": item["city"]
+      "city": item["city"],
+      "address": item['profile']['basic']['personal_info']['addr']['addr']+' '+item['profile']['basic']['personal_info']['addr']['prov_state'],
+      "phone": item["phone"],
+      "distance": item["distance"],
+      "price": item['profile']['service']['price']['weekday_hourly'],
+      "rating": rating_dict[item["username"]]
     }
     response.append(newObj)
+
+  #Sort Response by username
+  response = sorted(response, key=lambda k: k['name']) 
 
   return jsonify(response), status.HTTP_200_OK
 

@@ -52,8 +52,8 @@ ls_babysitters = [{
   "rating": {
     # username: rating given by user
     'richard': 1,
-    'parent1': 1,
-    'parent2': 1,
+    'parent1': 5,
+    'parent2': 3,
   },
   "review": {
     "richard": {
@@ -134,7 +134,7 @@ ls_babysitters = [{
   "username": "host1",
   "city": "Toronto",
   "host": "Play 'n Stay Daycare",
-  "phone": "None",
+  "phone": "416-890-0020",
   "image": "None",
   # "addrr": {
   #   "street_num": 15,
@@ -322,7 +322,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran",
+            "display_name": "Imran1",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -418,7 +418,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran",
+            "display_name": "Imran2",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -514,7 +514,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran",
+            "display_name": "Imran3",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -610,7 +610,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran",
+            "display_name": "Imran4",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -706,7 +706,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran",
+            "display_name": "Imran5",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -802,7 +802,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran",
+            "display_name": "Imran6",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -898,7 +898,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran",
+            "display_name": "Imran7",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -994,7 +994,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran",
+            "display_name": "Imran8",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -1090,7 +1090,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran",
+            "display_name": "Imran9",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -1186,7 +1186,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran",
+            "display_name": "Imran10",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
