@@ -136,9 +136,22 @@ def logout():
 def signup():
   form = request.get_json()
   
-  if 'username' not in form or 'password' not in form or 'host' not in form:
-    response = {'error_message': 'request data should contain username and password'}
+  missing_something = (
+    'username' not in form or 
+    'password' not in form or 
+    'host' not in form or 
+    not (
+      form['host'] == 'parent' or 
+      form['host'] == 'babysitter'
+    )
+  )
+  if missing_something:
+    response = {'error_message': 'Some information is missing'}
     return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
+
+  if form['password'] != form['confirmPassword']:
+    response = {'error_message': 'request data should contain username and password'}
+    return jsonify(response), status.HTTP_406_NOT_ACCEPTABLE
 
   username = form['username']
   password = form['password']
@@ -254,7 +267,7 @@ def get_babysitter_review_list(sitter_username):
     babysitter = handle['babysitter'].find_one({'username': sitter_username})
 
     if babysitter is None:
-      response = {"err": "Error 404: No babysitter with such username %s"%sitter_username}
+      response = {"error_message": "Error 404: No babysitter with such username %s"%sitter_username}
       return jsonify(response), status.HTTP_404_NOT_FOUND
 
     ls_reviews = [{
@@ -272,22 +285,22 @@ def get_babysitter_review_list(sitter_username):
 
   if 'username' not in form:
     # error, should log first
-    response = {"err": "Should log in"}
+    response = {"error_message": "Should log in"}
     return jsonify(response), status.HTTP_400_BAD_REQUEST
 
   if 'review' not in form or form['review'] == "":
     # error, review should not be empty
-    response = {"err": "Review should not be empty"}
+    response = {"error_message": "Review should not be empty"}
     return jsonify(response), status.HTTP_400_BAD_REQUEST
 
   if 'title' not in form or form['title'] == "":
     # error, review should not be empty
-    response = {"err": "Review title should not be empty"}
+    response = {"error_message": "Review title should not be empty"}
     return jsonify(response), status.HTTP_400_BAD_REQUEST
 
   if handle['user'].find_one({'username': form['username']}) is None:
     # error, user should exist
-    response = {"err": "user does not exist"}
+    response = {"error_message": "user does not exist"}
     return jsonify(response), status.HTTP_400_BAD_REQUEST
 
   # add current user's review for babysitter
@@ -309,7 +322,7 @@ def get_babysitter_review_list(sitter_username):
 
   if res.matched_count == 0:
     # error, babysitter doesn't exist
-    response = {"err": "babysitter %s doesn't exist"%sitter_username}
+    response = {"error_message": "babysitter %s doesn't exist"%sitter_username}
     return jsonify(response), status.HTTP_400_BAD_REQUEST
 
   response = {"message": "Success post review"}
@@ -335,7 +348,7 @@ def rating(sitter_username):
     return jsonify(response), status.HTTP_403_FORBIDDEN
 
   if handle['babysitter'].find_one({'username': sitter_username}) is None:
-    response = {"err": "babysitter does not exist"}
+    response = {"error_message": "babysitter does not exist"}
     return jsonify(response), status.HTTP_404_NOT_FOUND
 
   if request.method == 'POST':
@@ -343,22 +356,22 @@ def rating(sitter_username):
     form = request.get_json()
 
     if 'username' not in form:
-      response = {"err": "should log in"}
+      response = {"error_message": "should log in"}
       return jsonify(response), status.HTTP_400_BAD_REQUEST
 
     if 'rating' not in form:
-      response = {"err": "must give rating"}
+      response = {"error_message": "must give rating"}
       return jsonify(response), status.HTTP_400_BAD_REQUEST
 
     currentuser_username = form['username']
     rating = int(form['rating'])
 
     if handle['user'].find_one({'username': currentuser_username}) is None:
-      response = {"err": "no such user %s"%currentuser_username}
+      response = {"error_message": "no such user %s"%currentuser_username}
       return jsonify(response), status.HTTP_404_NOT_FOUND
 
     if rating < 1 or rating > 5:
-      response = {"err": "rating should range from 1 to 5"}
+      response = {"error_message": "rating should range from 1 to 5"}
       return jsonify(response), status.HTTP_400_BAD_REQUEST
 
     # all good, save rating in database
@@ -391,7 +404,6 @@ def sitter_profile_upload(sitter_username):
   token1 = request.headers['Token1']
   token2 = request.headers['Token2']
 
-
   if hashing.Decrypted([token1, token2]) != True:
     response = {'error_message': 'HTTP_403_FORBIDDEN, cannot access'}
     return jsonify(response), status.HTTP_403_FORBIDDEN
@@ -406,18 +418,6 @@ def sitter_profile_upload(sitter_username):
     org_cover_pic = cursor['profile']['basic']['personal_info']['cover_pic']
     handle.babysitter.delete_many({'username': sitter_username})
 
-  #delete existing profile/cover pictures
-  if org_profile_pic != None:
-    match = re.search('.*\/(\S+)\.\S+', org_profile_pic)
-    if match:
-      public_id = match.group(1)
-      delete_res = destroy(public_id)
-  if org_cover_pic != None:
-    match = re.search('.*\/(\S+)\.\S+', org_cover_pic)
-    if match:
-      public_id = match.group(1)
-      delete_res = destroy(public_id)
-
   #upload pictures and get pic urls
   upload_result = None
   profile_pic_url = None
@@ -425,8 +425,26 @@ def sitter_profile_upload(sitter_username):
 
   print "before files"
 
-  profile_pic = request.files['profile_pic']
-  cover_pic = request.files['cover_pic']
+  profile_pic = request.files['profile_pic'] if 'profile_pic' in request.files else None
+  cover_pic = request.files['cover_pic'] if 'cover_pic' in request.files else None
+
+  print profile_pic, cover_pic
+
+  #delete existing profile/cover pictures
+  if profile_pic:
+    print "delete profile pic"
+    if org_profile_pic != None:
+      match = re.search('.*\/(\S+)\.\S+', org_profile_pic)
+      if match:
+        public_id = match.group(1)
+        delete_res = destroy(public_id)
+  if cover_pic:
+    print "delete cover pic"
+    if org_cover_pic != None:
+      match = re.search('.*\/(\S+)\.\S+', org_cover_pic)
+      if match:
+        public_id = match.group(1)
+        delete_res = destroy(public_id)
 
   print "after files"
 
@@ -439,11 +457,11 @@ def sitter_profile_upload(sitter_username):
 
   if profile_pic_url != None:
     form['profile']['basic']['personal_info']['profile_pic'] = profile_pic_url
-  else:
+  elif not Edit:
     form['profile']['basic']['personal_info']['profile_pic'] = ""
   if cover_pic_url != None:
     form['profile']['basic']['personal_info']['cover_pic'] = cover_pic_url
-  else:
+  elif not Edit:
     form['profile']['basic']['personal_info']['cover_pic'] = ""
   
   #upload the profile body
@@ -518,7 +536,7 @@ def profile_get(sitter_username):
     return jsonify(response), status.HTTP_417_EXPECTATION_FAILED
 
   elif handle.babysitter.find_one({'username': sitter_username}) is None:
-    response = {"err": "babysitter does not exist"}
+    response = {"error_message": "babysitter does not exist"}
     return jsonify(response), status.HTTP_404_NOT_FOUND
   else:
     cursor = handle.babysitter.find_one( {"username": sitter_username},projection={'profile':True, '_id': False})
@@ -536,7 +554,7 @@ def get_profile_pic(username):
     return jsonify(response), status.HTTP_403_FORBIDDEN
 
   if handle.user.find_one({'username': username}) is None:
-    response = {"err": "user does not exist"}
+    response = {"error_message": "user does not exist"}
     return jsonify(response), status.HTTP_404_NOT_FOUND
 
   user_type = handle.user.find_one( {"username": username},projection={'host':True, '_id': False})
@@ -703,7 +721,7 @@ def search_by_filter(parent,rating,distance,price):
   #DISTANCE FILTER
   distance_range = {'1': (0,1000),'2':(1001,5000),'3':(5001,10000),'4':(10001,50000)}
   if handle.parent.find_one({"username":parent}) is None:
-    response = {"err": "user does not exist"}
+    response = {"error_message": "user does not exist"}
     return jsonify(response), status.HTTP_404_NOT_FOUND
 
   p = handle.parent.find_one({"username":parent})
@@ -806,6 +824,10 @@ def parent_address(parent_username):
       projection={'addr':True, '_id': False}
     )
 
+    if not parent_address:
+      response = {"error_message": "parent %s doesn't exist"%parent_username}
+      return jsonify(response), status.HTTP_400_BAD_REQUEST
+
     return jsonify(parent_address), status.HTTP_200_OK
 
   addr = request.get_json()['addr']
@@ -817,7 +839,7 @@ def parent_address(parent_username):
 
   if res.matched_count == 0:
     # error, babysitter doesn't exist
-    response = {"err": "parent %s doesn't exist"%parent_username}
+    response = {"error_message": "parent %s doesn't exist"%parent_username}
     return jsonify(response), status.HTTP_400_BAD_REQUEST
 
   response = {"message": "Success update parent address"}
@@ -834,7 +856,7 @@ def search_by_name(displayName):
     return jsonify(response), status.HTTP_403_FORBIDDEN
 
   if handle.babysitter.find({'profile.basic.personal_info.display_name': {'$regex': re.compile(displayName, re.IGNORECASE)}}) is None:
-    response = {"err": "user does not exist"}
+    response = {"error_message": "user does not exist"}
     return jsonify(response), status.HTTP_404_NOT_FOUND
 
   result = handle.babysitter.find({'profile.basic.personal_info.display_name': {'$regex': re.compile(displayName, re.IGNORECASE)}})

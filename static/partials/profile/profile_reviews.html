@@ -1,66 +1,82 @@
-<div class = "row">
+<div class = "row" ng-controller="ProfileSubmitRatingAndReviewController">
 	<div class="col-md-12">
 		<span uib-rating ng-model="ratingAvg" max="5" read-only="true" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
 	</div>
-</div>
-<div ng-repeat="(index, review) in reviews" class="row">
-	<div class = "col-md-4">
-		<p>{{review.title}}</p>
+
+	<div ng-repeat="(index, review) in reviews" class="row">
+
+		<div class = "col-md-4">
+			<p>{{review.title}}</p>
+		</div>
+		<div class = "col-md-3">
+		</div>
+		<div class = "col-md-5">
+			<p font size="3"  color="grey">Post by {{review.username}} on {{review.date.year}}, {{review.date.month}}, {{review.date.day}}</p>
+		</div>
+		<div class = "col-md-12">
+			{{review.value}}
+		</div>
 	</div>
-	<div class = "col-md-3">
-	</div>
-	<div class = "col-md-5">
-		<p font size="3"  color="grey">Post by {{review.username}} on {{review.date.year}}, {{review.date.month}}, {{review.date.day}}</p>
-	</div>
-	<div class = "col-md-12">
-		{{review.value}}
-	</div>
-</div>
+
+  <!-- Contextual button for informational alert messages -->
+  <button type = "button" class = "btn btn-info" data-toggle="modal" data-target="#myModal">Make Review</button>
+
+		<!-- success and error message -->
+		<div ng-show="ratingSuccess && reviewSuccess" class="alert alert-success alert-dismissable">
+			<a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	  	<strong>Success!</strong> You've successfully submitted your review and rating.
+		</div>
+		<div ng-show="ratingReviewError" class="alert alert-warning alert-dismissable">
+			<a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	  	<strong>Oops!</strong> There's a problem submitting your review and rating. <br>
+	  	<p>
+	  		{{errorMessage}}
+	  	</p>
+		</div>
 
 
-              <!-- Contextual button for informational alert messages -->
-  <button type = "button" class = "btn btn-info" data-toggle="modal" data-target="#myModal">Reviews</button>
-            </div>
-            <!-- Modal -->
+<!-- </div> -->
 
+  <!-- Modal -->
 	<div id="myModal" class="modal fade" role="dialog">
-	  <div class="modal-dialog">
+		<div class="modal-dialog">
 
-	    <!-- Modal content-->
-	    <div class="modal-content">
+    <!-- Modal content-->
+    <div class="modal-content">
 
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Submit your review</h4>
-	      </div>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Submit your review</h4>
+      </div>
 
-	      <div class="modal-body">
-	         <div class="form-area">  
-	          <form role="form">
-	          	<br style="clear:both">
-	          	<h3 style="margin-bottom: 25px; text-align: center;">Rate your Babysitter</h3>
-	            <div class="form-group">
-	              <div class="row lead rating-area">
-	            		<span uib-rating ng-model="rating" max="5" read-only="false" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span><br>
-	                You gave a rating of <span id="count">{{rating}}</span> star(s)
-	          		</div>
-	        		</div>  
-			        <div class="form-group">
-			          <input ng-model="title" type="text" class="form-control" id="title" name="title" placeholder="Title" required>
-			        </div>
-		          <div class="form-group">
-			        	<textarea ng-model="review" m class="form-control" type="textarea" id="message" placeholder="Message" maxlength="140" rows="7"></textarea>
-			        	<span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                 
-			        </div>
-	        	</form>
-	      </div>
-	    </div>
+      <div class="modal-body">
+         <div class="form-area">  
+          <form role="form">
+          	<br style="clear:both">
+          	<h3 style="margin-bottom: 25px; text-align: center;">Rate your Babysitter</h3>
+            <div class="form-group">
+              <div class="row lead rating-area">
+            		<span uib-rating ng-model="rating" max="5" read-only="false" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span><br>
+                You gave a rating of <span id="count">{{rating}}</span> star(s)
+          		</div>
+        		</div>  
+		        <div class="form-group">
+		          <input ng-model="title" type="text" class="form-control" id="title" name="title" placeholder="Title" required>
+		        </div>
+	          <div class="form-group">
+		        	<textarea ng-model="review" m class="form-control" type="textarea" id="message" placeholder="Message" maxlength="140" rows="7"></textarea>
+		        	<span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                 
+		        </div>
+        	</form>
+      </div>
+    </div>
 
-	      <div class="modal-footer" ng-controller="ProfileSubmitRatingAndReviewController">
-	        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="postRateAndReview()">Submit</button>
-	      </div>
-	    </div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="postRateAndReview()">Submit</button>
+		 </div>
+		    </div>
 
-	  </div>
+		  </div>
+		</div>
 	</div>
 </div>

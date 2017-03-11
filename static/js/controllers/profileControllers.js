@@ -49,12 +49,16 @@ function ProfileRatingAndReviewController($scope, $http, $cookies, $routeParams)
       $scope.reviews = response.data;
     })
     .catch(function(errorResponse) {
-      $scope.errorMessage = errorResponse;
       console.log(errorResponse);
     });
 }
 
 function ProfileSubmitRatingAndReviewController($scope, $http, $cookies, $routeParams) {
+
+  $scope.ratingSuccess = false;
+  $scope.reviewSuccess = false;
+  $scope.ratingReviewError = false;
+  $scope.errorMessage = null;
 
   var reviewApiUrl = '/api/babysitter/' + 
     $routeParams.sitter_username + '/review';
@@ -90,19 +94,27 @@ function ProfileSubmitRatingAndReviewController($scope, $http, $cookies, $routeP
 
     $http(reqRating)
       .then(function(response) {
+        $scope.ratingSuccess = true;
         console.log(response);
+        console.log($scope.ratingReviewSuccess);
       })
       .catch(function(errorResponse) {
-        $scope.errorMessage = errorResponse;
+        $scope.ratingReviewError = true;
+        $scope.ratingSuccess = false;
+        $scope.errorMessage = errorResponse.data.err;
         console.log(errorResponse);
       });
 
     $http(reqReview)
       .then(function(response) {
         console.log(response);
+        $scope.reviewSuccess = true;
+        console.log($scope.ratingReviewSuccess);
       })
       .catch(function(errorResponse) {
-        $scope.errorMessage = errorResponse;
+        $scope.ratingReviewError = true;
+        $scope.reviewSuccess = false;
+        $scope.errorMessage = errorResponse.data.err;
         console.log(errorResponse);
       });
   }
