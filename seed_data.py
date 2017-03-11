@@ -87,7 +87,7 @@ ls_babysitters = [{
             "prov_state": "Ontario",
           }, 
           "addr": {
-            "addr":"29 Birch Avenue Summer Hill Toronto",
+            "addr":"29 Birch Avenue Summer Hill",
             "prov_state": "Ontario",
           }, 
           "education": "University of Toronto",
@@ -182,7 +182,7 @@ ls_babysitters = [{
             "prov_state": "Ontario",
           },  
           "addr": {
-            "addr": "811 Gerrard Street E Riverdale Toronto",
+            "addr": "811 Gerrard Street E Riverdale",
             "prov_state": "Ontario",
           },
           "education": "University of Toronto",
@@ -331,7 +331,7 @@ ls_babysitters = [{
               "prov_state": "Ontario",
             }, 
             "addr": {
-              "addr": "95 Wellington Street W Toronto",
+              "addr": "95 Wellington Street W",
               "prov_state": "Ontario",
             }, 
             "education": "University of Toronto",
@@ -427,7 +427,7 @@ ls_babysitters = [{
               "prov_state": "Ontario",
             }, 
             "addr": {
-              "addr": "207 Glendonwynne Road Toronto",
+              "addr": "207 Glendonwynne Road",
               "prov_state": "Ontario",
             }, 
             "education": "University of Toronto",
@@ -523,7 +523,7 @@ ls_babysitters = [{
               "prov_state": "Ontario",
             }, 
             "addr": {
-              "addr": "211 Belsize Drive Toronto",
+              "addr": "211 Belsize Drive",
               "prov_state": "Ontario",
             }, 
             "education": "University of Toronto",
@@ -619,7 +619,7 @@ ls_babysitters = [{
               "prov_state": "Ontario",
             }, 
             "addr": {
-              "addr": "160 Erskine Avenue Toronto",
+              "addr": "160 Erskine Avenue",
               "prov_state": "Ontario",
             }, 
             "education": "University of Toronto",
@@ -811,7 +811,7 @@ ls_babysitters = [{
               "prov_state": "Ontario",
             }, 
             "addr": {
-              "addr": "3080 Bayview Avenue Toronto",
+              "addr": "3080 Bayview Avenue",
               "prov_state": "Ontario",
             }, 
             "education": "University of Toronto",
@@ -907,7 +907,7 @@ ls_babysitters = [{
               "prov_state": "Ontario",
             }, 
             "addr": {
-              "addr": "15 York Street Toronto",
+              "addr": "15 York Street",
               "prov_state": "Ontario",
             }, 
             "education": "University of Toronto",
@@ -1003,7 +1003,7 @@ ls_babysitters = [{
               "prov_state": "Ontario",
             }, 
             "addr": {
-              "addr": "2 Princess Street Toronto",
+              "addr": "2 Princess Street",
               "prov_state": "Ontario",
             }, 
             "education": "University of Toronto",
@@ -1099,7 +1099,7 @@ ls_babysitters = [{
               "prov_state": "Ontario",
             }, 
             "addr": {
-              "addr": "Hastings Ave Toronto",
+              "addr": "Hastings Ave",
               "prov_state": "Ontario",
             }, 
             "education": "University of Toronto",
@@ -1195,7 +1195,7 @@ ls_babysitters = [{
               "prov_state": "Ontario",
             }, 
             "addr": {
-              "addr": "454 Avenue Road Toronto",
+              "addr": "454 Avenue Road",
               "prov_state": "Ontario",
             }, 
             "education": "University of Toronto",
@@ -1315,7 +1315,7 @@ parent seed
 ls_parents = [{
   'username':'parent1',
   'addr': {
-    "addr": "15 Ross St Toronto",
+    "addr": "15 Ross St",
     "prov_state": "Ontario",
     },
   'profile_pic':'https://v.cdn.vine.co/r/avatars/8FA8F516C61211899383466061824_pic-r-14319135186558d72e0b19d.jpg.jpg?versionId=ZAYQev_ezlElQYl00cirvmi8LUg_TJnA'

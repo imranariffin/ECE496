@@ -19,7 +19,7 @@
 	</div>
 
   <!-- Contextual button for informational alert messages -->
-  <button type = "button" class = "btn btn-info" data-toggle="modal" data-target="#myModal">Make Review</button>
+  <button ng-show="!isHost()" type = "button" class = "btn btn-info" data-toggle="modal" data-target="#myModal">Make Review</button>
 
 		<!-- success and error message -->
 		<div ng-show="ratingSuccess && reviewSuccess" class="alert alert-success alert-dismissable">

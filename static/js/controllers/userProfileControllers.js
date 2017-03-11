@@ -97,6 +97,7 @@ function UserProfileEditController($scope, $cookies, $routeParams, $http) {
       $scope.cover_pic = personal_info.cover_pic;
       $scope.display_name = personal_info.display_name;
       $scope.city = personal_info.city.city;
+      $scope.street = personal_info.addr.addr;
       $scope.prov_state = personal_info.city.prov_state;
       $scope.gender = personal_info.gender;
       $scope.experience = personal_info.experience;
@@ -154,6 +155,10 @@ function UserProfileEditController($scope, $cookies, $routeParams, $http) {
             profile_pic: $scope.profile_pic,
             cover_pic: $scope.cover_pic,
             display_name: $scope.display_name,
+            addr: {
+              addr: $scope.street,
+              prov_state: $scope.prov_state
+            },
             city: {
               city: $scope.city,
               prov_state: $scope.prov_state
