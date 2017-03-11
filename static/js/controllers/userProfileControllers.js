@@ -331,17 +331,17 @@ function FilterSearchController($scope, $routeParams, $cookies, $http) {
   $scope.distances = [
     "No selection", 
     "less than 1km", 
-    "1 - 5km", 
-    "5 - 10km", 
-    "10 - 50km",
-    "greater than 50km"
+    "1 - 2km", 
+    "2 - 5km", 
+    "5 - 10km",
+    "greater than 10km"
   ];
   $scope.prices = [
     "No selection",
     "Under $20",
-    "$20 - $30",
-    "$30 - $40",
-    "greater than $40"
+    "Under $30",
+    "Under $40",
+    "Above $40"
   ];
 
   $scope.filterSearch = function(rating, distance, price) {
