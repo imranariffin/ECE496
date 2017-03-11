@@ -672,7 +672,8 @@ def connect_payment_account():
 #SET UP A PAYMENT
 @app.route('/api/payment/<username>/<amount>')
 def payment(username,amount):
-  return render_template('charge.html',key=stripe_keys['publishable_key'],username=username,amount=amount)
+  amount_in_dollor = float(amount)/100
+  return render_template('charge.html',key=stripe_keys['publishable_key'],username=username,amount=amount,amount_in_dollor=amount_in_dollor)
 
 #CHARGE THE MONEY
 @app.route('/api/charge/<username>/<amount>', methods=['POST'])
@@ -708,9 +709,9 @@ def search_by_filter(parent,rating,distance,price):
   #print "rating result ---------------",[rating_result[n]['username'] for n in range(len(rating_result))]
 
   #PRICE FILTER
-  price_range = {'1': (0,19),'2':(20,29),'3':(30,39)}
+  price_range = {'1': 20,'2':30,'3':40}
   if int(price) > 0 and int(price) < 4:
-    price_result = [b for b in rating_result if price_range[price][0]<= b['profile']['service']['price']['weekday_hourly'] and b['profile']['service']['price']['weekday_hourly'] <= price_range[price][1]]
+    price_result = [b for b in rating_result if b['profile']['service']['price']['weekday_hourly'] <= price_range[price]]
   elif int(price) == 4:
     price_result = [b for b in rating_result if b['profile']['service']['price']['weekday_hourly'] > 40]
   else:
@@ -719,7 +720,7 @@ def search_by_filter(parent,rating,distance,price):
   #print "price result ---------------", dumps([price_result[n]['username'] for n in range(len(price_result))])
   
   #DISTANCE FILTER
-  distance_range = {'1': (0,1000),'2':(1001,5000),'3':(5001,10000),'4':(10001,50000)}
+  distance_range = {'1': (0,1000),'2':(1001,2000),'3':(2001,5000),'4':(5001,10000)}
   if handle.parent.find_one({"username":parent}) is None:
     response = {"error_message": "user does not exist"}
     return jsonify(response), status.HTTP_404_NOT_FOUND
@@ -740,7 +741,7 @@ def search_by_filter(parent,rating,distance,price):
       if distance_range[distance][0] <= dist and dist <= distance_range[distance][1]:
         dist_result.append(b)
     elif int(distance) == 5:
-      if dist > 50000:
+      if dist > 10000:
         dist_result.append(b)
     else:
       dist_result.append(b)
