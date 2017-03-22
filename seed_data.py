@@ -38,7 +38,7 @@ ls_babysitters = [{
   "username": "imran",
   "city": "Toronto",
   "host": "Imran Child Care",
-  "phone": "+1-416-594-0100",
+  "phone": "+1-416-594-5581",
   "image": "https://s3-media3.fl.yelpcdn.com/bphoto/4jqa-wa-NEzajkwT83E09Q/ms.jpg",
   # "addrr": {
   #   "street_num": 15,
@@ -279,10 +279,10 @@ ls_babysitters = [{
   },
 },
   {
-    "username": "imran1",
+    "username": "imranariffin",
     "city": "Toronto",
     "host": "Imran Child Care 1",
-    "phone": "+1-416-594-0100",
+    "phone": "+1-416-594-8086",
     "image": "https://s3-media3.fl.yelpcdn.com/bphoto/4jqa-wa-NEzajkwT83E09Q/ms.jpg",
     # "addrr": {
     #   "street_num": 15,
@@ -322,7 +322,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran1",
+            "display_name": "Imran Ariffin",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -358,7 +358,7 @@ ls_babysitters = [{
           "pickup":"yes",
         },
         "price":{
-          "weekday_hourly": 20.5,
+          "weekday_hourly": 10.0,
           "weekend_hourly": 35.5,
           "security_deposit": 100,
         },
@@ -375,10 +375,10 @@ ls_babysitters = [{
     },
   },
   {
-    "username": "imran2",
+    "username": "amirkhan",
     "city": "Toronto",
     "host": "Imran Child Care 2",
-    "phone": "+1-416-594-0100",
+    "phone": "+1-416-863-7073",
     "image": "https://s3-media3.fl.yelpcdn.com/bphoto/4jqa-wa-NEzajkwT83E09Q/ms.jpg",
     # "addrr": {
     #   "street_num": 15,
@@ -418,7 +418,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran2",
+            "display_name": "Amir Khan",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -471,10 +471,10 @@ ls_babysitters = [{
     },
   }, 
   {
-    "username": "imran3",
+    "username": "shahrukhkhan",
     "city": "Toronto",
     "host": "Imran Child Care 3",
-    "phone": "+1-416-594-0100",
+    "phone": "+1-416-633-0100",
     "image": "https://s3-media3.fl.yelpcdn.com/bphoto/4jqa-wa-NEzajkwT83E09Q/ms.jpg",
     # "addrr": {
     #   "street_num": 15,
@@ -514,7 +514,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran3",
+            "display_name": "Shah Rukh Khan",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -567,10 +567,10 @@ ls_babysitters = [{
     },
   }, 
   {
-    "username": "imran4",
+    "username": "bellchan",
     "city": "Toronto",
     "host": "Imran Child Care 4",
-    "phone": "+1-416-594-0100",
+    "phone": "+1-416-594-7071",
     "image": "https://s3-media3.fl.yelpcdn.com/bphoto/4jqa-wa-NEzajkwT83E09Q/ms.jpg",
     # "addrr": {
     #   "street_num": 15,
@@ -610,7 +610,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran4",
+            "display_name": "Bell Chan",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -663,10 +663,10 @@ ls_babysitters = [{
     },
   },
   {
-    "username": "imran5",
+    "username": "angelawood",
     "city": "Toronto",
     "host": "Imran Child Care 5",
-    "phone": "+1-416-594-0100",
+    "phone": "+1-647-194-0100",
     "image": "https://s3-media3.fl.yelpcdn.com/bphoto/4jqa-wa-NEzajkwT83E09Q/ms.jpg",
     # "addrr": {
     #   "street_num": 15,
@@ -706,7 +706,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran5",
+            "display_name": "Angela Wood",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -759,10 +759,10 @@ ls_babysitters = [{
     },
   },
   {
-    "username": "imran6",
+    "username": "jiayoongchong",
     "city": "Toronto",
     "host": "Imran Child Care 6",
-    "phone": "+1-416-594-0100",
+    "phone": "+1-647-899-0100",
     "image": "https://s3-media3.fl.yelpcdn.com/bphoto/4jqa-wa-NEzajkwT83E09Q/ms.jpg",
     # "addrr": {
     #   "street_num": 15,
@@ -802,7 +802,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran6",
+            "display_name": "Jia Yoong Chong",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -855,10 +855,10 @@ ls_babysitters = [{
     },
   }, 
   {
-    "username": "imran7",
+    "username": "najahnafeesa",
     "city": "Toronto",
     "host": "Imran Child Care 7",
-    "phone": "+1-416-594-0100",
+    "phone": "+1-416-594-7066",
     "image": "https://s3-media3.fl.yelpcdn.com/bphoto/4jqa-wa-NEzajkwT83E09Q/ms.jpg",
     # "addrr": {
     #   "street_num": 15,
@@ -871,9 +871,9 @@ ls_babysitters = [{
     # rating: integer from 0 to 5
     "rating": {
       # username: rating given by user
-      'richard': 1,
-      'parent1': 1,
-      'parent2': 1,
+      'richard': 5,
+      'parent1': 3,
+      'parent2': 4,
     },
     "review": {
       "richard": {
@@ -898,7 +898,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran7",
+            "display_name": "Najah Nafeesa",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -934,7 +934,7 @@ ls_babysitters = [{
           "pickup":"yes",
         },
         "price":{
-          "weekday_hourly": 20.5,
+          "weekday_hourly": 15.5,
           "weekend_hourly": 35.5,
           "security_deposit": 100,
         },
@@ -951,10 +951,10 @@ ls_babysitters = [{
     },
   },  
   {
-    "username": "imran8",
+    "username": "imrankhan",
     "city": "Toronto",
     "host": "Imran Child Care 8",
-    "phone": "+1-416-594-0100",
+    "phone": "+1-416-594-7033",
     "image": "https://s3-media3.fl.yelpcdn.com/bphoto/4jqa-wa-NEzajkwT83E09Q/ms.jpg",
     # "addrr": {
     #   "street_num": 15,
@@ -967,9 +967,9 @@ ls_babysitters = [{
     # rating: integer from 0 to 5
     "rating": {
       # username: rating given by user
-      'richard': 1,
-      'parent1': 1,
-      'parent2': 1,
+      'richard': 5,
+      'parent1': 3,
+      'parent2': 3,
     },
     "review": {
       "richard": {
@@ -994,7 +994,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran8",
+            "display_name": "Imran Khan",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -1047,10 +1047,10 @@ ls_babysitters = [{
     },
   }, 
   {
-    "username": "imran9",
+    "username": "johngee",
     "city": "Toronto",
     "host": "Imran Child Care 9",
-    "phone": "+1-416-594-0100",
+    "phone": "+1-416-861-0100",
     "image": "https://s3-media3.fl.yelpcdn.com/bphoto/4jqa-wa-NEzajkwT83E09Q/ms.jpg",
     # "addrr": {
     #   "street_num": 15,
@@ -1063,9 +1063,9 @@ ls_babysitters = [{
     # rating: integer from 0 to 5
     "rating": {
       # username: rating given by user
-      'richard': 1,
-      'parent1': 1,
-      'parent2': 1,
+      'richard': 5,
+      'parent1': 5,
+      'parent2': 4,
     },
     "review": {
       "richard": {
@@ -1090,7 +1090,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran9",
+            "display_name": "John Gee",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -1143,10 +1143,10 @@ ls_babysitters = [{
     },
   }, 
   {
-    "username": "imran10",
+    "username": "robertkwok",
     "city": "Toronto",
     "host": "Imran Child Care 10",
-    "phone": "+1-416-594-0100",
+    "phone": "+1-647-495-0100",
     "image": "https://s3-media3.fl.yelpcdn.com/bphoto/4jqa-wa-NEzajkwT83E09Q/ms.jpg",
     # "addrr": {
     #   "street_num": 15,
@@ -1186,7 +1186,7 @@ ls_babysitters = [{
     "profile":{
       "basic":{
           "personal_info": {
-            "display_name": "Imran10",
+            "display_name": "Robert Kwok",
             "gender":"male",
             "profile_pic": "http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=5376248",
             "cover_pic": "http://files.fbcoverstreet.com/content/lWwjEuiW6fzLAIuYztsVqyWAb7pZLau2h8pdfRveQCoIzhDsOQrSH9kw9vIHEJLf.jpg",
@@ -1268,43 +1268,43 @@ ls_users = [{
   'password': 'password',
   'host': True
 },{
-  'username': 'imran1',
+  'username': 'imranariffin',
   'password': 'password',
   'host': True
 }, {
-  'username': 'imran2',
+  'username': 'amirkhan',
   'password': 'password',
   'host': True
 },{
-  'username': 'imran3',
+  'username': 'shahrukhkhan',
   'password': 'password',
   'host': True
 },{
-  'username': 'imran4',
+  'username': 'bellchan',
   'password': 'password',
   'host': True
 },{
-  'username': 'imran5',
+  'username': 'angelawood',
   'password': 'password',
   'host': True
 },{
-  'username': 'imran6',
+  'username': 'jiayoongchong',
   'password': 'password',
   'host': True
 },{
-  'username': 'imran7',
+  'username': 'najahnafeesa',
   'password': 'password',
   'host': True
 },{
-  'username': 'imran8',
+  'username': 'imrankhan',
   'password': 'password',
   'host': True
 },{
-  'username': 'imran9',
+  'username': 'johngee',
   'password': 'password',
   'host': True
 },{
-  'username': 'imran10',
+  'username': 'robertkwok',
   'password': 'password',
   'host': True
 }]
