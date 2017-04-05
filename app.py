@@ -887,4 +887,4 @@ def search_by_name(displayName):
   return jsonify(response), status.HTTP_200_OK
 
 if __name__ == "__main__":
-  app.run(host='0.0.0.0', port=8000)
+  app.run(host='0.0.0.0', port=8000, threaded=True)
